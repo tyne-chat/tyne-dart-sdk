@@ -17,6 +17,9 @@ import 'package:fluxer_dart/gateway_client/custom_status_storage.dart';
 import 'package:fluxer_dart/gateway_client/gateway_event.dart';
 import 'package:fluxer_dart/gateway_client/gateway_types.dart';
 
+// Fork imports.
+import 'package:fluxer_dart/models/message_subprofile_response_schema.dart';
+
 class EventParser {
   const EventParser();
 
@@ -48,6 +51,7 @@ class EventParser {
           emoji: ReactionEmoji.fromJson(data['emoji'] as Map<String, dynamic>),
           guildId: data['guild_id'] as String?,
           member: _parseEmbeddedMember(data['member']),
+          personaId: data['persona_id'] as String?,
         ),
         'MESSAGE_REACTION_REMOVE' => MessageReactionRemoveEvent(
           channelId: data['channel_id'] as String,
@@ -56,6 +60,7 @@ class EventParser {
           emoji: ReactionEmoji.fromJson(data['emoji'] as Map<String, dynamic>),
           guildId: data['guild_id'] as String?,
           member: _parseEmbeddedMember(data['member']),
+          personaId: data['persona_id'] as String?,
         ),
         'MESSAGE_REACTION_REMOVE_ALL' => MessageReactionRemoveAllEvent(
           channelId: data['channel_id'] as String,
@@ -115,6 +120,11 @@ class EventParser {
               ? null
               : GuildMemberResponse.fromJson(
                   data['member'] as Map<String, dynamic>,
+                ),
+          subprofile: data['subprofile'] == null
+              ? null
+              : MessageSubprofileResponseSchema.fromJson(
+                  data['subprofile'] as Map<String, dynamic>,
                 ),
         ),
         'RELATIONSHIP_ADD' => RelationshipAddEvent(
