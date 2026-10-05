@@ -14,6 +14,9 @@ import 'package:fluxer_dart/models/user_guild_settings_response.dart';
 import 'package:fluxer_dart/models/user_settings_response.dart';
 import 'package:fluxer_dart/models/web_authn_credential_response.dart';
 
+// Fork imports.
+import 'package:fluxer_dart/models/message_subprofile_response_schema.dart';
+
 sealed class GatewayEvent {
   const GatewayEvent();
 }
@@ -206,6 +209,7 @@ class MessageReactionAddEvent extends GatewayEvent {
     required this.emoji,
     this.guildId,
     this.member,
+    this.personaId,
   });
 
   final String channelId;
@@ -214,6 +218,7 @@ class MessageReactionAddEvent extends GatewayEvent {
   final ReactionEmoji emoji;
   final String? guildId;
   final GuildMemberResponse? member;
+  final String? personaId;
 }
 
 class MessageReactionRemoveEvent extends GatewayEvent {
@@ -224,6 +229,7 @@ class MessageReactionRemoveEvent extends GatewayEvent {
     required this.emoji,
     this.guildId,
     this.member,
+    this.personaId,
   });
 
   final String channelId;
@@ -232,6 +238,7 @@ class MessageReactionRemoveEvent extends GatewayEvent {
   final ReactionEmoji emoji;
   final String? guildId;
   final GuildMemberResponse? member;
+  final String? personaId;
 }
 
 class MessageReactionRemoveAllEvent extends GatewayEvent {
@@ -613,6 +620,7 @@ class TypingStartEvent extends GatewayEvent {
     required this.timestamp,
     this.member,
     this.guildId,
+    this.subprofile,
   });
 
   final String channelId;
@@ -620,6 +628,7 @@ class TypingStartEvent extends GatewayEvent {
   final DateTime timestamp;
   final GuildMemberResponse? member;
   final String? guildId;
+  final MessageSubprofileResponseSchema? subprofile;
 }
 
 class VoiceStateUpdateEvent extends GatewayEvent {
