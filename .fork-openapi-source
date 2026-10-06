@@ -1,5 +1,5 @@
 # Written by fluxer-mobile-tools scripts/regen_dart_sdk.sh. Do not edit.
-# lib/ was generated from the fork's OpenAPI spec, overlaid on upstream
-# fluxer's spec at upstream_spec_commit when the fork was behind it.
-upstream_spec_commit=3093e7334b08b7c6bde4732b66bfbdd01c3e9b34
-spec_sha256=bb3eb6d27000097918a947baf7dba9f276aeb00c0145699d1e8eee154fda3c34
+# lib/ was generated from .fork-openapi.json: the fork's OpenAPI spec,
+# overlaid on upstream fluxer's spec at upstream_spec_commit when the
+# fork was behind it.
+upstream_spec_commit=d87e31efafbfc6aded4d402fa3dd21e6cae5b128
