@@ -55065,7 +55065,7 @@
     "type": "object",
     "properties": {
      "signals": {
-      "maxItems": 12,
+      "maxItems": 50,
       "type": "array",
       "items": {
        "type": "object",
@@ -55132,7 +55132,7 @@
       "description": "Incremented on every change to the bar"
      },
      "signals": {
-      "maxItems": 12,
+      "maxItems": 50,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/SignalBarSignalSchema"
