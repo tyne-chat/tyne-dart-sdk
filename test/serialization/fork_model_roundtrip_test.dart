@@ -237,4 +237,54 @@ void main() {
       expect(roundtripped.serverListButtons, isNull);
     });
   });
+
+  group('Persona remembered per channel', () {
+    test('settings carry the scope and default to one persona everywhere', () {
+      final json = <String, Object?>{
+        'user_id': '1',
+        'active_persona_mode': 'last',
+        'active_persona_scope': 'channel',
+        'active_persona_id': null,
+        'is_latched': false,
+      };
+      final model = PersonaSettingsResponseSchema.fromJson(json);
+      expect(model.activePersonaScope, ActivePersonaScopeSchema.channel);
+      expect(
+        PersonaSettingsResponseSchema.fromJson(
+          jsonDecode(jsonEncode(model.toJson())) as Map<String, Object?>,
+        ).activePersonaScope,
+        ActivePersonaScopeSchema.channel,
+      );
+
+      final older = PersonaSettingsResponseSchema.fromJson(<String, Object?>{
+        'user_id': '1',
+      });
+      expect(older.activePersonaScope, ActivePersonaScopeSchema.global);
+    });
+
+    test('channel states roundtrip, with null for the account', () {
+      final json = <String, Object?>{
+        'states': [
+          {'channel_id': '10', 'persona_id': '20'},
+          {'channel_id': '11', 'persona_id': null},
+        ],
+      };
+      final model = PersonaChannelStatesResponseSchema.fromJson(json);
+      expect(model.states.first.channelId, '10');
+      expect(model.states.first.personaId, '20');
+      expect(model.states.last.personaId, isNull);
+      expect(jsonDecode(jsonEncode(model.toJson())), json);
+    });
+
+    test('the update request sends null for the account', () {
+      expect(
+        const PersonaChannelStateUpdateRequestSchema(personaId: null).toJson(),
+        <String, Object?>{'persona_id': null},
+      );
+      expect(
+        const PersonaChannelStateUpdateRequestSchema(personaId: '20').toJson(),
+        <String, Object?>{'persona_id': '20'},
+      );
+    });
+  });
 }
