@@ -122,7 +122,6 @@ void main() {
         'display_tag_icon': 'icon_hash_1',
         'pronouns': 'she/her',
         'color': 0xFF0000,
-        'bio': 'Alice bio',
         'visibility': 'public',
       };
 
@@ -135,7 +134,6 @@ void main() {
       expect(model.displayTagIcon, 'icon_hash_1');
       expect(model.pronouns, 'she/her');
       expect(model.color, 0xFF0000);
-      expect(model.bio, 'Alice bio');
       expect(model.visibility, PersonaVisibilitySchema.public);
 
       final serialized =
@@ -162,7 +160,6 @@ void main() {
       expect(model.avatarColor, isNull);
       expect(model.displayTagText, isNull);
       expect(model.pronouns, isNull);
-      expect(model.bio, isNull);
 
       final serialized = model.toJson();
       expect(serialized['id'], 'persona-2');
