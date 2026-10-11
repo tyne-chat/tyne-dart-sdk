@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:fluxer_dart/channels/channels_api.dart';
 import 'package:fluxer_dart/models/indicate_typing_request_schema.dart';
 import 'package:fluxer_dart/models/json_nullable.dart';
-import 'package:fluxer_dart/models/message_persona_request_schema.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -27,9 +26,7 @@ void main() {
       await api.indicateTyping(
         channelId: '123456',
         body: IndicateTypingRequestSchema(
-          subprofile: JsonNullable<MessagePersonaRequestSchema>.of(
-            MessagePersonaRequestSchema(id: 'persona_xyz', name: 'Alice'),
-          ),
+          personaId: const JsonNullable<String>.of('1546500000000000003'),
         ),
       );
 
@@ -41,7 +38,7 @@ void main() {
         'https://api.example.com/channels/123456/typing',
       );
       expect(jsonDecode(jsonEncode(capturedRequest!.data)), <String, dynamic>{
-        'subprofile': <String, dynamic>{'id': 'persona_xyz', 'name': 'Alice'},
+        'persona_id': '1546500000000000003',
       });
     });
 
