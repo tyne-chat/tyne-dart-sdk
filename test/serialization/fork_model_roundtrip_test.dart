@@ -287,4 +287,41 @@ void main() {
       );
     });
   });
+
+  group('Naming a persona in a request', () {
+    test('typing names the persona by id, null for the account', () {
+      expect(
+        IndicateTypingRequestSchema(
+          personaId: const JsonNullable<String>.of('20'),
+        ).toJson(),
+        <String, Object?>{'persona_id': '20'},
+      );
+      expect(
+        IndicateTypingRequestSchema(
+          personaId: const JsonNullable<String>.of(null),
+        ).toJson(),
+        <String, Object?>{'persona_id': null},
+      );
+      expect(IndicateTypingRequestSchema().toJson(), <String, Object?>{});
+    });
+
+    test('the older subprofile object carries only an id', () {
+      final model = IndicateTypingRequestSchema(
+        subprofile: JsonNullable<LegacyMessageSubprofileRequestSchema>.of(
+          LegacyMessageSubprofileRequestSchema(id: '20'),
+        ),
+      );
+      expect(jsonDecode(jsonEncode(model.toJson())), <String, Object?>{
+        'subprofile': <String, Object?>{'id': '20'},
+      });
+    });
+
+    test('a forum post’s first message names the persona by id', () {
+      final model = ForumThreadMessageRequest.fromJson(<String, Object?>{
+        'content': 'bao',
+        'persona_id': '20',
+      });
+      expect(model.toJson()['persona_id'], '20');
+    });
+  });
 }
