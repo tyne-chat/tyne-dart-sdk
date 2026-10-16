@@ -40646,9 +40646,9 @@
      "200": {
       "description": "Success",
       "content": {
-       "application/json": {
+       "application/x-ndjson": {
         "schema": {
-         "$ref": "#/components/schemas/SuccessResponse"
+         "$ref": "#/components/schemas/PersonaBatchAvatarImportStream"
         }
        }
       }
@@ -44138,9 +44138,9 @@
      "200": {
       "description": "Success",
       "content": {
-       "application/json": {
+       "application/x-ndjson": {
         "schema": {
-         "$ref": "#/components/schemas/SuccessResponse"
+         "$ref": "#/components/schemas/PersonaBatchAvatarImportStream"
         }
        }
       }
@@ -51098,19 +51098,9 @@
      "urls"
     ]
    },
-   "SuccessResponse": {
-    "type": "object",
-    "properties": {
-     "success": {
-      "type": "boolean",
-      "const": true,
-      "description": "Whether the operation succeeded"
-     }
-    },
-    "required": [
-     "success"
-    ],
-    "additionalProperties": false
+   "PersonaBatchAvatarImportStream": {
+    "type": "string",
+    "description": "Newline-delimited JSON: a start line with the total, a progress line as each URL finishes, and a complete line with every result"
    },
    "PersonaAvatarImportRequest": {
     "type": "object",
@@ -52052,6 +52042,20 @@
     "required": [
      "has_recovery_kit",
      "created_at"
+    ],
+    "additionalProperties": false
+   },
+   "SuccessResponse": {
+    "type": "object",
+    "properties": {
+     "success": {
+      "type": "boolean",
+      "const": true,
+      "description": "Whether the operation succeeded"
+     }
+    },
+    "required": [
+     "success"
     ],
     "additionalProperties": false
    },
@@ -80033,7 +80037,6 @@
      "UNKNOWN_PASSKEY_BRIDGE",
      "UNKNOWN_PASSKEY_MIGRATION",
      "UNKNOWN_PERSONA",
-     "PERSONA_NOT_FOUND",
      "PRIVATE_PERSONA",
      "PERSONA_LIMIT_REACHED",
      "DUPLICATE_PERSONA_TAG",
@@ -80343,7 +80346,6 @@
      "This sign-in transfer has expired or was already used.",
      "This passkey request has expired. Try again.",
      "There is no passkey to update right now.",
-     "User wasn't found.",
      "User wasn't found.",
      "You don't have access to this resource or feature.",
      "You've reached the maximum number of connections ({limit}).",
