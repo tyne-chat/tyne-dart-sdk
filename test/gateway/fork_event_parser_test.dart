@@ -46,4 +46,36 @@ void main() {
       expect(e.subprofile!.displayTagText, 'SYSTEM');
     });
   });
+
+  group('reaction persona', () {
+    Map<String, Object?> reaction({String? personaId}) => <String, Object?>{
+      'channel_id': '200',
+      'message_id': '300',
+      'user_id': '100',
+      'emoji': {'id': null, 'name': '👍'},
+      'persona_id': ?personaId,
+    };
+
+    test('MESSAGE_REACTION_ADD carries the persona it was added as', () {
+      final added = parser.parse(
+        'MESSAGE_REACTION_ADD',
+        reaction(personaId: 'persona_1'),
+      );
+      expect((added as MessageReactionAddEvent).personaId, 'persona_1');
+
+      final plain = parser.parse('MESSAGE_REACTION_ADD', reaction());
+      expect((plain as MessageReactionAddEvent).personaId, isNull);
+    });
+
+    test('MESSAGE_REACTION_REMOVE carries the persona it was removed as', () {
+      final removed = parser.parse(
+        'MESSAGE_REACTION_REMOVE',
+        reaction(personaId: 'persona_1'),
+      );
+      expect((removed as MessageReactionRemoveEvent).personaId, 'persona_1');
+
+      final plain = parser.parse('MESSAGE_REACTION_REMOVE', reaction());
+      expect((plain as MessageReactionRemoveEvent).personaId, isNull);
+    });
+  });
 }
