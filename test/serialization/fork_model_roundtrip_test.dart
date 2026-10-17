@@ -51,6 +51,50 @@ void main() {
       expect(roundtripped.subprofile?.name, 'Persona Alice');
     });
 
+    test('roundtrips the personas a message mentions', () {
+      Map<String, Object?> message({Object? mentionPersonas}) =>
+          <String, Object?>{
+            'id': '504',
+            'channel_id': '100',
+            'author': {
+              'id': '123',
+              'username': 'sender',
+              'discriminator': '0001',
+              'flags': 0,
+            },
+            'type': 0,
+            'flags': 0,
+            'content': 'hi <@7:900>',
+            'timestamp': '2026-03-20T12:00:00.000Z',
+            'pinned': false,
+            'mention_everyone': false,
+            'tts': false,
+            'mentions': <Object?>[],
+            'mention_roles': <String>[],
+            'mention_personas': ?mentionPersonas,
+          };
+
+      final model = MessageResponseSchema.fromJson(
+        message(
+          mentionPersonas: [
+            {'id': '900', 'name': 'Bob the Fox', 'avatar': 'b0b'},
+          ],
+        ),
+      );
+      expect(model.mentionPersonas?.single.id, '900');
+      expect(model.mentionPersonas?.single.name, 'Bob the Fox');
+      expect(model.mentionPersonas?.single.avatar, 'b0b');
+
+      final serialized =
+          jsonDecode(jsonEncode(model.toJson())) as Map<String, Object?>;
+      expect(
+        MessageResponseSchema.fromJson(serialized).mentionPersonas?.single.name,
+        'Bob the Fox',
+      );
+
+      expect(MessageResponseSchema.fromJson(message()).mentionPersonas, isNull);
+    });
+
     test('deserializes referenced_message with subprofile', () {
       final json = <String, Object?>{
         'id': '601',
