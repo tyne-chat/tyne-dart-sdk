@@ -25,6 +25,14 @@ Everything under `lib/` is generated from the Tyne server's OpenAPI spec, except
 - In a merge or rebase conflict on a generated file, do not merge the two sides: take upstream's
   version and regenerate.
 
+## The fork's gateway code
+
+- **Skipped items are reported.** The parser drops list items and embedded objects it cannot parse;
+  each such `catch` calls `ForkGatewayParseSkips.report` (`lib/gateway_client/fork_parse_skips.dart`)
+  in a one-line `// Fork:` call, and the app logs the reports (tyne-chat/tyne#193). Keep the calls
+  when resolving conflicts, and add one to any new catch upstream adds that skips something. Tests:
+  `test/gateway/fork_parse_skips_test.dart`.
+
 ## Changing the SDK
 
 To add or change a field, model, endpoint or parameter:
