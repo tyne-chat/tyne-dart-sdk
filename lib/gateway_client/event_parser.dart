@@ -18,6 +18,7 @@ import 'package:fluxer_dart/gateway_client/gateway_event.dart';
 import 'package:fluxer_dart/gateway_client/gateway_types.dart';
 
 // Fork imports.
+import 'package:fluxer_dart/gateway_client/fork_parse_skips.dart';
 import 'package:fluxer_dart/models/message_subprofile_response_schema.dart';
 
 class EventParser {
@@ -449,7 +450,9 @@ class EventParser {
         'SESSIONS_REPLACE' => const SessionsReplaceEvent(),
         _ => null,
       };
-    } catch (_) {
+    } catch (error) {
+      // Fork: say what was skipped (tyne-chat/tyne#193).
+      ForkGatewayParseSkips.report('$eventType event', error);
       return null;
     }
   }
@@ -463,7 +466,9 @@ class EventParser {
         ...member,
         'user': ?user,
       });
-    } catch (_) {
+    } catch (error) {
+      // Fork: say what was skipped (tyne-chat/tyne#193).
+      ForkGatewayParseSkips.report('embedded GuildMemberResponse', error);
       return null;
     }
   }
@@ -573,7 +578,10 @@ class EventParser {
     for (final item in rawList) {
       try {
         result.add(parser(item));
-      } catch (_) {}
+      } catch (error) {
+        // Fork: say what was skipped (tyne-chat/tyne#193).
+        ForkGatewayParseSkips.report('$T', error);
+      }
     }
     return result;
   }
@@ -659,7 +667,9 @@ class EventParser {
     }
     try {
       return UserPartialResponse.fromJson(user);
-    } catch (_) {
+    } catch (error) {
+      // Fork: say what was skipped (tyne-chat/tyne#193).
+      ForkGatewayParseSkips.report('presence UserPartialResponse', error);
       return null;
     }
   }
