@@ -6,6 +6,9 @@ import 'package:fluxer_dart/models/guild_response.dart';
 import 'package:fluxer_dart/models/guild_role_response.dart';
 import 'package:fluxer_dart/models/guild_sticker_response.dart';
 
+// Fork imports.
+import 'package:fluxer_dart/gateway_client/fork_parse_skips.dart';
+
 class VoiceState {
   const VoiceState({
     required this.userId,
@@ -549,7 +552,10 @@ class GuildCreateData {
     for (final item in rawList) {
       try {
         result.add(parser(item));
-      } catch (_) {}
+      } catch (error) {
+        // Fork: say what was skipped (tyne-chat/tyne#193).
+        ForkGatewayParseSkips.report('$T', error);
+      }
     }
     return result;
   }
