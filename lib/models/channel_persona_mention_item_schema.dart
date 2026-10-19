@@ -4,6 +4,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'persona_asset_hash_type.dart';
 import 'persona_visibility_schema.dart';
 import 'snowflake_string_type.dart';
 
@@ -44,19 +45,19 @@ class ChannelPersonaMentionItemSchema {
 
   /// Avatar asset hash
   @JsonKey(includeIfNull: false, name: 'avatar_hash')
-  final String? avatarHash;
+  final PersonaAssetHashType? avatarHash;
 
   /// Banner asset hash
   @JsonKey(includeIfNull: false, name: 'banner_hash')
-  final String? bannerHash;
+  final PersonaAssetHashType? bannerHash;
 
   /// Optional display tag text
   @JsonKey(includeIfNull: false, name: 'display_tag_text')
   final String? displayTagText;
 
-  /// Optional display tag icon
+  /// Hash of the display tag icon, an image stored under the account
   @JsonKey(includeIfNull: false, name: 'display_tag_icon')
-  final String? displayTagIcon;
+  final PersonaAssetHashType? displayTagIcon;
 
   /// Optional pronouns
   @JsonKey(includeIfNull: false)

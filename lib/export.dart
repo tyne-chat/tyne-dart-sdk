@@ -520,6 +520,7 @@ export 'models/embed_footer_response.dart';
 export 'models/embed_author_response.dart';
 export 'models/embed_media_flags.dart';
 export 'models/persona_visibility_schema.dart';
+export 'models/persona_asset_hash_type.dart';
 export 'models/client_attachment_reference_request.dart';
 export 'models/crosspost_source_guild_response.dart';
 export 'models/reaction_user_item_response.dart';

@@ -8,6 +8,7 @@ import 'json_nullable.dart';
 
 import 'active_persona_mode_schema.dart';
 import 'active_persona_scope_schema.dart';
+import 'persona_asset_hash_type.dart';
 import 'snowflake_string_type.dart';
 
 part 'persona_settings_update_request_schema.g.dart';
@@ -22,8 +23,8 @@ class PersonaSettingsUpdateRequestSchema {
         const JsonNullable<SnowflakeStringType>.undefined(),
     JsonNullable<String> displayTagText =
         const JsonNullable<String>.undefined(),
-    JsonNullable<String> displayTagIcon =
-        const JsonNullable<String>.undefined(),
+    JsonNullable<PersonaAssetHashType> displayTagIcon =
+        const JsonNullable<PersonaAssetHashType>.undefined(),
   }) : activePersonaId = activePersonaId,
        activePersonaIdValue = activePersonaId.value,
        _activePersonaIdPresent = activePersonaId.isPresent,
@@ -45,7 +46,7 @@ class PersonaSettingsUpdateRequestSchema {
        _activePersonaIdPresent = false,
        displayTagText = const JsonNullable<String>.undefined(),
        _displayTagTextPresent = false,
-       displayTagIcon = const JsonNullable<String>.undefined(),
+       displayTagIcon = const JsonNullable<PersonaAssetHashType>.undefined(),
        _displayTagIconPresent = false;
   factory PersonaSettingsUpdateRequestSchema.patch(Map<String, Object?> json) =>
       PersonaSettingsUpdateRequestSchema.fromJson(json);
@@ -65,8 +66,8 @@ class PersonaSettingsUpdateRequestSchema {
           ? JsonNullable<String>.of(value.displayTagTextValue)
           : const JsonNullable<String>.undefined(),
       displayTagIcon: json.containsKey('display_tag_icon')
-          ? JsonNullable<String>.of(value.displayTagIconValue)
-          : const JsonNullable<String>.undefined(),
+          ? JsonNullable<PersonaAssetHashType>.of(value.displayTagIconValue)
+          : const JsonNullable<PersonaAssetHashType>.undefined(),
     );
   }
 
@@ -87,9 +88,9 @@ class PersonaSettingsUpdateRequestSchema {
   final String? displayTagTextValue;
   final bool _displayTagTextPresent;
   @JsonKey(includeFromJson: false, includeToJson: false)
-  final JsonNullable<String> displayTagIcon;
+  final JsonNullable<PersonaAssetHashType> displayTagIcon;
   @JsonKey(includeIfNull: false, name: 'display_tag_icon')
-  final String? displayTagIconValue;
+  final PersonaAssetHashType? displayTagIconValue;
   final bool _displayTagIconPresent;
 
   Map<String, Object?> toJson() {

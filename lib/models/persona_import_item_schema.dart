@@ -6,6 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import 'json_nullable.dart';
 
+import 'persona_asset_hash_type.dart';
 import 'persona_import_image_sources_schema.dart';
 import 'persona_tag_schema_input.dart';
 import 'persona_visibility_schema.dart';
@@ -21,8 +22,10 @@ class PersonaImportItemSchema {
     this.personaTags,
     this.signatureEmojis,
     this.visibility,
-    JsonNullable<String> avatarHash = const JsonNullable<String>.undefined(),
-    JsonNullable<String> bannerHash = const JsonNullable<String>.undefined(),
+    JsonNullable<PersonaAssetHashType> avatarHash =
+        const JsonNullable<PersonaAssetHashType>.undefined(),
+    JsonNullable<PersonaAssetHashType> bannerHash =
+        const JsonNullable<PersonaAssetHashType>.undefined(),
     JsonNullable<String> pronouns = const JsonNullable<String>.undefined(),
     JsonNullable<int> color = const JsonNullable<int>.undefined(),
     JsonNullable<int> avatarColor = const JsonNullable<int>.undefined(),
@@ -69,9 +72,9 @@ class PersonaImportItemSchema {
     this.visibility,
     this.externalUuidValue,
     this.imageSourcesValue,
-  }) : avatarHash = const JsonNullable<String>.undefined(),
+  }) : avatarHash = const JsonNullable<PersonaAssetHashType>.undefined(),
        _avatarHashPresent = false,
-       bannerHash = const JsonNullable<String>.undefined(),
+       bannerHash = const JsonNullable<PersonaAssetHashType>.undefined(),
        _bannerHashPresent = false,
        pronouns = const JsonNullable<String>.undefined(),
        _pronounsPresent = false,
@@ -94,11 +97,11 @@ class PersonaImportItemSchema {
     return PersonaImportItemSchema(
       name: value.name,
       avatarHash: json.containsKey('avatar_hash')
-          ? JsonNullable<String>.of(value.avatarHashValue)
-          : const JsonNullable<String>.undefined(),
+          ? JsonNullable<PersonaAssetHashType>.of(value.avatarHashValue)
+          : const JsonNullable<PersonaAssetHashType>.undefined(),
       bannerHash: json.containsKey('banner_hash')
-          ? JsonNullable<String>.of(value.bannerHashValue)
-          : const JsonNullable<String>.undefined(),
+          ? JsonNullable<PersonaAssetHashType>.of(value.bannerHashValue)
+          : const JsonNullable<PersonaAssetHashType>.undefined(),
       pronouns: json.containsKey('pronouns')
           ? JsonNullable<String>.of(value.pronounsValue)
           : const JsonNullable<String>.undefined(),
@@ -146,14 +149,14 @@ class PersonaImportItemSchema {
   @JsonKey(includeIfNull: false)
   final PersonaVisibilitySchema? visibility;
   @JsonKey(includeFromJson: false, includeToJson: false)
-  final JsonNullable<String> avatarHash;
+  final JsonNullable<PersonaAssetHashType> avatarHash;
   @JsonKey(includeIfNull: false, name: 'avatar_hash')
-  final String? avatarHashValue;
+  final PersonaAssetHashType? avatarHashValue;
   final bool _avatarHashPresent;
   @JsonKey(includeFromJson: false, includeToJson: false)
-  final JsonNullable<String> bannerHash;
+  final JsonNullable<PersonaAssetHashType> bannerHash;
   @JsonKey(includeIfNull: false, name: 'banner_hash')
-  final String? bannerHashValue;
+  final PersonaAssetHashType? bannerHashValue;
   final bool _bannerHashPresent;
   @JsonKey(includeFromJson: false, includeToJson: false)
   final JsonNullable<String> pronouns;

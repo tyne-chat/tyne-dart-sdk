@@ -4,6 +4,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'persona_asset_hash_type.dart';
 import 'persona_tag_schema.dart';
 import 'persona_visibility_schema.dart';
 import 'signature_emoji_schema.dart';
@@ -47,11 +48,11 @@ class PersonaResponseSchema {
 
   /// Avatar asset hash
   @JsonKey(includeIfNull: false, name: 'avatar_hash')
-  final String? avatarHash;
+  final PersonaAssetHashType? avatarHash;
 
   /// Banner asset hash
   @JsonKey(includeIfNull: false, name: 'banner_hash')
-  final String? bannerHash;
+  final PersonaAssetHashType? bannerHash;
 
   /// Optional pronouns
   @JsonKey(includeIfNull: false)

@@ -4,6 +4,8 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'persona_asset_hash_type.dart';
+
 part 'persona_avatar_upload_response.g.dart';
 
 @JsonSerializable()
@@ -18,7 +20,7 @@ class PersonaAvatarUploadResponse {
 
   /// Hash of the uploaded avatar
   @JsonKey(name: 'avatar_hash', defaultValue: '')
-  final String avatarHash;
+  final PersonaAssetHashType avatarHash;
 
   /// Dominant avatar color
   @JsonKey(includeIfNull: false, name: 'avatar_color')

@@ -4,6 +4,8 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'persona_asset_hash_type.dart';
+
 part 'persona_banner_upload_response.g.dart';
 
 @JsonSerializable()
@@ -15,7 +17,7 @@ class PersonaBannerUploadResponse {
 
   /// Hash of the uploaded banner
   @JsonKey(name: 'banner_hash', defaultValue: '')
-  final String bannerHash;
+  final PersonaAssetHashType bannerHash;
 
   Map<String, Object?> toJson() => _$PersonaBannerUploadResponseToJson(this);
 }

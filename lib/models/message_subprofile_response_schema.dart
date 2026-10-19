@@ -4,6 +4,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'persona_asset_hash_type.dart';
 import 'persona_visibility_schema.dart';
 
 part 'message_subprofile_response_schema.g.dart';
@@ -33,9 +34,9 @@ class MessageSubprofileResponseSchema {
   @JsonKey(defaultValue: '')
   final String name;
 
-  /// Avatar asset URL or hash
+  /// Avatar asset hash
   @JsonKey(includeIfNull: false)
-  final String? avatar;
+  final PersonaAssetHashType? avatar;
 
   /// Avatar accent color
   @JsonKey(includeIfNull: false, name: 'avatar_color')
@@ -45,9 +46,9 @@ class MessageSubprofileResponseSchema {
   @JsonKey(includeIfNull: false, name: 'display_tag_text')
   final String? displayTagText;
 
-  /// Display tag icon URL or hash
+  /// Hash of the display tag icon, an image stored under the account
   @JsonKey(includeIfNull: false, name: 'display_tag_icon')
-  final String? displayTagIcon;
+  final PersonaAssetHashType? displayTagIcon;
 
   /// Pronouns
   @JsonKey(includeIfNull: false)
