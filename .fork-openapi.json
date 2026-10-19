@@ -50294,16 +50294,24 @@
      },
      "avatar_hash": {
       "description": "Avatar asset hash",
-      "type": [
-       "string",
-       "null"
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
       ]
      },
      "banner_hash": {
       "description": "Banner asset hash",
-      "type": [
-       "string",
-       "null"
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
       ]
      },
      "pronouns": {
@@ -51148,8 +51156,8 @@
     "type": "object",
     "properties": {
      "avatar_hash": {
-      "type": "string",
-      "description": "Hash of the imported avatar"
+      "description": "Hash of the imported avatar",
+      "$ref": "#/components/schemas/PersonaAssetHashType"
      },
      "avatar_color": {
       "description": "Dominant avatar color",
@@ -51186,8 +51194,8 @@
     "type": "object",
     "properties": {
      "banner_hash": {
-      "type": "string",
-      "description": "Hash of the uploaded banner"
+      "description": "Hash of the uploaded banner",
+      "$ref": "#/components/schemas/PersonaAssetHashType"
      }
     },
     "required": [
@@ -51211,8 +51219,8 @@
     "type": "object",
     "properties": {
      "avatar_hash": {
-      "type": "string",
-      "description": "Hash of the uploaded avatar"
+      "description": "Hash of the uploaded avatar",
+      "$ref": "#/components/schemas/PersonaAssetHashType"
      },
      "avatar_color": {
       "description": "Dominant avatar color",
@@ -52261,8 +52269,7 @@
       "description": "Avatar asset hash",
       "anyOf": [
        {
-        "type": "string",
-        "pattern": "^(a_)?[0-9a-f]{8}$"
+        "$ref": "#/components/schemas/PersonaAssetHashType"
        },
        {
         "type": "null"
@@ -52273,8 +52280,7 @@
       "description": "Banner asset hash",
       "anyOf": [
        {
-        "type": "string",
-        "pattern": "^(a_)?[0-9a-f]{8}$"
+        "$ref": "#/components/schemas/PersonaAssetHashType"
        },
        {
         "type": "null"
@@ -52387,16 +52393,24 @@
      },
      "avatar_hash": {
       "description": "Avatar asset hash",
-      "type": [
-       "string",
-       "null"
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
       ]
      },
      "banner_hash": {
       "description": "Banner asset hash",
-      "type": [
-       "string",
-       "null"
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
       ]
      },
      "pronouns": {
@@ -52554,10 +52568,10 @@
       ]
      },
      "display_tag_icon": {
+      "description": "Hash of the display tag icon, from the persona avatar upload or import routes",
       "anyOf": [
        {
-        "type": "string",
-        "maxLength": 256
+        "$ref": "#/components/schemas/PersonaAssetHashType"
        },
        {
         "type": "null"
@@ -52608,10 +52622,10 @@
       ]
      },
      "display_tag_icon": {
+      "description": "Hash of the display tag icon, an image stored under the account",
       "anyOf": [
        {
-        "type": "string",
-        "maxLength": 256
+        "$ref": "#/components/schemas/PersonaAssetHashType"
        },
        {
         "type": "null"
@@ -52651,8 +52665,8 @@
     "type": "object",
     "properties": {
      "hash": {
-      "type": "string",
-      "description": "Hash of the stored image"
+      "description": "Hash of the stored image",
+      "$ref": "#/components/schemas/PersonaAssetHashType"
      },
      "avatar_color": {
       "description": "Dominant colour, for an avatar",
@@ -52763,8 +52777,7 @@
       "description": "Avatar asset hash",
       "anyOf": [
        {
-        "type": "string",
-        "pattern": "^(a_)?[0-9a-f]{8}$"
+        "$ref": "#/components/schemas/PersonaAssetHashType"
        },
        {
         "type": "null"
@@ -52775,8 +52788,7 @@
       "description": "Banner asset hash",
       "anyOf": [
        {
-        "type": "string",
-        "pattern": "^(a_)?[0-9a-f]{8}$"
+        "$ref": "#/components/schemas/PersonaAssetHashType"
        },
        {
         "type": "null"
@@ -70450,10 +70462,14 @@
       "description": "Persona display name"
      },
      "avatar": {
-      "description": "Avatar asset URL or hash",
-      "type": [
-       "string",
-       "null"
+      "description": "Avatar asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
       ]
      },
      "avatar_color": {
@@ -70477,10 +70493,14 @@
       ]
      },
      "display_tag_icon": {
-      "description": "Display tag icon URL or hash",
-      "type": [
-       "string",
-       "null"
+      "description": "Hash of the display tag icon, an image stored under the account",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
       ]
      },
      "pronouns": {
@@ -71542,6 +71562,10 @@
      "private"
     ]
    },
+   "PersonaAssetHashType": {
+    "type": "string",
+    "pattern": "^(a_)?[0-9a-f]{8}$"
+   },
    "ClientAttachmentReferenceRequest": {
     "type": "object",
     "properties": {
@@ -72145,16 +72169,24 @@
      },
      "avatar_hash": {
       "description": "Avatar asset hash",
-      "type": [
-       "string",
-       "null"
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
       ]
      },
      "banner_hash": {
       "description": "Banner asset hash",
-      "type": [
-       "string",
-       "null"
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
       ]
      },
      "display_tag_text": {
@@ -72165,10 +72197,14 @@
       ]
      },
      "display_tag_icon": {
-      "description": "Optional display tag icon",
-      "type": [
-       "string",
-       "null"
+      "description": "Hash of the display tag icon, an image stored under the account",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
       ]
      },
      "pronouns": {
@@ -78892,8 +78928,7 @@
       "description": "Avatar asset hash",
       "anyOf": [
        {
-        "type": "string",
-        "pattern": "^(a_)?[0-9a-f]{8}$"
+        "$ref": "#/components/schemas/PersonaAssetHashType"
        },
        {
         "type": "null"
@@ -78904,8 +78939,7 @@
       "description": "Banner asset hash",
       "anyOf": [
        {
-        "type": "string",
-        "pattern": "^(a_)?[0-9a-f]{8}$"
+        "$ref": "#/components/schemas/PersonaAssetHashType"
        },
        {
         "type": "null"
