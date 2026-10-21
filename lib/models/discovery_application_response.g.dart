@@ -13,7 +13,10 @@ DiscoveryApplicationResponse _$DiscoveryApplicationResponseFromJson(
   json,
   ($checkedConvert) {
     final val = DiscoveryApplicationResponse(
-      guildId: $checkedConvert('guild_id', (v) => v as String? ?? ''),
+      guildId: $checkedConvert(
+        'guild_id',
+        (v) => v as SnowflakeStringType? ?? '',
+      ),
       status: $checkedConvert('status', (v) => v as String? ?? ''),
       description: $checkedConvert('description', (v) => v as String? ?? ''),
       categoryType: $checkedConvert('category_type', (v) => v as num? ?? 0),

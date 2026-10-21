@@ -10,11 +10,11 @@ BulkMessageFetchRequestRequests _$BulkMessageFetchRequestRequestsFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('BulkMessageFetchRequestRequests', json, ($checkedConvert) {
   final val = BulkMessageFetchRequestRequests(
-    channelId: $checkedConvert('channel_id', (v) => v as String? ?? ''),
+    channelId: $checkedConvert('channel_id', (v) => v as SnowflakeType? ?? ''),
     limit: $checkedConvert('limit', (v) => (v as num?)?.toInt() ?? 0),
-    before: $checkedConvert('before', (v) => v as String?),
-    after: $checkedConvert('after', (v) => v as String?),
-    around: $checkedConvert('around', (v) => v as String?),
+    before: $checkedConvert('before', (v) => v as SnowflakeType?),
+    after: $checkedConvert('after', (v) => v as SnowflakeType?),
+    around: $checkedConvert('around', (v) => v as SnowflakeType?),
   );
   return val;
 }, fieldKeyMap: const {'channelId': 'channel_id'});

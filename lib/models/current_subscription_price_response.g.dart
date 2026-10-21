@@ -19,7 +19,7 @@ _$CurrentSubscriptionPriceResponseVariant1FromJson(
         'amount_minor',
         (v) => (v as num?)?.toInt() ?? 0,
       ),
-      currency: $checkedConvert('currency', (v) => v as String? ?? ''),
+      currency: $checkedConvert('currency', (v) => v as PremiumCurrency? ?? ''),
       billingCycle: $checkedConvert(
         'billing_cycle',
         (v) => v == null

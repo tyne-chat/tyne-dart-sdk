@@ -10,7 +10,7 @@ EmailRevertRequest _$EmailRevertRequestFromJson(Map<String, dynamic> json) =>
     $checkedCreate('EmailRevertRequest', json, ($checkedConvert) {
       final val = EmailRevertRequest(
         token: $checkedConvert('token', (v) => v as String? ?? ''),
-        password: $checkedConvert('password', (v) => v as String? ?? ''),
+        password: $checkedConvert('password', (v) => v as PasswordType? ?? ''),
       );
       return val;
     });

@@ -12,7 +12,7 @@ _$DiscoveryChannelPreviewResponseChannelFromJson(Map<String, dynamic> json) =>
       $checkedConvert,
     ) {
       final val = DiscoveryChannelPreviewResponseChannel(
-        id: $checkedConvert('id', (v) => v as String? ?? ''),
+        id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
         name: $checkedConvert('name', (v) => v as String?),
         type: $checkedConvert('type', (v) => v as num? ?? 0),
       );

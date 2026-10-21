@@ -10,10 +10,10 @@ CreatePrivateChannelRequest _$CreatePrivateChannelRequestFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('CreatePrivateChannelRequest', json, ($checkedConvert) {
   final val = CreatePrivateChannelRequest(
-    recipientId: $checkedConvert('recipient_id', (v) => v as String?),
+    recipientId: $checkedConvert('recipient_id', (v) => v as SnowflakeType?),
     recipients: $checkedConvert(
       'recipients',
-      (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+      (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
     ),
   );
   return val;

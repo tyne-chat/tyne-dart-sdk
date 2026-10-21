@@ -18,11 +18,11 @@ AllowedMentionsRequest _$AllowedMentionsRequestFromJson(
     ),
     users: $checkedConvert(
       'users',
-      (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+      (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
     ),
     roles: $checkedConvert(
       'roles',
-      (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+      (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
     ),
     repliedUser: $checkedConvert('replied_user', (v) => v as bool?),
   );

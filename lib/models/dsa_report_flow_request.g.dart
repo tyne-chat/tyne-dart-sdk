@@ -118,7 +118,7 @@ _$DsaReportFlowRequestUserDsaReportFlowRequestFromJson(
         (v) => v as String?,
       ),
       reportType: $checkedConvert('report_type', (v) => v as String? ?? ''),
-      userId: $checkedConvert('user_id', (v) => v as String?),
+      userId: $checkedConvert('user_id', (v) => v as SnowflakeType?),
       userTag: $checkedConvert('user_tag', (v) => v as String?),
     );
     return val;
@@ -189,7 +189,7 @@ _$DsaReportFlowRequestGuildDsaReportFlowRequestFromJson(
         (v) => v as String?,
       ),
       reportType: $checkedConvert('report_type', (v) => v as String? ?? ''),
-      guildId: $checkedConvert('guild_id', (v) => v as String? ?? ''),
+      guildId: $checkedConvert('guild_id', (v) => v as SnowflakeType? ?? ''),
       inviteCode: $checkedConvert('invite_code', (v) => v as String?),
     );
     return val;

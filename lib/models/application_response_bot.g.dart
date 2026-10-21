@@ -13,7 +13,7 @@ ApplicationResponseBot _$ApplicationResponseBotFromJson(
   json,
   ($checkedConvert) {
     final val = ApplicationResponseBot(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       username: $checkedConvert('username', (v) => v as String? ?? ''),
       discriminator: $checkedConvert(
         'discriminator',

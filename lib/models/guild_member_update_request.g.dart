@@ -16,10 +16,10 @@ GuildMemberUpdateRequest _$GuildMemberUpdateRequestFromJson(
       nickValue: $checkedConvert('nick', (v) => v as String?),
       roles: $checkedConvert(
         'roles',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
-      avatarValue: $checkedConvert('avatar', (v) => v as String?),
-      bannerValue: $checkedConvert('banner', (v) => v as String?),
+      avatarValue: $checkedConvert('avatar', (v) => v as Base64ImageType?),
+      bannerValue: $checkedConvert('banner', (v) => v as Base64ImageType?),
       bioValue: $checkedConvert('bio', (v) => v as String?),
       pronounsValue: $checkedConvert('pronouns', (v) => v as String?),
       accentColorValue: $checkedConvert(
@@ -46,7 +46,7 @@ GuildMemberUpdateRequest _$GuildMemberUpdateRequestFromJson(
         'timeout_reason',
         (v) => v as String?,
       ),
-      channelIdValue: $checkedConvert('channel_id', (v) => v as String?),
+      channelIdValue: $checkedConvert('channel_id', (v) => v as SnowflakeType?),
       connectionIdValue: $checkedConvert('connection_id', (v) => v as String?),
     );
     return val;

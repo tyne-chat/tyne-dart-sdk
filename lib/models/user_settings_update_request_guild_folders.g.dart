@@ -15,7 +15,9 @@ _$UserSettingsUpdateRequestGuildFoldersFromJson(Map<String, dynamic> json) =>
         id: $checkedConvert('id', (v) => (v as num?)?.toInt() ?? 0),
         guildIds: $checkedConvert(
           'guild_ids',
-          (v) => (v as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
+          (v) =>
+              (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList() ??
+              [],
         ),
         color: $checkedConvert('color', (v) => (v as num?)?.toInt() ?? 0),
         flags: $checkedConvert('flags', (v) => (v as num?)?.toInt() ?? 0),

@@ -12,11 +12,11 @@ BulkDeleteMessagesRequest _$BulkDeleteMessagesRequestFromJson(
   final val = BulkDeleteMessagesRequest(
     messageIds: $checkedConvert(
       'message_ids',
-      (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+      (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
     ),
     messages: $checkedConvert(
       'messages',
-      (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+      (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
     ),
   );
   return val;

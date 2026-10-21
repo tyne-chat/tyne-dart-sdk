@@ -15,9 +15,9 @@ ForumTagUpdateRequest _$ForumTagUpdateRequestFromJson(
     final val = ForumTagUpdateRequest._(
       name: $checkedConvert('name', (v) => v as String? ?? ''),
       moderated: $checkedConvert('moderated', (v) => v as bool?),
-      emojiIdValue: $checkedConvert('emoji_id', (v) => v as String?),
+      emojiIdValue: $checkedConvert('emoji_id', (v) => v as SnowflakeType?),
       emojiNameValue: $checkedConvert('emoji_name', (v) => v as String?),
-      id: $checkedConvert('id', (v) => v as String?),
+      id: $checkedConvert('id', (v) => v as SnowflakeType?),
     );
     return val;
   },

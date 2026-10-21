@@ -14,8 +14,11 @@ _$MessageSearchResultsResponseMessagesFromJson(
   json,
   ($checkedConvert) {
     final val = MessageSearchResultsResponseMessages(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
-      channelId: $checkedConvert('channel_id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
+      channelId: $checkedConvert(
+        'channel_id',
+        (v) => v as SnowflakeStringType? ?? '',
+      ),
       author: $checkedConvert(
         'author',
         (v) => v == null
@@ -55,7 +58,10 @@ _$MessageSearchResultsResponseMessagesFromJson(
         'mention_roles',
         (v) => (v as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
       ),
-      webhookId: $checkedConvert('webhook_id', (v) => v as String?),
+      webhookId: $checkedConvert(
+        'webhook_id',
+        (v) => v as SnowflakeStringType?,
+      ),
       editedTimestamp: $checkedConvert(
         'edited_timestamp',
         (v) => v == null ? null : DateTime.parse(v as String),
@@ -144,6 +150,24 @@ _$MessageSearchResultsResponseMessagesFromJson(
             ? null
             : ThreadChannelResponse.fromJson(v as Map<String, dynamic>),
       ),
+      subprofile: $checkedConvert(
+        'subprofile',
+        (v) => v == null
+            ? null
+            : MessageSubprofileResponseSchema.fromJson(
+                v as Map<String, dynamic>,
+              ),
+      ),
+      mentionPersonas: $checkedConvert(
+        'mention_personas',
+        (v) => (v as List<dynamic>?)
+            ?.map(
+              (e) => MessageSubprofileResponseSchema.fromJson(
+                e as Map<String, dynamic>,
+              ),
+            )
+            .toList(),
+      ),
     );
     return val;
   },
@@ -156,6 +180,7 @@ _$MessageSearchResultsResponseMessagesFromJson(
     'mentionChannels': 'mention_channels',
     'messageReference': 'message_reference',
     'messageSnapshots': 'message_snapshots',
+    'mentionPersonas': 'mention_personas',
   },
 );
 
@@ -187,4 +212,6 @@ Map<String, dynamic> _$MessageSearchResultsResponseMessagesToJson(
   'nonce': ?instance.nonce,
   'call': ?instance.call,
   'thread': ?instance.thread,
+  'subprofile': ?instance.subprofile,
+  'mention_personas': ?instance.mentionPersonas,
 };

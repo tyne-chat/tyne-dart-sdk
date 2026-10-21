@@ -13,12 +13,12 @@ ChannelPositionUpdateRequestItem _$ChannelPositionUpdateRequestItemFromJson(
   json,
   ($checkedConvert) {
     final val = ChannelPositionUpdateRequestItem(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeType? ?? ''),
       position: $checkedConvert('position', (v) => (v as num?)?.toInt()),
-      parentId: $checkedConvert('parent_id', (v) => v as String?),
+      parentId: $checkedConvert('parent_id', (v) => v as SnowflakeType?),
       precedingSiblingId: $checkedConvert(
         'preceding_sibling_id',
-        (v) => v as String?,
+        (v) => v as SnowflakeType?,
       ),
       lockPermissions: $checkedConvert('lock_permissions', (v) => v as bool?),
     );

@@ -13,7 +13,7 @@ StorePurchaseResponse _$StorePurchaseResponseFromJson(
   json,
   ($checkedConvert) {
     final val = StorePurchaseResponse(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       provider: $checkedConvert(
         'provider',
         (v) => v == null

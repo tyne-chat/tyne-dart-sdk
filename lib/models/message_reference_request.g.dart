@@ -13,9 +13,12 @@ MessageReferenceRequest _$MessageReferenceRequestFromJson(
   json,
   ($checkedConvert) {
     final val = MessageReferenceRequest(
-      messageId: $checkedConvert('message_id', (v) => v as String? ?? ''),
-      channelId: $checkedConvert('channel_id', (v) => v as String?),
-      guildId: $checkedConvert('guild_id', (v) => v as String?),
+      messageId: $checkedConvert(
+        'message_id',
+        (v) => v as SnowflakeType? ?? '',
+      ),
+      channelId: $checkedConvert('channel_id', (v) => v as SnowflakeType?),
+      guildId: $checkedConvert('guild_id', (v) => v as SnowflakeType?),
       type: $checkedConvert(
         'type',
         (v) => v == null
@@ -24,7 +27,7 @@ MessageReferenceRequest _$MessageReferenceRequestFromJson(
       ),
       attachmentIds: $checkedConvert(
         'attachment_ids',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       embedIndices: $checkedConvert(
         'embed_indices',

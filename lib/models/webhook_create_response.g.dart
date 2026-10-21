@@ -10,9 +10,15 @@ WebhookCreateResponse _$WebhookCreateResponseFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('WebhookCreateResponse', json, ($checkedConvert) {
   final val = WebhookCreateResponse(
-    id: $checkedConvert('id', (v) => v as String? ?? ''),
-    guildId: $checkedConvert('guild_id', (v) => v as String? ?? ''),
-    channelId: $checkedConvert('channel_id', (v) => v as String? ?? ''),
+    id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
+    guildId: $checkedConvert(
+      'guild_id',
+      (v) => v as SnowflakeStringType? ?? '',
+    ),
+    channelId: $checkedConvert(
+      'channel_id',
+      (v) => v as SnowflakeStringType? ?? '',
+    ),
     name: $checkedConvert('name', (v) => v as String? ?? ''),
     type: $checkedConvert(
       'type',

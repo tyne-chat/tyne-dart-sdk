@@ -19,7 +19,10 @@ PremiumStoreSubscriptionState _$PremiumStoreSubscriptionStateFromJson(
             ? StoreProvider.$unknown
             : StoreProvider.fromJson(v as String),
       ),
-      purchaseId: $checkedConvert('purchase_id', (v) => v as String? ?? ''),
+      purchaseId: $checkedConvert(
+        'purchase_id',
+        (v) => v as SnowflakeStringType? ?? '',
+      ),
       slot: $checkedConvert(
         'slot',
         (v) => v == null

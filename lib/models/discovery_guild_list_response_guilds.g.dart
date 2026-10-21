@@ -13,7 +13,7 @@ DiscoveryGuildListResponseGuilds _$DiscoveryGuildListResponseGuildsFromJson(
   json,
   ($checkedConvert) {
     final val = DiscoveryGuildListResponseGuilds(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       name: $checkedConvert('name', (v) => v as String? ?? ''),
       categoryType: $checkedConvert('category_type', (v) => v as num? ?? 0),
       customTags: $checkedConvert(

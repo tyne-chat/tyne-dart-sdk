@@ -10,7 +10,7 @@ ChannelPartialResponse _$ChannelPartialResponseFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('ChannelPartialResponse', json, ($checkedConvert) {
   final val = ChannelPartialResponse(
-    id: $checkedConvert('id', (v) => v as String? ?? ''),
+    id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
     type: $checkedConvert(
       'type',
       (v) => v == null

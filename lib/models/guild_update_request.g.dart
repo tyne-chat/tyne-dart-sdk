@@ -14,16 +14,19 @@ GuildUpdateRequest _$GuildUpdateRequestFromJson(
   ($checkedConvert) {
     final val = GuildUpdateRequest._(
       name: $checkedConvert('name', (v) => v as String?),
-      iconValue: $checkedConvert('icon', (v) => v as String?),
+      iconValue: $checkedConvert('icon', (v) => v as Base64ImageType?),
       systemChannelIdValue: $checkedConvert(
         'system_channel_id',
-        (v) => v as String?,
+        (v) => v as SnowflakeType?,
       ),
       systemChannelFlags: $checkedConvert(
         'system_channel_flags',
         (v) => (v as num?)?.toInt(),
       ),
-      afkChannelIdValue: $checkedConvert('afk_channel_id', (v) => v as String?),
+      afkChannelIdValue: $checkedConvert(
+        'afk_channel_id',
+        (v) => v as SnowflakeType?,
+      ),
       afkTimeout: $checkedConvert('afk_timeout', (v) => (v as num?)?.toInt()),
       defaultMessageNotifications: $checkedConvert(
         'default_message_notifications',
@@ -63,9 +66,12 @@ GuildUpdateRequest _$GuildUpdateRequestFromJson(
             ? null
             : GuildExplicitContentFilterInput.fromJson((v as num).toInt()),
       ),
-      bannerValue: $checkedConvert('banner', (v) => v as String?),
-      splashValue: $checkedConvert('splash', (v) => v as String?),
-      embedSplashValue: $checkedConvert('embed_splash', (v) => v as String?),
+      bannerValue: $checkedConvert('banner', (v) => v as Base64ImageType?),
+      splashValue: $checkedConvert('splash', (v) => v as Base64ImageType?),
+      embedSplashValue: $checkedConvert(
+        'embed_splash',
+        (v) => v as Base64ImageType?,
+      ),
       splashCardAlignment: $checkedConvert(
         'splash_card_alignment',
         (v) => v == null
@@ -76,13 +82,14 @@ GuildUpdateRequest _$GuildUpdateRequestFromJson(
       ),
       features: $checkedConvert(
         'features',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) =>
+            (v as List<dynamic>?)?.map((e) => e as GuildFeatureSchema).toList(),
       ),
       messageHistoryCutoffValue: $checkedConvert(
         'message_history_cutoff',
         (v) => v == null ? null : DateTime.parse(v as String),
       ),
-      password: $checkedConvert('password', (v) => v as String?),
+      password: $checkedConvert('password', (v) => v as PasswordType?),
       mfaMethod: $checkedConvert(
         'mfa_method',
         (v) => v == null

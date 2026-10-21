@@ -13,7 +13,7 @@ AuditLogWebhookResponse _$AuditLogWebhookResponseFromJson(
   json,
   ($checkedConvert) {
     final val = AuditLogWebhookResponse(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       type: $checkedConvert(
         'type',
         (v) => v == null
@@ -21,8 +21,11 @@ AuditLogWebhookResponse _$AuditLogWebhookResponseFromJson(
             : WebhookType.fromJson((v as num).toInt()),
       ),
       name: $checkedConvert('name', (v) => v as String? ?? ''),
-      guildId: $checkedConvert('guild_id', (v) => v as String?),
-      channelId: $checkedConvert('channel_id', (v) => v as String?),
+      guildId: $checkedConvert('guild_id', (v) => v as SnowflakeStringType?),
+      channelId: $checkedConvert(
+        'channel_id',
+        (v) => v as SnowflakeStringType?,
+      ),
       avatarHash: $checkedConvert('avatar_hash', (v) => v as String?),
     );
     return val;

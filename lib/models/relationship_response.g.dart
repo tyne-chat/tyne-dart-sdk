@@ -13,7 +13,7 @@ RelationshipResponse _$RelationshipResponseFromJson(
   json,
   ($checkedConvert) {
     final val = RelationshipResponse(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       type: $checkedConvert(
         'type',
         (v) => v == null

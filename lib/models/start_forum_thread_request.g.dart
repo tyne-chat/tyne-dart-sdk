@@ -33,7 +33,7 @@ StartForumThreadRequest _$StartForumThreadRequestFromJson(
       ),
       appliedTags: $checkedConvert(
         'applied_tags',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
     );
     return val;

@@ -14,7 +14,10 @@ _$HarvestStatusResponseSchemaNullableVariant1FromJson(
   json,
   ($checkedConvert) {
     final val = HarvestStatusResponseSchemaNullableVariant1(
-      harvestId: $checkedConvert('harvest_id', (v) => v as String? ?? ''),
+      harvestId: $checkedConvert(
+        'harvest_id',
+        (v) => v as SnowflakeStringType? ?? '',
+      ),
       status: $checkedConvert(
         'status',
         (v) => v == null

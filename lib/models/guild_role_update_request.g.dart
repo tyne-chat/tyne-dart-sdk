@@ -12,7 +12,7 @@ GuildRoleUpdateRequest _$GuildRoleUpdateRequestFromJson(
   final val = GuildRoleUpdateRequest._(
     name: $checkedConvert('name', (v) => v as String?),
     color: $checkedConvert('color', (v) => (v as num?)?.toInt()),
-    permissions: $checkedConvert('permissions', (v) => v as String?),
+    permissions: $checkedConvert('permissions', (v) => v as UnsignedInt64Type?),
     hoist: $checkedConvert('hoist', (v) => v as bool?),
     hoistPositionValue: $checkedConvert(
       'hoist_position',

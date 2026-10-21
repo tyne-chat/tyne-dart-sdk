@@ -22,9 +22,9 @@ ReportFlowUserSubmissionRequest _$ReportFlowUserSubmissionRequestFromJson(
                 .toList() ??
             [],
       ),
-      userId: $checkedConvert('user_id', (v) => v as String? ?? ''),
+      userId: $checkedConvert('user_id', (v) => v as SnowflakeType? ?? ''),
       locale: $checkedConvert('locale', (v) => v as String?),
-      guildId: $checkedConvert('guild_id', (v) => v as String?),
+      guildId: $checkedConvert('guild_id', (v) => v as SnowflakeType?),
     );
     return val;
   },

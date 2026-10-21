@@ -13,14 +13,20 @@ FavoriteMemeResponse _$FavoriteMemeResponseFromJson(
   json,
   ($checkedConvert) {
     final val = FavoriteMemeResponse(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
-      userId: $checkedConvert('user_id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
+      userId: $checkedConvert(
+        'user_id',
+        (v) => v as SnowflakeStringType? ?? '',
+      ),
       name: $checkedConvert('name', (v) => v as String? ?? ''),
       tags: $checkedConvert(
         'tags',
         (v) => (v as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
       ),
-      attachmentId: $checkedConvert('attachment_id', (v) => v as String? ?? ''),
+      attachmentId: $checkedConvert(
+        'attachment_id',
+        (v) => v as SnowflakeStringType? ?? '',
+      ),
       filename: $checkedConvert('filename', (v) => v as String? ?? ''),
       contentType: $checkedConvert('content_type', (v) => v as String? ?? ''),
       size: $checkedConvert('size', (v) => (v as num?)?.toInt() ?? 0),

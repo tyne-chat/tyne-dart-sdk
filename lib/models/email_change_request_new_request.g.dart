@@ -14,12 +14,12 @@ EmailChangeRequestNewRequest _$EmailChangeRequestNewRequestFromJson(
   ($checkedConvert) {
     final val = EmailChangeRequestNewRequest(
       ticket: $checkedConvert('ticket', (v) => v as String? ?? ''),
-      newEmail: $checkedConvert('new_email', (v) => v as String? ?? ''),
+      newEmail: $checkedConvert('new_email', (v) => v as EmailType? ?? ''),
       originalProof: $checkedConvert(
         'original_proof',
         (v) => v as String? ?? '',
       ),
-      newPassword: $checkedConvert('new_password', (v) => v as String?),
+      newPassword: $checkedConvert('new_password', (v) => v as PasswordType?),
     );
     return val;
   },

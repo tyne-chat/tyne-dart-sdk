@@ -10,7 +10,7 @@ GuildStickerResponse _$GuildStickerResponseFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('GuildStickerResponse', json, ($checkedConvert) {
   final val = GuildStickerResponse(
-    id: $checkedConvert('id', (v) => v as String? ?? ''),
+    id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
     name: $checkedConvert('name', (v) => v as String? ?? ''),
     description: $checkedConvert('description', (v) => v as String? ?? ''),
     tags: $checkedConvert(

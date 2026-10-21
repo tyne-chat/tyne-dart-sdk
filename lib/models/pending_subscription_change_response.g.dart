@@ -45,7 +45,7 @@ _$PendingSubscriptionChangeResponseVariant1FromJson(
         'target_amount_minor',
         (v) => (v as num?)?.toInt(),
       ),
-      currency: $checkedConvert('currency', (v) => v as String?),
+      currency: $checkedConvert('currency', (v) => v as PremiumCurrency?),
       initialAmountMinor: $checkedConvert(
         'initial_amount_minor',
         (v) => (v as num?)?.toInt(),

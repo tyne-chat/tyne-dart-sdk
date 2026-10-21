@@ -12,12 +12,12 @@ OAuth2IntrospectResponse _$OAuth2IntrospectResponseFromJson(
   final val = OAuth2IntrospectResponse(
     active: $checkedConvert('active', (v) => v as bool? ?? false),
     scope: $checkedConvert('scope', (v) => v as String?),
-    clientId: $checkedConvert('client_id', (v) => v as String?),
+    clientId: $checkedConvert('client_id', (v) => v as SnowflakeStringType?),
     username: $checkedConvert('username', (v) => v as String?),
     tokenType: $checkedConvert('token_type', (v) => v as String?),
     exp: $checkedConvert('exp', (v) => (v as num?)?.toInt()),
     iat: $checkedConvert('iat', (v) => (v as num?)?.toInt()),
-    sub: $checkedConvert('sub', (v) => v as String?),
+    sub: $checkedConvert('sub', (v) => v as SnowflakeStringType?),
   );
   return val;
 }, fieldKeyMap: const {'clientId': 'client_id', 'tokenType': 'token_type'});

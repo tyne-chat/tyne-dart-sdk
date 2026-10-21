@@ -13,7 +13,7 @@ UserGuildSettingsResponse _$UserGuildSettingsResponseFromJson(
   json,
   ($checkedConvert) {
     final val = UserGuildSettingsResponse(
-      guildId: $checkedConvert('guild_id', (v) => v as String?),
+      guildId: $checkedConvert('guild_id', (v) => v as SnowflakeStringType?),
       messageNotifications: $checkedConvert(
         'message_notifications',
         (v) => v == null

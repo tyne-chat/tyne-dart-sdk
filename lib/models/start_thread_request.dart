@@ -5,6 +5,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'int32_type.dart';
+import 'snowflake_type.dart';
 import 'thread_auto_archive_duration_schema.dart';
 import 'thread_channel_type.dart';
 
@@ -18,6 +19,7 @@ class StartThreadRequest {
     this.autoArchiveDuration,
     this.rateLimitPerUser,
     this.invitable,
+    this.personaId,
   });
 
   factory StartThreadRequest.fromJson(Map<String, Object?> json) =>
@@ -38,6 +40,10 @@ class StartThreadRequest {
   /// Whether non-moderators can add other non-moderators (private threads)
   @JsonKey(includeIfNull: false)
   final bool? invitable;
+
+  /// ID of one of your personas to start the thread as
+  @JsonKey(includeIfNull: false, name: 'persona_id')
+  final SnowflakeType? personaId;
 
   Map<String, Object?> toJson() => _$StartThreadRequestToJson(this);
 }

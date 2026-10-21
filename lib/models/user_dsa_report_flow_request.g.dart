@@ -43,7 +43,7 @@ UserDsaReportFlowRequest _$UserDsaReportFlowRequestFromJson(
         'reporter_full_legal_name',
         (v) => v as String?,
       ),
-      userId: $checkedConvert('user_id', (v) => v as String?),
+      userId: $checkedConvert('user_id', (v) => v as SnowflakeType?),
       userTag: $checkedConvert('user_tag', (v) => v as String?),
     );
     return val;

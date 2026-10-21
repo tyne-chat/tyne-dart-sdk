@@ -11,6 +11,7 @@ import 'auth/auth_api.dart';
 import 'channels/channels_api.dart';
 import 'invites/invites_api.dart';
 import 'saved_media/saved_media_api.dart';
+import 'signal_bar/signal_bar_api.dart';
 import 'webhooks/webhooks_api.dart';
 import 'discovery/discovery_api.dart';
 import 'donations/donations_api.dart';
@@ -31,6 +32,7 @@ import 'search/search_api.dart';
 import 'stickers/stickers_api.dart';
 import 'debug/debug_api.dart';
 import 'connections/connections_api.dart';
+import 'personas/personas_api.dart';
 import 'themes/themes_api.dart';
 import 'voice/voice_api.dart';
 
@@ -52,6 +54,7 @@ class FluxerClient {
   ChannelsApi? _channels;
   InvitesApi? _invites;
   SavedMediaApi? _savedMedia;
+  SignalBarApi? _signalBar;
   WebhooksApi? _webhooks;
   DiscoveryApi? _discovery;
   DonationsApi? _donations;
@@ -72,6 +75,7 @@ class FluxerClient {
   StickersApi? _stickers;
   DebugApi? _debug;
   ConnectionsApi? _connections;
+  PersonasApi? _personas;
   ThemesApi? _themes;
   VoiceApi? _voice;
 
@@ -92,6 +96,9 @@ class FluxerClient {
 
   SavedMediaApi get savedMedia =>
       _savedMedia ??= SavedMediaApi(_dio, baseUrl: _baseUrl);
+
+  SignalBarApi get signalBar =>
+      _signalBar ??= SignalBarApi(_dio, baseUrl: _baseUrl);
 
   WebhooksApi get webhooks =>
       _webhooks ??= WebhooksApi(_dio, baseUrl: _baseUrl);
@@ -141,6 +148,9 @@ class FluxerClient {
 
   ConnectionsApi get connections =>
       _connections ??= ConnectionsApi(_dio, baseUrl: _baseUrl);
+
+  PersonasApi get personas =>
+      _personas ??= PersonasApi(_dio, baseUrl: _baseUrl);
 
   ThemesApi get themes => _themes ??= ThemesApi(_dio, baseUrl: _baseUrl);
 

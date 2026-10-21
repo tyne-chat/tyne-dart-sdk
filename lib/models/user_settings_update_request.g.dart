@@ -32,7 +32,7 @@ UserSettingsUpdateRequest _$UserSettingsUpdateRequestFromJson(
       ),
       guildPositions: $checkedConvert(
         'guild_positions',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       locale: $checkedConvert(
         'locale',
@@ -40,11 +40,11 @@ UserSettingsUpdateRequest _$UserSettingsUpdateRequestFromJson(
       ),
       restrictedGuilds: $checkedConvert(
         'restricted_guilds',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       botRestrictedGuilds: $checkedConvert(
         'bot_restricted_guilds',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       defaultGuildsRestricted: $checkedConvert(
         'default_guilds_restricted',
@@ -152,11 +152,11 @@ UserSettingsUpdateRequest _$UserSettingsUpdateRequestFromJson(
       ),
       suppressUnprivilegedSelfMentionsBypassUserIdsValue: $checkedConvert(
         'suppress_unprivileged_self_mentions_bypass_user_ids',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       staffDmAccessUserIdsValue: $checkedConvert(
         'staff_dm_access_user_ids',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       profilePrivacy: $checkedConvert(
         'profile_privacy',

@@ -12,7 +12,7 @@ GuildEmojiCloneRequest _$GuildEmojiCloneRequestFromJson(
   final val = GuildEmojiCloneRequest(
     sourceEmojiId: $checkedConvert(
       'source_emoji_id',
-      (v) => v as String? ?? '',
+      (v) => v as SnowflakeType? ?? '',
     ),
   );
   return val;

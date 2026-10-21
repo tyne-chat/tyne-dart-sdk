@@ -13,30 +13,33 @@ ThreadChannelResponse _$ThreadChannelResponseFromJson(
   json,
   ($checkedConvert) {
     final val = ThreadChannelResponse(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       type: $checkedConvert(
         'type',
         (v) => v == null
             ? ChannelType.$unknown
             : ChannelType.fromJson((v as num).toInt()),
       ),
-      rtcRegion: $checkedConvert('rtc_region', (v) => v as String?),
+      rtcP2p: $checkedConvert('rtc_p2p', (v) => v as bool?),
       topic: $checkedConvert('topic', (v) => v as String?),
       url: $checkedConvert('url', (v) => v as String?),
       icon: $checkedConvert('icon', (v) => v as String?),
-      ownerId: $checkedConvert('owner_id', (v) => v as String?),
-      guildId: $checkedConvert('guild_id', (v) => v as String?),
+      ownerId: $checkedConvert('owner_id', (v) => v as SnowflakeStringType?),
+      guildId: $checkedConvert('guild_id', (v) => v as SnowflakeStringType?),
       position: $checkedConvert('position', (v) => (v as num?)?.toInt()),
-      parentId: $checkedConvert('parent_id', (v) => v as String?),
+      parentId: $checkedConvert('parent_id', (v) => v as SnowflakeStringType?),
       bitrate: $checkedConvert('bitrate', (v) => (v as num?)?.toInt()),
       userLimit: $checkedConvert('user_limit', (v) => (v as num?)?.toInt()),
       voiceConnectionLimit: $checkedConvert(
         'voice_connection_limit',
         (v) => (v as num?)?.toInt(),
       ),
+      rtcRegion: $checkedConvert('rtc_region', (v) => v as String?),
       name: $checkedConvert('name', (v) => v as String?),
-      rtcP2p: $checkedConvert('rtc_p2p', (v) => v as bool?),
-      lastMessageId: $checkedConvert('last_message_id', (v) => v as String?),
+      lastMessageId: $checkedConvert(
+        'last_message_id',
+        (v) => v as SnowflakeStringType?,
+      ),
       lastPinTimestamp: $checkedConvert(
         'last_pin_timestamp',
         (v) => v == null ? null : DateTime.parse(v as String),
@@ -79,6 +82,7 @@ ThreadChannelResponse _$ThreadChannelResponseFromJson(
           (k, e) => MapEntry(k, e as String),
         ),
       ),
+      flags: $checkedConvert('flags', (v) => (v as num?)?.toInt()),
       defaultTagSetting: $checkedConvert(
         'default_tag_setting',
         (v) => v == null
@@ -87,15 +91,11 @@ ThreadChannelResponse _$ThreadChannelResponseFromJson(
                 v as String,
               ),
       ),
-      threadMetadata: $checkedConvert(
-        'thread_metadata',
-        (v) => v == null
-            ? null
-            : ThreadMetadataResponse.fromJson(v as Map<String, dynamic>),
-      ),
       appliedTags: $checkedConvert(
         'applied_tags',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)
+            ?.map((e) => e as SnowflakeStringType)
+            .toList(),
       ),
       messageCount: $checkedConvert(
         'message_count',
@@ -108,13 +108,19 @@ ThreadChannelResponse _$ThreadChannelResponseFromJson(
       memberCount: $checkedConvert('member_count', (v) => (v as num?)?.toInt()),
       memberIdsPreview: $checkedConvert(
         'member_ids_preview',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)
+            ?.map((e) => e as SnowflakeStringType)
+            .toList(),
       ),
       member: $checkedConvert(
         'member',
         (v) => v == null
             ? null
             : ThreadMemberResponse.fromJson(v as Map<String, dynamic>),
+      ),
+      ownerPersonaId: $checkedConvert(
+        'owner_persona_id',
+        (v) => v as SnowflakeStringType?,
       ),
       defaultAutoArchiveDuration: $checkedConvert(
         'default_auto_archive_duration',
@@ -144,18 +150,23 @@ ThreadChannelResponse _$ThreadChannelResponseFromJson(
         'default_forum_layout',
         (v) => (v as num?)?.toInt(),
       ),
-      flags: $checkedConvert('flags', (v) => (v as num?)?.toInt()),
+      threadMetadata: $checkedConvert(
+        'thread_metadata',
+        (v) => v == null
+            ? null
+            : ThreadMetadataResponse.fromJson(v as Map<String, dynamic>),
+      ),
     );
     return val;
   },
   fieldKeyMap: const {
-    'rtcRegion': 'rtc_region',
+    'rtcP2p': 'rtc_p2p',
     'ownerId': 'owner_id',
     'guildId': 'guild_id',
     'parentId': 'parent_id',
     'userLimit': 'user_limit',
     'voiceConnectionLimit': 'voice_connection_limit',
-    'rtcP2p': 'rtc_p2p',
+    'rtcRegion': 'rtc_region',
     'lastMessageId': 'last_message_id',
     'lastPinTimestamp': 'last_pin_timestamp',
     'permissionOverwrites': 'permission_overwrites',
@@ -164,18 +175,19 @@ ThreadChannelResponse _$ThreadChannelResponseFromJson(
     'contentWarningText': 'content_warning_text',
     'rateLimitPerUser': 'rate_limit_per_user',
     'defaultTagSetting': 'default_tag_setting',
-    'threadMetadata': 'thread_metadata',
     'appliedTags': 'applied_tags',
     'messageCount': 'message_count',
     'totalMessageSent': 'total_message_sent',
     'memberCount': 'member_count',
     'memberIdsPreview': 'member_ids_preview',
+    'ownerPersonaId': 'owner_persona_id',
     'defaultAutoArchiveDuration': 'default_auto_archive_duration',
     'defaultThreadRateLimitPerUser': 'default_thread_rate_limit_per_user',
     'availableTags': 'available_tags',
     'defaultReactionEmoji': 'default_reaction_emoji',
     'defaultSortOrder': 'default_sort_order',
     'defaultForumLayout': 'default_forum_layout',
+    'threadMetadata': 'thread_metadata',
   },
 );
 
@@ -215,6 +227,7 @@ Map<String, dynamic> _$ThreadChannelResponseToJson(
   'member_count': ?instance.memberCount,
   'member_ids_preview': ?instance.memberIdsPreview,
   'member': ?instance.member,
+  'owner_persona_id': ?instance.ownerPersonaId,
   'default_auto_archive_duration': ?instance.defaultAutoArchiveDuration,
   'default_thread_rate_limit_per_user': ?instance.defaultThreadRateLimitPerUser,
   'available_tags': ?instance.availableTags,

@@ -12,7 +12,7 @@ ApplicationResponse _$ApplicationResponseFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = ApplicationResponse(
-          id: $checkedConvert('id', (v) => v as String? ?? ''),
+          id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
           name: $checkedConvert('name', (v) => v as String? ?? ''),
           redirectUris: $checkedConvert(
             'redirect_uris',

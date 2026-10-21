@@ -12,7 +12,7 @@ GuildExpressionSourceGuildResponse _$GuildExpressionSourceGuildResponseFromJson(
   $checkedConvert,
 ) {
   final val = GuildExpressionSourceGuildResponse(
-    id: $checkedConvert('id', (v) => v as String? ?? ''),
+    id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
     name: $checkedConvert('name', (v) => v as String? ?? ''),
     icon: $checkedConvert('icon', (v) => v as String?),
     features: $checkedConvert(

@@ -10,7 +10,7 @@ GitHubWebhookComment _$GitHubWebhookCommentFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('GitHubWebhookComment', json, ($checkedConvert) {
   final val = GitHubWebhookComment(
-    id: $checkedConvert('id', (v) => v as String? ?? ''),
+    id: $checkedConvert('id', (v) => v as Int64Type? ?? ''),
     htmlUrl: $checkedConvert('html_url', (v) => v as String? ?? ''),
     user: $checkedConvert(
       'user',

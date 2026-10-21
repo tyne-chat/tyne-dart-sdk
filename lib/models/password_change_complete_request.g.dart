@@ -18,7 +18,10 @@ PasswordChangeCompleteRequest _$PasswordChangeCompleteRequestFromJson(
         'verification_proof',
         (v) => v as String? ?? '',
       ),
-      newPassword: $checkedConvert('new_password', (v) => v as String? ?? ''),
+      newPassword: $checkedConvert(
+        'new_password',
+        (v) => v as PasswordType? ?? '',
+      ),
     );
     return val;
   },

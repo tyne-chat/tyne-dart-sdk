@@ -12,7 +12,10 @@ BulkMessageFetchResponseChannels _$BulkMessageFetchResponseChannelsFromJson(
   $checkedConvert,
 ) {
   final val = BulkMessageFetchResponseChannels(
-    channelId: $checkedConvert('channel_id', (v) => v as String? ?? ''),
+    channelId: $checkedConvert(
+      'channel_id',
+      (v) => v as SnowflakeStringType? ?? '',
+    ),
     messages: $checkedConvert(
       'messages',
       (v) =>

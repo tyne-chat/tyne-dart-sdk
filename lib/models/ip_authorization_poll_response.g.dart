@@ -12,7 +12,7 @@ IpAuthorizationPollResponse _$IpAuthorizationPollResponseFromJson(
   final val = IpAuthorizationPollResponse(
     completed: $checkedConvert('completed', (v) => v as bool? ?? false),
     token: $checkedConvert('token', (v) => v as String?),
-    userId: $checkedConvert('user_id', (v) => v as String?),
+    userId: $checkedConvert('user_id', (v) => v as SnowflakeStringType?),
     user: $checkedConvert(
       'user',
       (v) => v == null

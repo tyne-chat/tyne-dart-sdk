@@ -10,7 +10,7 @@ WebhookResponseSourceChannel _$WebhookResponseSourceChannelFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('WebhookResponseSourceChannel', json, ($checkedConvert) {
   final val = WebhookResponseSourceChannel(
-    id: $checkedConvert('id', (v) => v as String? ?? ''),
+    id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
     name: $checkedConvert('name', (v) => v as String? ?? ''),
   );
   return val;

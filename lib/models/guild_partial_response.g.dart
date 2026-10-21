@@ -13,7 +13,7 @@ GuildPartialResponse _$GuildPartialResponseFromJson(
   json,
   ($checkedConvert) {
     final val = GuildPartialResponse(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       name: $checkedConvert('name', (v) => v as String? ?? ''),
       splashCardAlignment: $checkedConvert(
         'splash_card_alignment',
@@ -26,7 +26,11 @@ GuildPartialResponse _$GuildPartialResponseFromJson(
       ),
       features: $checkedConvert(
         'features',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
+        (v) =>
+            (v as List<dynamic>?)
+                ?.map((e) => e as GuildFeatureSchema)
+                .toList() ??
+            [],
       ),
       icon: $checkedConvert('icon', (v) => v as String?),
       banner: $checkedConvert('banner', (v) => v as String?),

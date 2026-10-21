@@ -13,7 +13,10 @@ WebhookMessageEditRequest _$WebhookMessageEditRequestFromJson(
   json,
   ($checkedConvert) {
     final val = WebhookMessageEditRequest._(
-      contentValue: $checkedConvert('content', (v) => v as String?),
+      contentValue: $checkedConvert(
+        'content',
+        (v) => v as MessageContentRequest?,
+      ),
       embeds: $checkedConvert(
         'embeds',
         (v) => (v as List<dynamic>?)

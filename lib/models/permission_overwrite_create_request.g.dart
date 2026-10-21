@@ -17,8 +17,8 @@ PermissionOverwriteCreateRequest _$PermissionOverwriteCreateRequestFromJson(
               ? ChannelOverwriteType.$unknown
               : ChannelOverwriteType.fromJson((v as num).toInt()),
         ),
-        allowValue: $checkedConvert('allow', (v) => v as String?),
-        denyValue: $checkedConvert('deny', (v) => v as String?),
+        allowValue: $checkedConvert('allow', (v) => v as UnsignedInt64Type?),
+        denyValue: $checkedConvert('deny', (v) => v as UnsignedInt64Type?),
       );
       return val;
     }, fieldKeyMap: const {'allowValue': 'allow', 'denyValue': 'deny'});

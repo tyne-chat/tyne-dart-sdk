@@ -14,7 +14,7 @@ WebAuthnTwoFactorRequest _$WebAuthnTwoFactorRequestFromJson(
   ($checkedConvert) {
     final val = WebAuthnTwoFactorRequest(
       enabled: $checkedConvert('enabled', (v) => v as bool? ?? false),
-      password: $checkedConvert('password', (v) => v as String?),
+      password: $checkedConvert('password', (v) => v as PasswordType?),
       mfaMethod: $checkedConvert(
         'mfa_method',
         (v) => v == null

@@ -38,7 +38,7 @@ GuildDsaReportFlowRequest _$GuildDsaReportFlowRequestFromJson(
         (v) => v as String? ?? '',
       ),
       reportType: $checkedConvert('report_type', (v) => v as String? ?? ''),
-      guildId: $checkedConvert('guild_id', (v) => v as String? ?? ''),
+      guildId: $checkedConvert('guild_id', (v) => v as SnowflakeType? ?? ''),
       locale: $checkedConvert('locale', (v) => v as String?),
       reporterFullLegalName: $checkedConvert(
         'reporter_full_legal_name',

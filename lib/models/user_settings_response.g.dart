@@ -32,11 +32,19 @@ UserSettingsResponse _$UserSettingsResponseFromJson(
       ),
       restrictedGuilds: $checkedConvert(
         'restricted_guilds',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
+        (v) =>
+            (v as List<dynamic>?)
+                ?.map((e) => e as SnowflakeStringType)
+                .toList() ??
+            [],
       ),
       botRestrictedGuilds: $checkedConvert(
         'bot_restricted_guilds',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
+        (v) =>
+            (v as List<dynamic>?)
+                ?.map((e) => e as SnowflakeStringType)
+                .toList() ??
+            [],
       ),
       defaultGuildsRestricted: $checkedConvert(
         'default_guilds_restricted',
@@ -156,11 +164,19 @@ UserSettingsResponse _$UserSettingsResponseFromJson(
       ),
       suppressUnprivilegedSelfMentionsBypassUserIds: $checkedConvert(
         'suppress_unprivileged_self_mentions_bypass_user_ids',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
+        (v) =>
+            (v as List<dynamic>?)
+                ?.map((e) => e as SnowflakeStringType)
+                .toList() ??
+            [],
       ),
       staffDmAccessUserIds: $checkedConvert(
         'staff_dm_access_user_ids',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
+        (v) =>
+            (v as List<dynamic>?)
+                ?.map((e) => e as SnowflakeStringType)
+                .toList() ??
+            [],
       ),
       syncedPreferences: $checkedConvert(
         'synced_preferences',

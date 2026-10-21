@@ -13,7 +13,7 @@ ApplicationsMeResponse _$ApplicationsMeResponseFromJson(
   json,
   ($checkedConvert) {
     final val = ApplicationsMeResponse(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       name: $checkedConvert('name', (v) => v as String? ?? ''),
       icon: $checkedConvert('icon', (v) => v as String?),
       description: $checkedConvert('description', (v) => v as String?),

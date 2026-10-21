@@ -15,11 +15,11 @@ HarvestSelfDataRequest _$HarvestSelfDataRequestFromJson(
     final val = HarvestSelfDataRequest._(
       excludedGuildIds: $checkedConvert(
         'excluded_guild_ids',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       includedGuildIds: $checkedConvert(
         'included_guild_ids',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       startDateValue: $checkedConvert(
         'start_date',

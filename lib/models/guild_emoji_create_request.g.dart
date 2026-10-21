@@ -11,7 +11,7 @@ GuildEmojiCreateRequest _$GuildEmojiCreateRequestFromJson(
 ) => $checkedCreate('GuildEmojiCreateRequest', json, ($checkedConvert) {
   final val = GuildEmojiCreateRequest(
     name: $checkedConvert('name', (v) => v as String? ?? ''),
-    image: $checkedConvert('image', (v) => v as String? ?? ''),
+    image: $checkedConvert('image', (v) => v as Base64ImageType? ?? ''),
   );
   return val;
 });

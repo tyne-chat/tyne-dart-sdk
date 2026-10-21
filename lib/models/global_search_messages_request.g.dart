@@ -13,21 +13,24 @@ GlobalSearchMessagesRequest _$GlobalSearchMessagesRequestFromJson(
   json,
   ($checkedConvert) {
     final val = GlobalSearchMessagesRequest(
-      authorId: $checkedConvert(
-        'author_id',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+      mentions: $checkedConvert(
+        'mentions',
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
-      contextGuildId: $checkedConvert('context_guild_id', (v) => v as String?),
+      contextGuildId: $checkedConvert(
+        'context_guild_id',
+        (v) => v as SnowflakeType?,
+      ),
       cursor: $checkedConvert(
         'cursor',
         (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
       ),
-      maxId: $checkedConvert('max_id', (v) => v as String?),
-      minId: $checkedConvert('min_id', (v) => v as String?),
+      maxId: $checkedConvert('max_id', (v) => v as SnowflakeType?),
+      minId: $checkedConvert('min_id', (v) => v as SnowflakeType?),
       content: $checkedConvert('content', (v) => v as String?),
       contextChannelId: $checkedConvert(
         'context_channel_id',
-        (v) => v as String?,
+        (v) => v as SnowflakeType?,
       ),
       exactPhrases: $checkedConvert(
         'exact_phrases',
@@ -35,11 +38,11 @@ GlobalSearchMessagesRequest _$GlobalSearchMessagesRequestFromJson(
       ),
       channelId: $checkedConvert(
         'channel_id',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       excludeChannelId: $checkedConvert(
         'exclude_channel_id',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       authorType: $checkedConvert(
         'author_type',
@@ -53,21 +56,37 @@ GlobalSearchMessagesRequest _$GlobalSearchMessagesRequestFromJson(
             ?.map((e) => MessageAuthorType.fromJson(e as String))
             .toList(),
       ),
+      authorId: $checkedConvert(
+        'author_id',
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
+      ),
+      excludeAuthorId: $checkedConvert(
+        'exclude_author_id',
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
+      ),
       scope: $checkedConvert(
         'scope',
         (v) => v == null ? null : MessageSearchScope.fromJson(v as String),
       ),
-      excludeAuthorId: $checkedConvert(
-        'exclude_author_id',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
-      ),
-      mentions: $checkedConvert(
-        'mentions',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
-      ),
       excludeMentions: $checkedConvert(
         'exclude_mentions',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
+      ),
+      personaId: $checkedConvert(
+        'persona_id',
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
+      ),
+      excludePersonaId: $checkedConvert(
+        'exclude_persona_id',
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
+      ),
+      personaMentions: $checkedConvert(
+        'persona_mentions',
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
+      ),
+      excludePersonaMentions: $checkedConvert(
+        'exclude_persona_mentions',
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       mentionEveryone: $checkedConvert('mention_everyone', (v) => v as bool?),
       pinned: $checkedConvert('pinned', (v) => v as bool?),
@@ -95,16 +114,16 @@ GlobalSearchMessagesRequest _$GlobalSearchMessagesRequestFromJson(
             ?.map((e) => MessageEmbedType.fromJson(e as String))
             .toList(),
       ),
-      embedProvider: $checkedConvert(
-        'embed_provider',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+      channelIds: $checkedConvert(
+        'channel_ids',
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       excludeEmbedProvider: $checkedConvert(
         'exclude_embed_provider',
         (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
       ),
-      channelIds: $checkedConvert(
-        'channel_ids',
+      linkHostname: $checkedConvert(
+        'link_hostname',
         (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
       ),
       excludeLinkHostname: $checkedConvert(
@@ -149,15 +168,14 @@ GlobalSearchMessagesRequest _$GlobalSearchMessagesRequestFromJson(
             ? MessageSortOrder.desc
             : MessageSortOrder.fromJson(v as String),
       ),
-      linkHostname: $checkedConvert(
-        'link_hostname',
+      embedProvider: $checkedConvert(
+        'embed_provider',
         (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
       ),
     );
     return val;
   },
   fieldKeyMap: const {
-    'authorId': 'author_id',
     'contextGuildId': 'context_guild_id',
     'maxId': 'max_id',
     'minId': 'min_id',
@@ -167,15 +185,20 @@ GlobalSearchMessagesRequest _$GlobalSearchMessagesRequestFromJson(
     'excludeChannelId': 'exclude_channel_id',
     'authorType': 'author_type',
     'excludeAuthorType': 'exclude_author_type',
+    'authorId': 'author_id',
     'excludeAuthorId': 'exclude_author_id',
     'excludeMentions': 'exclude_mentions',
+    'personaId': 'persona_id',
+    'excludePersonaId': 'exclude_persona_id',
+    'personaMentions': 'persona_mentions',
+    'excludePersonaMentions': 'exclude_persona_mentions',
     'mentionEveryone': 'mention_everyone',
     'excludeHas': 'exclude_has',
     'embedType': 'embed_type',
     'excludeEmbedType': 'exclude_embed_type',
-    'embedProvider': 'embed_provider',
-    'excludeEmbedProvider': 'exclude_embed_provider',
     'channelIds': 'channel_ids',
+    'excludeEmbedProvider': 'exclude_embed_provider',
+    'linkHostname': 'link_hostname',
     'excludeLinkHostname': 'exclude_link_hostname',
     'attachmentFilename': 'attachment_filename',
     'excludeAttachmentFilename': 'exclude_attachment_filename',
@@ -185,7 +208,7 @@ GlobalSearchMessagesRequest _$GlobalSearchMessagesRequestFromJson(
     'hitsPerPage': 'hits_per_page',
     'sortBy': 'sort_by',
     'sortOrder': 'sort_order',
-    'linkHostname': 'link_hostname',
+    'embedProvider': 'embed_provider',
   },
 );
 
@@ -208,6 +231,10 @@ Map<String, dynamic> _$GlobalSearchMessagesRequestToJson(
   'exclude_author_id': ?instance.excludeAuthorId,
   'mentions': ?instance.mentions,
   'exclude_mentions': ?instance.excludeMentions,
+  'persona_id': ?instance.personaId,
+  'exclude_persona_id': ?instance.excludePersonaId,
+  'persona_mentions': ?instance.personaMentions,
+  'exclude_persona_mentions': ?instance.excludePersonaMentions,
   'mention_everyone': ?instance.mentionEveryone,
   'pinned': ?instance.pinned,
   'has': ?instance.has,

@@ -12,7 +12,7 @@ GuildRoleHoistPositionsRequestItem _$GuildRoleHoistPositionsRequestItemFromJson(
   $checkedConvert,
 ) {
   final val = GuildRoleHoistPositionsRequestItem(
-    id: $checkedConvert('id', (v) => v as String? ?? ''),
+    id: $checkedConvert('id', (v) => v as SnowflakeType? ?? ''),
     hoistPosition: $checkedConvert(
       'hoist_position',
       (v) => (v as num?)?.toInt() ?? 0,
