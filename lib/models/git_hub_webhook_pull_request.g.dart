@@ -10,7 +10,7 @@ GitHubWebhookPullRequest _$GitHubWebhookPullRequestFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('GitHubWebhookPullRequest', json, ($checkedConvert) {
   final val = GitHubWebhookPullRequest(
-    id: $checkedConvert('id', (v) => v as String? ?? ''),
+    id: $checkedConvert('id', (v) => v as Int64Type? ?? ''),
     number: $checkedConvert('number', (v) => (v as num?)?.toInt() ?? 0),
     htmlUrl: $checkedConvert('html_url', (v) => v as String? ?? ''),
     user: $checkedConvert(

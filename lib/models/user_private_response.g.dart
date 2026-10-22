@@ -42,7 +42,7 @@ UserPrivateResponse _$UserPrivateResponseFromJson(
         (v) => v as bool? ?? false,
       ),
       bio: $checkedConvert('bio', (v) => v as String?),
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       accentColor: $checkedConvert('accent_color', (v) => (v as num?)?.toInt()),
       banner: $checkedConvert('banner', (v) => v as String?),
       bannerColor: $checkedConvert('banner_color', (v) => (v as num?)?.toInt()),

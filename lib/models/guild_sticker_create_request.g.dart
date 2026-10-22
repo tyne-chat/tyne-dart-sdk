@@ -11,7 +11,7 @@ GuildStickerCreateRequest _$GuildStickerCreateRequestFromJson(
 ) => $checkedCreate('GuildStickerCreateRequest', json, ($checkedConvert) {
   final val = GuildStickerCreateRequest._(
     name: $checkedConvert('name', (v) => v as String? ?? ''),
-    image: $checkedConvert('image', (v) => v as String? ?? ''),
+    image: $checkedConvert('image', (v) => v as Base64ImageType? ?? ''),
     tags: $checkedConvert(
       'tags',
       (v) =>

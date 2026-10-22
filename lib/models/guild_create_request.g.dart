@@ -11,7 +11,7 @@ GuildCreateRequest _$GuildCreateRequestFromJson(
 ) => $checkedCreate('GuildCreateRequest', json, ($checkedConvert) {
   final val = GuildCreateRequest._(
     name: $checkedConvert('name', (v) => v as String? ?? ''),
-    iconValue: $checkedConvert('icon', (v) => v as String?),
+    iconValue: $checkedConvert('icon', (v) => v as Base64ImageType?),
     emptyFeatures: $checkedConvert('empty_features', (v) => v as bool?),
     template: $checkedConvert(
       'template',

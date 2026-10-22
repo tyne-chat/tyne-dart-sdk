@@ -12,7 +12,7 @@ RecoverAccountRequest _$RecoverAccountRequestFromJson(
   final val = RecoverAccountRequest(
     login: $checkedConvert('login', (v) => v as String? ?? ''),
     recoveryKey: $checkedConvert('recovery_key', (v) => v as String? ?? ''),
-    password: $checkedConvert('password', (v) => v as String? ?? ''),
+    password: $checkedConvert('password', (v) => v as PasswordType? ?? ''),
   );
   return val;
 }, fieldKeyMap: const {'recoveryKey': 'recovery_key'});

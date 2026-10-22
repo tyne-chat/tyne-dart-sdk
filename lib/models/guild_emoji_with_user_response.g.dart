@@ -10,7 +10,7 @@ GuildEmojiWithUserResponse _$GuildEmojiWithUserResponseFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('GuildEmojiWithUserResponse', json, ($checkedConvert) {
   final val = GuildEmojiWithUserResponse(
-    id: $checkedConvert('id', (v) => v as String? ?? ''),
+    id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
     name: $checkedConvert('name', (v) => v as String? ?? ''),
     animated: $checkedConvert('animated', (v) => v as bool? ?? false),
     nsfw: $checkedConvert('nsfw', (v) => v as bool? ?? false),

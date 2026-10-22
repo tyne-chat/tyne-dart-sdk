@@ -14,8 +14,8 @@ MyGuildMemberUpdateRequest _$MyGuildMemberUpdateRequestFromJson(
   ($checkedConvert) {
     final val = MyGuildMemberUpdateRequest._(
       nickValue: $checkedConvert('nick', (v) => v as String?),
-      avatarValue: $checkedConvert('avatar', (v) => v as String?),
-      bannerValue: $checkedConvert('banner', (v) => v as String?),
+      avatarValue: $checkedConvert('avatar', (v) => v as Base64ImageType?),
+      bannerValue: $checkedConvert('banner', (v) => v as Base64ImageType?),
       bioValue: $checkedConvert('bio', (v) => v as String?),
       pronounsValue: $checkedConvert('pronouns', (v) => v as String?),
       accentColorValue: $checkedConvert(
@@ -42,7 +42,7 @@ MyGuildMemberUpdateRequest _$MyGuildMemberUpdateRequestFromJson(
         'timeout_reason',
         (v) => v as String?,
       ),
-      channelIdValue: $checkedConvert('channel_id', (v) => v as String?),
+      channelIdValue: $checkedConvert('channel_id', (v) => v as SnowflakeType?),
       connectionIdValue: $checkedConvert('connection_id', (v) => v as String?),
     );
     return val;

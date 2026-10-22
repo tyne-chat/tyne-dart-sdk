@@ -13,10 +13,13 @@ BotProfileUpdateRequest _$BotProfileUpdateRequestFromJson(
   json,
   ($checkedConvert) {
     final val = BotProfileUpdateRequest._(
-      username: $checkedConvert('username', (v) => v as String?),
-      discriminator: $checkedConvert('discriminator', (v) => v as String?),
-      avatarValue: $checkedConvert('avatar', (v) => v as String?),
-      bannerValue: $checkedConvert('banner', (v) => v as String?),
+      username: $checkedConvert('username', (v) => v as UsernameType?),
+      discriminator: $checkedConvert(
+        'discriminator',
+        (v) => v as DiscriminatorType?,
+      ),
+      avatarValue: $checkedConvert('avatar', (v) => v as Base64ImageType?),
+      bannerValue: $checkedConvert('banner', (v) => v as Base64ImageType?),
       bioValue: $checkedConvert('bio', (v) => v as String?),
       botFlags: $checkedConvert('bot_flags', (v) => (v as num?)?.toInt()),
     );

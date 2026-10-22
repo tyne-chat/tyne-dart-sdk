@@ -22,6 +22,7 @@ class InstanceFeaturesSchema {
     required this.emailsEnabled,
     required this.phoneVerificationEnabled,
     this.desktopModulesEnabled,
+    this.discoveryEnabled,
     this.accountDeletionGracePeriodHours,
     this.maxBackgroundGatewayConnections,
     this.accountIdentity,
@@ -66,6 +67,10 @@ class InstanceFeaturesSchema {
   /// Whether desktop clients may load downloadable modules
   @JsonKey(includeIfNull: false, name: 'desktop_modules_enabled')
   final bool? desktopModulesEnabled;
+
+  /// Whether community discovery is enabled
+  @JsonKey(includeIfNull: false, name: 'discovery_enabled')
+  final bool? discoveryEnabled;
 
   /// Hours between a deletion request and the permanent deletion of the account
   @JsonKey(includeIfNull: false, name: 'account_deletion_grace_period_hours')

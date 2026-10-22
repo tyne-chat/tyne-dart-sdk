@@ -13,8 +13,11 @@ UserPasswordUpdateRequest _$UserPasswordUpdateRequestFromJson(
   json,
   ($checkedConvert) {
     final val = UserPasswordUpdateRequest(
-      newPassword: $checkedConvert('new_password', (v) => v as String? ?? ''),
-      password: $checkedConvert('password', (v) => v as String?),
+      newPassword: $checkedConvert(
+        'new_password',
+        (v) => v as PasswordType? ?? '',
+      ),
+      password: $checkedConvert('password', (v) => v as PasswordType?),
       mfaMethod: $checkedConvert(
         'mfa_method',
         (v) => v == null

@@ -14,7 +14,7 @@ ForumTagRequest _$ForumTagRequestFromJson(Map<String, dynamic> json) =>
         final val = ForumTagRequest._(
           name: $checkedConvert('name', (v) => v as String? ?? ''),
           moderated: $checkedConvert('moderated', (v) => v as bool?),
-          emojiIdValue: $checkedConvert('emoji_id', (v) => v as String?),
+          emojiIdValue: $checkedConvert('emoji_id', (v) => v as SnowflakeType?),
           emojiNameValue: $checkedConvert('emoji_name', (v) => v as String?),
         );
         return val;

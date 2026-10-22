@@ -9,7 +9,7 @@ part of 'bot_profile_response.dart';
 BotProfileResponse _$BotProfileResponseFromJson(Map<String, dynamic> json) =>
     $checkedCreate('BotProfileResponse', json, ($checkedConvert) {
       final val = BotProfileResponse(
-        id: $checkedConvert('id', (v) => v as String? ?? ''),
+        id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
         username: $checkedConvert('username', (v) => v as String? ?? ''),
         discriminator: $checkedConvert(
           'discriminator',

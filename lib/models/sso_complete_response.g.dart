@@ -10,7 +10,10 @@ SsoCompleteResponse _$SsoCompleteResponseFromJson(Map<String, dynamic> json) =>
     $checkedCreate('SsoCompleteResponse', json, ($checkedConvert) {
       final val = SsoCompleteResponse(
         token: $checkedConvert('token', (v) => v as String? ?? ''),
-        userId: $checkedConvert('user_id', (v) => v as String? ?? ''),
+        userId: $checkedConvert(
+          'user_id',
+          (v) => v as SnowflakeStringType? ?? '',
+        ),
         user: $checkedConvert(
           'user',
           (v) => v == null

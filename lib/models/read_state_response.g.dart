@@ -12,20 +12,23 @@ ReadStateResponse _$ReadStateResponseFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = ReadStateResponse(
-          id: $checkedConvert('id', (v) => v as String? ?? ''),
+          id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
           mentionCount: $checkedConvert(
             'mention_count',
             (v) => (v as num?)?.toInt() ?? 0,
           ),
           lastMessageId: $checkedConvert(
             'last_message_id',
-            (v) => v as String?,
+            (v) => v as SnowflakeStringType?,
           ),
           lastPinTimestamp: $checkedConvert(
             'last_pin_timestamp',
             (v) => v as String?,
           ),
-          version: $checkedConvert('version', (v) => v as String?),
+          version: $checkedConvert(
+            'version',
+            (v) => v as UnsignedInt64StringType?,
+          ),
           flags: $checkedConvert('flags', (v) => (v as num?)?.toInt()),
         );
         return val;

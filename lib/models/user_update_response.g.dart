@@ -56,7 +56,7 @@ UserUpdateResponse _$UserUpdateResponseFromJson(
       ),
       bio: $checkedConvert('bio', (v) => v as String?),
       pronouns: $checkedConvert('pronouns', (v) => v as String?),
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       unreadGiftInventoryCount: $checkedConvert(
         'unread_gift_inventory_count',
         (v) => (v as num?)?.toInt() ?? 0,

@@ -29,7 +29,8 @@ _$ChannelUpdatePublicThreadRequestBodyFromJson(Map<String, dynamic> json) =>
           flags: $checkedConvert('flags', (v) => (v as num?)?.toInt()),
           appliedTags: $checkedConvert(
             'applied_tags',
-            (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+            (v) =>
+                (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
           ),
         );
         return val;

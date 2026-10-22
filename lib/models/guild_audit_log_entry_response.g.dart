@@ -13,14 +13,14 @@ GuildAuditLogEntryResponse _$GuildAuditLogEntryResponseFromJson(
   json,
   ($checkedConvert) {
     final val = GuildAuditLogEntryResponse(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       actionType: $checkedConvert(
         'action_type',
         (v) => v == null
             ? AuditLogActionType.$unknown
             : AuditLogActionType.fromJson((v as num).toInt()),
       ),
-      userId: $checkedConvert('user_id', (v) => v as String?),
+      userId: $checkedConvert('user_id', (v) => v as SnowflakeStringType?),
       targetId: $checkedConvert('target_id', (v) => v as String?),
       reason: $checkedConvert('reason', (v) => v as String?),
       options: $checkedConvert(

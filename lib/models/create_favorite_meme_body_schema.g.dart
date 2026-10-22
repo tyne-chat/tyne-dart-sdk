@@ -20,7 +20,10 @@ CreateFavoriteMemeBodySchema _$CreateFavoriteMemeBodySchemaFromJson(
             (v as List<dynamic>?)?.map((e) => e as String).toList() ?? const [],
       ),
       altTextValue: $checkedConvert('alt_text', (v) => v as String?),
-      attachmentIdValue: $checkedConvert('attachment_id', (v) => v as String?),
+      attachmentIdValue: $checkedConvert(
+        'attachment_id',
+        (v) => v as SnowflakeType?,
+      ),
       embedIndexValue: $checkedConvert(
         'embed_index',
         (v) => (v as num?)?.toInt(),

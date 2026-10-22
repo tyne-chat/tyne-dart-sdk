@@ -13,7 +13,7 @@ EntranceSoundResponse _$EntranceSoundResponseFromJson(
   json,
   ($checkedConvert) {
     final val = EntranceSoundResponse(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       name: $checkedConvert('name', (v) => v as String? ?? ''),
       hash: $checkedConvert('hash', (v) => v as String? ?? ''),
       extensionEnum: $checkedConvert(

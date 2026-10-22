@@ -11,7 +11,7 @@ ResetPasswordRequest _$ResetPasswordRequestFromJson(
 ) => $checkedCreate('ResetPasswordRequest', json, ($checkedConvert) {
   final val = ResetPasswordRequest(
     token: $checkedConvert('token', (v) => v as String? ?? ''),
-    password: $checkedConvert('password', (v) => v as String? ?? ''),
+    password: $checkedConvert('password', (v) => v as PasswordType? ?? ''),
   );
   return val;
 });

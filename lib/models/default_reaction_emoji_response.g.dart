@@ -10,7 +10,7 @@ DefaultReactionEmojiResponse _$DefaultReactionEmojiResponseFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('DefaultReactionEmojiResponse', json, ($checkedConvert) {
   final val = DefaultReactionEmojiResponse(
-    emojiId: $checkedConvert('emoji_id', (v) => v as String?),
+    emojiId: $checkedConvert('emoji_id', (v) => v as SnowflakeStringType?),
     emojiName: $checkedConvert('emoji_name', (v) => v as String?),
   );
   return val;

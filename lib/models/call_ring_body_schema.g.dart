@@ -11,7 +11,7 @@ CallRingBodySchema _$CallRingBodySchemaFromJson(Map<String, dynamic> json) =>
       final val = CallRingBodySchema(
         recipients: $checkedConvert(
           'recipients',
-          (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+          (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
         ),
         latitude: $checkedConvert('latitude', (v) => v as String?),
         longitude: $checkedConvert('longitude', (v) => v as String?),

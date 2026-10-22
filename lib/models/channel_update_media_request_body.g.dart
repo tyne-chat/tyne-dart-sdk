@@ -15,7 +15,7 @@ ChannelUpdateMediaRequestBody _$ChannelUpdateMediaRequestBodyFromJson(
     final val = ChannelUpdateMediaRequestBody._(
       topicValue: $checkedConvert('topic', (v) => v as String?),
       urlValue: $checkedConvert('url', (v) => v as String?),
-      parentIdValue: $checkedConvert('parent_id', (v) => v as String?),
+      parentIdValue: $checkedConvert('parent_id', (v) => v as SnowflakeType?),
       bitrateValue: $checkedConvert('bitrate', (v) => (v as num?)?.toInt()),
       userLimitValue: $checkedConvert(
         'user_limit',
@@ -51,8 +51,8 @@ ChannelUpdateMediaRequestBody _$ChannelUpdateMediaRequestBodyFromJson(
         'content_warning_text',
         (v) => v as String?,
       ),
-      iconValue: $checkedConvert('icon', (v) => v as String?),
-      ownerIdValue: $checkedConvert('owner_id', (v) => v as String?),
+      iconValue: $checkedConvert('icon', (v) => v as Base64ImageType?),
+      ownerIdValue: $checkedConvert('owner_id', (v) => v as SnowflakeType?),
       nicks: $checkedConvert(
         'nicks',
         (v) => (v as Map<String, dynamic>?)?.map(

@@ -14,7 +14,7 @@ _$ChannelUpdateRequestBodyVariant3PermissionOverwritesFromJson(
   json,
   ($checkedConvert) {
     final val = ChannelUpdateRequestBodyVariant3PermissionOverwrites(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeType? ?? ''),
       type: $checkedConvert(
         'type',
         (v) => v == null
@@ -24,8 +24,8 @@ _$ChannelUpdateRequestBodyVariant3PermissionOverwritesFromJson(
                 (v as num).toInt(),
               ),
       ),
-      allow: $checkedConvert('allow', (v) => v as String?),
-      deny: $checkedConvert('deny', (v) => v as String?),
+      allow: $checkedConvert('allow', (v) => v as UnsignedInt64Type?),
+      deny: $checkedConvert('deny', (v) => v as UnsignedInt64Type?),
     );
     return val;
   },

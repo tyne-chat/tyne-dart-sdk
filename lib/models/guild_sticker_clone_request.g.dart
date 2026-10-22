@@ -12,7 +12,7 @@ GuildStickerCloneRequest _$GuildStickerCloneRequestFromJson(
   final val = GuildStickerCloneRequest(
     sourceStickerId: $checkedConvert(
       'source_sticker_id',
-      (v) => v as String? ?? '',
+      (v) => v as SnowflakeType? ?? '',
     ),
   );
   return val;

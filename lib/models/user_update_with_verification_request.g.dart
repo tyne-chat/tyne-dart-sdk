@@ -13,14 +13,17 @@ UserUpdateWithVerificationRequest _$UserUpdateWithVerificationRequestFromJson(
   json,
   ($checkedConvert) {
     final val = UserUpdateWithVerificationRequest._(
-      username: $checkedConvert('username', (v) => v as String?),
-      discriminator: $checkedConvert('discriminator', (v) => v as String?),
+      username: $checkedConvert('username', (v) => v as UsernameType?),
+      discriminator: $checkedConvert(
+        'discriminator',
+        (v) => v as DiscriminatorType?,
+      ),
       globalNameValue: $checkedConvert('global_name', (v) => v as String?),
-      email: $checkedConvert('email', (v) => v as String?),
-      newPassword: $checkedConvert('new_password', (v) => v as String?),
-      password: $checkedConvert('password', (v) => v as String?),
-      avatarValue: $checkedConvert('avatar', (v) => v as String?),
-      bannerValue: $checkedConvert('banner', (v) => v as String?),
+      email: $checkedConvert('email', (v) => v as EmailType?),
+      newPassword: $checkedConvert('new_password', (v) => v as PasswordType?),
+      password: $checkedConvert('password', (v) => v as PasswordType?),
+      avatarValue: $checkedConvert('avatar', (v) => v as Base64ImageType?),
+      bannerValue: $checkedConvert('banner', (v) => v as Base64ImageType?),
       bioValue: $checkedConvert('bio', (v) => v as String?),
       pronounsValue: $checkedConvert('pronouns', (v) => v as String?),
       accentColorValue: $checkedConvert(

@@ -12,7 +12,7 @@ ChannelFollowRequest _$ChannelFollowRequestFromJson(
   final val = ChannelFollowRequest(
     webhookChannelId: $checkedConvert(
       'webhook_channel_id',
-      (v) => v as String? ?? '',
+      (v) => v as SnowflakeType? ?? '',
     ),
   );
   return val;

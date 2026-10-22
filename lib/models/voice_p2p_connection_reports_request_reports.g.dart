@@ -14,8 +14,11 @@ _$VoiceP2pConnectionReportsRequestReportsFromJson(
   json,
   ($checkedConvert) {
     final val = VoiceP2pConnectionReportsRequestReports(
-      channelId: $checkedConvert('channel_id', (v) => v as String? ?? ''),
-      guildId: $checkedConvert('guild_id', (v) => v as String?),
+      channelId: $checkedConvert(
+        'channel_id',
+        (v) => v as SnowflakeType? ?? '',
+      ),
+      guildId: $checkedConvert('guild_id', (v) => v as SnowflakeType?),
       participantCount: $checkedConvert(
         'participant_count',
         (v) => (v as num?)?.toInt() ?? 0,

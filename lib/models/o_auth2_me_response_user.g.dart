@@ -13,7 +13,7 @@ OAuth2MeResponseUser _$OAuth2MeResponseUserFromJson(
   json,
   ($checkedConvert) {
     final val = OAuth2MeResponseUser(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       username: $checkedConvert('username', (v) => v as String? ?? ''),
       discriminator: $checkedConvert(
         'discriminator',

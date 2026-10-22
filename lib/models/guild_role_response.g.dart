@@ -13,11 +13,14 @@ GuildRoleResponse _$GuildRoleResponseFromJson(
   json,
   ($checkedConvert) {
     final val = GuildRoleResponse(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       name: $checkedConvert('name', (v) => v as String? ?? ''),
       color: $checkedConvert('color', (v) => (v as num?)?.toInt() ?? 0),
       position: $checkedConvert('position', (v) => (v as num?)?.toInt() ?? 0),
-      permissions: $checkedConvert('permissions', (v) => v as String? ?? ''),
+      permissions: $checkedConvert(
+        'permissions',
+        (v) => v as Permissions? ?? '',
+      ),
       hoist: $checkedConvert('hoist', (v) => v as bool? ?? false),
       mentionable: $checkedConvert('mentionable', (v) => v as bool? ?? false),
       hoistPosition: $checkedConvert(

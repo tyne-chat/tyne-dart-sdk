@@ -13,7 +13,7 @@ MessageAttachmentResponse _$MessageAttachmentResponseFromJson(
   json,
   ($checkedConvert) {
     final val = MessageAttachmentResponse(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       filename: $checkedConvert('filename', (v) => v as String? ?? ''),
       size: $checkedConvert('size', (v) => (v as num?)?.toInt() ?? 0),
       flags: $checkedConvert('flags', (v) => (v as num?)?.toInt() ?? 0),

@@ -13,7 +13,7 @@ BotTokenResetResponseBot _$BotTokenResetResponseBotFromJson(
   json,
   ($checkedConvert) {
     final val = BotTokenResetResponseBot(
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       username: $checkedConvert('username', (v) => v as String? ?? ''),
       discriminator: $checkedConvert(
         'discriminator',

@@ -13,10 +13,10 @@ RegisterRequest _$RegisterRequestFromJson(Map<String, dynamic> json) =>
       ($checkedConvert) {
         final val = RegisterRequest._(
           consent: $checkedConvert('consent', (v) => v as bool? ?? false),
-          email: $checkedConvert('email', (v) => v as String?),
-          username: $checkedConvert('username', (v) => v as String?),
+          email: $checkedConvert('email', (v) => v as EmailType?),
+          username: $checkedConvert('username', (v) => v as UsernameType?),
           globalName: $checkedConvert('global_name', (v) => v as String?),
-          password: $checkedConvert('password', (v) => v as String?),
+          password: $checkedConvert('password', (v) => v as PasswordType?),
           dateOfBirth: $checkedConvert('date_of_birth', (v) => v as String?),
           inviteCodeValue: $checkedConvert('invite_code', (v) => v as String?),
           registrationUrlCodeValue: $checkedConvert(

@@ -13,13 +13,13 @@ AuthorizeConsentRequest _$AuthorizeConsentRequestFromJson(
   json,
   ($checkedConvert) {
     final val = AuthorizeConsentRequest(
-      clientId: $checkedConvert('client_id', (v) => v as String? ?? ''),
+      clientId: $checkedConvert('client_id', (v) => v as SnowflakeType? ?? ''),
       scope: $checkedConvert('scope', (v) => v as String? ?? ''),
       responseType: $checkedConvert('response_type', (v) => v as String?),
       redirectUri: $checkedConvert('redirect_uri', (v) => v as String?),
       state: $checkedConvert('state', (v) => v as String?),
-      guildId: $checkedConvert('guild_id', (v) => v as String?),
-      channelId: $checkedConvert('channel_id', (v) => v as String?),
+      guildId: $checkedConvert('guild_id', (v) => v as SnowflakeType?),
+      channelId: $checkedConvert('channel_id', (v) => v as SnowflakeType?),
       permissions: $checkedConvert('permissions', (v) => v as String?),
       codeChallenge: $checkedConvert('code_challenge', (v) => v as String?),
       codeChallengeMethod: $checkedConvert(

@@ -11,7 +11,7 @@ AuthTokenWithUserIdResponse _$AuthTokenWithUserIdResponseFromJson(
 ) => $checkedCreate('AuthTokenWithUserIdResponse', json, ($checkedConvert) {
   final val = AuthTokenWithUserIdResponse(
     token: $checkedConvert('token', (v) => v as String? ?? ''),
-    userId: $checkedConvert('user_id', (v) => v as String? ?? ''),
+    userId: $checkedConvert('user_id', (v) => v as SnowflakeStringType? ?? ''),
     user: $checkedConvert(
       'user',
       (v) => v == null

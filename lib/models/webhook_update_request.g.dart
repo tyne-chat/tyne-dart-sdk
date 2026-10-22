@@ -11,8 +11,8 @@ WebhookUpdateRequest _$WebhookUpdateRequestFromJson(
 ) => $checkedCreate('WebhookUpdateRequest', json, ($checkedConvert) {
   final val = WebhookUpdateRequest._(
     name: $checkedConvert('name', (v) => v as String?),
-    avatarValue: $checkedConvert('avatar', (v) => v as String?),
-    channelId: $checkedConvert('channel_id', (v) => v as String?),
+    avatarValue: $checkedConvert('avatar', (v) => v as Base64ImageType?),
+    channelId: $checkedConvert('channel_id', (v) => v as SnowflakeType?),
   );
   return val;
 }, fieldKeyMap: const {'avatarValue': 'avatar', 'channelId': 'channel_id'});

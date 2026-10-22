@@ -13,7 +13,10 @@ MobileDevicesListResponseDevices _$MobileDevicesListResponseDevicesFromJson(
   json,
   ($checkedConvert) {
     final val = MobileDevicesListResponseDevices(
-      deviceId: $checkedConvert('device_id', (v) => v as String? ?? ''),
+      deviceId: $checkedConvert(
+        'device_id',
+        (v) => v as HexString32Type? ?? '',
+      ),
       platform: $checkedConvert('platform', (v) => v as String? ?? ''),
       appId: $checkedConvert('app_id', (v) => v as String?),
       providerEnvironment: $checkedConvert(

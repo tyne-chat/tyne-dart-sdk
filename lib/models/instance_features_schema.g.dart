@@ -46,6 +46,7 @@ InstanceFeaturesSchema _$InstanceFeaturesSchemaFromJson(
         'desktop_modules_enabled',
         (v) => v as bool?,
       ),
+      discoveryEnabled: $checkedConvert('discovery_enabled', (v) => v as bool?),
       accountDeletionGracePeriodHours: $checkedConvert(
         'account_deletion_grace_period_hours',
         (v) => (v as num?)?.toInt(),
@@ -76,6 +77,7 @@ InstanceFeaturesSchema _$InstanceFeaturesSchemaFromJson(
     'emailsEnabled': 'emails_enabled',
     'phoneVerificationEnabled': 'phone_verification_enabled',
     'desktopModulesEnabled': 'desktop_modules_enabled',
+    'discoveryEnabled': 'discovery_enabled',
     'accountDeletionGracePeriodHours': 'account_deletion_grace_period_hours',
     'maxBackgroundGatewayConnections': 'max_background_gateway_connections',
     'accountIdentity': 'account_identity',
@@ -95,6 +97,7 @@ Map<String, dynamic> _$InstanceFeaturesSchemaToJson(
   'emails_enabled': instance.emailsEnabled,
   'phone_verification_enabled': instance.phoneVerificationEnabled,
   'desktop_modules_enabled': ?instance.desktopModulesEnabled,
+  'discovery_enabled': ?instance.discoveryEnabled,
   'account_deletion_grace_period_hours':
       ?instance.accountDeletionGracePeriodHours,
   'max_background_gateway_connections':

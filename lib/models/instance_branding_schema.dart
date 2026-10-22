@@ -21,6 +21,7 @@ class InstanceBrandingSchema {
     required this.statusPageIncidentHistoryUrl,
     required this.premiumProductName,
     required this.premiumInfoUrl,
+    this.desktopAppPromptEnabled = true,
   });
 
   factory InstanceBrandingSchema.fromJson(Map<String, Object?> json) =>
@@ -69,6 +70,10 @@ class InstanceBrandingSchema {
   /// Optional absolute URL of a page describing the premium tier
   @JsonKey(includeIfNull: true, name: 'premium_info_url')
   final String? premiumInfoUrl;
+
+  /// Whether the web app shows prompts to open deep links or download the desktop app
+  @JsonKey(name: 'desktop_app_prompt_enabled')
+  final bool desktopAppPromptEnabled;
 
   Map<String, Object?> toJson() => _$InstanceBrandingSchemaToJson(this);
 }

@@ -13,7 +13,7 @@ DefaultReactionEmojiRequest _$DefaultReactionEmojiRequestFromJson(
   json,
   ($checkedConvert) {
     final val = DefaultReactionEmojiRequest._(
-      emojiIdValue: $checkedConvert('emoji_id', (v) => v as String?),
+      emojiIdValue: $checkedConvert('emoji_id', (v) => v as SnowflakeType?),
       emojiNameValue: $checkedConvert('emoji_name', (v) => v as String?),
     );
     return val;

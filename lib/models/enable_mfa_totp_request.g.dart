@@ -15,7 +15,7 @@ EnableMfaTotpRequest _$EnableMfaTotpRequestFromJson(
     final val = EnableMfaTotpRequest(
       secret: $checkedConvert('secret', (v) => v as String? ?? ''),
       code: $checkedConvert('code', (v) => v as String? ?? ''),
-      password: $checkedConvert('password', (v) => v as String?),
+      password: $checkedConvert('password', (v) => v as PasswordType?),
       mfaMethod: $checkedConvert(
         'mfa_method',
         (v) => v == null

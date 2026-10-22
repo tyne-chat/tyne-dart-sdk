@@ -11,7 +11,7 @@ EntranceSoundUploadRequest _$EntranceSoundUploadRequestFromJson(
 ) => $checkedCreate('EntranceSoundUploadRequest', json, ($checkedConvert) {
   final val = EntranceSoundUploadRequest(
     name: $checkedConvert('name', (v) => v as String? ?? ''),
-    audio: $checkedConvert('audio', (v) => v as String? ?? ''),
+    audio: $checkedConvert('audio', (v) => v as Base64ImageType? ?? ''),
   );
   return val;
 });

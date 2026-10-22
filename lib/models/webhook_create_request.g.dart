@@ -11,7 +11,7 @@ WebhookCreateRequest _$WebhookCreateRequestFromJson(
 ) => $checkedCreate('WebhookCreateRequest', json, ($checkedConvert) {
   final val = WebhookCreateRequest._(
     name: $checkedConvert('name', (v) => v as String? ?? ''),
-    avatarValue: $checkedConvert('avatar', (v) => v as String?),
+    avatarValue: $checkedConvert('avatar', (v) => v as Base64ImageType?),
   );
   return val;
 }, fieldKeyMap: const {'avatarValue': 'avatar'});

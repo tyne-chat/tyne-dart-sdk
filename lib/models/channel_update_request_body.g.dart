@@ -15,7 +15,7 @@ ChannelUpdateRequestBodyVariant1 _$ChannelUpdateRequestBodyVariant1FromJson(
     final val = ChannelUpdateRequestBodyVariant1(
       topic: $checkedConvert('topic', (v) => v as String?),
       url: $checkedConvert('url', (v) => v as String?),
-      parentId: $checkedConvert('parent_id', (v) => v as String?),
+      parentId: $checkedConvert('parent_id', (v) => v as SnowflakeType?),
       bitrate: $checkedConvert('bitrate', (v) => (v as num?)?.toInt()),
       userLimit: $checkedConvert('user_limit', (v) => (v as num?)?.toInt()),
       voiceConnectionLimit: $checkedConvert(
@@ -49,8 +49,8 @@ ChannelUpdateRequestBodyVariant1 _$ChannelUpdateRequestBodyVariant1FromJson(
         'content_warning_text',
         (v) => v as String?,
       ),
-      icon: $checkedConvert('icon', (v) => v as String?),
-      ownerId: $checkedConvert('owner_id', (v) => v as String?),
+      icon: $checkedConvert('icon', (v) => v as Base64ImageType?),
+      ownerId: $checkedConvert('owner_id', (v) => v as SnowflakeType?),
       nicks: $checkedConvert(
         'nicks',
         (v) => (v as Map<String, dynamic>?)?.map(
@@ -112,7 +112,7 @@ ChannelUpdateRequestBodyVariant2 _$ChannelUpdateRequestBodyVariant2FromJson(
     final val = ChannelUpdateRequestBodyVariant2(
       topic: $checkedConvert('topic', (v) => v as String?),
       url: $checkedConvert('url', (v) => v as String?),
-      parentId: $checkedConvert('parent_id', (v) => v as String?),
+      parentId: $checkedConvert('parent_id', (v) => v as SnowflakeType?),
       bitrate: $checkedConvert('bitrate', (v) => (v as num?)?.toInt()),
       userLimit: $checkedConvert('user_limit', (v) => (v as num?)?.toInt()),
       voiceConnectionLimit: $checkedConvert(
@@ -146,8 +146,8 @@ ChannelUpdateRequestBodyVariant2 _$ChannelUpdateRequestBodyVariant2FromJson(
         'content_warning_text',
         (v) => v as String?,
       ),
-      icon: $checkedConvert('icon', (v) => v as String?),
-      ownerId: $checkedConvert('owner_id', (v) => v as String?),
+      icon: $checkedConvert('icon', (v) => v as Base64ImageType?),
+      ownerId: $checkedConvert('owner_id', (v) => v as SnowflakeType?),
       nicks: $checkedConvert(
         'nicks',
         (v) => (v as Map<String, dynamic>?)?.map(
@@ -209,7 +209,7 @@ ChannelUpdateRequestBodyVariant3 _$ChannelUpdateRequestBodyVariant3FromJson(
     final val = ChannelUpdateRequestBodyVariant3(
       topic: $checkedConvert('topic', (v) => v as String?),
       url: $checkedConvert('url', (v) => v as String?),
-      parentId: $checkedConvert('parent_id', (v) => v as String?),
+      parentId: $checkedConvert('parent_id', (v) => v as SnowflakeType?),
       bitrate: $checkedConvert('bitrate', (v) => (v as num?)?.toInt()),
       userLimit: $checkedConvert('user_limit', (v) => (v as num?)?.toInt()),
       voiceConnectionLimit: $checkedConvert(
@@ -243,8 +243,8 @@ ChannelUpdateRequestBodyVariant3 _$ChannelUpdateRequestBodyVariant3FromJson(
         'content_warning_text',
         (v) => v as String?,
       ),
-      icon: $checkedConvert('icon', (v) => v as String?),
-      ownerId: $checkedConvert('owner_id', (v) => v as String?),
+      icon: $checkedConvert('icon', (v) => v as Base64ImageType?),
+      ownerId: $checkedConvert('owner_id', (v) => v as SnowflakeType?),
       nicks: $checkedConvert(
         'nicks',
         (v) => (v as Map<String, dynamic>?)?.map(
@@ -304,7 +304,7 @@ ChannelUpdateRequestBodyVariant4 _$ChannelUpdateRequestBodyVariant4FromJson(
     final val = ChannelUpdateRequestBodyVariant4(
       topic: $checkedConvert('topic', (v) => v as String?),
       url: $checkedConvert('url', (v) => v as String?),
-      parentId: $checkedConvert('parent_id', (v) => v as String?),
+      parentId: $checkedConvert('parent_id', (v) => v as SnowflakeType?),
       bitrate: $checkedConvert('bitrate', (v) => (v as num?)?.toInt()),
       userLimit: $checkedConvert('user_limit', (v) => (v as num?)?.toInt()),
       voiceConnectionLimit: $checkedConvert(
@@ -338,8 +338,8 @@ ChannelUpdateRequestBodyVariant4 _$ChannelUpdateRequestBodyVariant4FromJson(
         'content_warning_text',
         (v) => v as String?,
       ),
-      icon: $checkedConvert('icon', (v) => v as String?),
-      ownerId: $checkedConvert('owner_id', (v) => v as String?),
+      icon: $checkedConvert('icon', (v) => v as Base64ImageType?),
+      ownerId: $checkedConvert('owner_id', (v) => v as SnowflakeType?),
       nicks: $checkedConvert(
         'nicks',
         (v) => (v as Map<String, dynamic>?)?.map(
@@ -399,7 +399,7 @@ ChannelUpdateRequestBodyVariant5 _$ChannelUpdateRequestBodyVariant5FromJson(
     final val = ChannelUpdateRequestBodyVariant5(
       topic: $checkedConvert('topic', (v) => v as String?),
       url: $checkedConvert('url', (v) => v as String?),
-      parentId: $checkedConvert('parent_id', (v) => v as String?),
+      parentId: $checkedConvert('parent_id', (v) => v as SnowflakeType?),
       bitrate: $checkedConvert('bitrate', (v) => (v as num?)?.toInt()),
       userLimit: $checkedConvert('user_limit', (v) => (v as num?)?.toInt()),
       voiceConnectionLimit: $checkedConvert(
@@ -433,8 +433,8 @@ ChannelUpdateRequestBodyVariant5 _$ChannelUpdateRequestBodyVariant5FromJson(
         'content_warning_text',
         (v) => v as String?,
       ),
-      icon: $checkedConvert('icon', (v) => v as String?),
-      ownerId: $checkedConvert('owner_id', (v) => v as String?),
+      icon: $checkedConvert('icon', (v) => v as Base64ImageType?),
+      ownerId: $checkedConvert('owner_id', (v) => v as SnowflakeType?),
       nicks: $checkedConvert(
         'nicks',
         (v) => (v as Map<String, dynamic>?)?.map(
@@ -491,8 +491,8 @@ ChannelUpdateRequestBodyVariant6 _$ChannelUpdateRequestBodyVariant6FromJson(
     $checkedCreate('ChannelUpdateRequestBodyVariant6', json, ($checkedConvert) {
       final val = ChannelUpdateRequestBodyVariant6(
         name: $checkedConvert('name', (v) => v as String?),
-        icon: $checkedConvert('icon', (v) => v as String?),
-        ownerId: $checkedConvert('owner_id', (v) => v as String?),
+        icon: $checkedConvert('icon', (v) => v as Base64ImageType?),
+        ownerId: $checkedConvert('owner_id', (v) => v as SnowflakeType?),
         nicks: $checkedConvert(
           'nicks',
           (v) => (v as Map<String, dynamic>?)?.map(
@@ -538,7 +538,7 @@ _$ChannelUpdateRequestBodyChannelUpdatePublicThreadRequestBodyFromJson(
       flags: $checkedConvert('flags', (v) => (v as num?)?.toInt()),
       appliedTags: $checkedConvert(
         'applied_tags',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
     );
     return val;
@@ -653,7 +653,7 @@ _$ChannelUpdateRequestBodyChannelUpdateForumRequestBodyFromJson(
     final val = ChannelUpdateRequestBodyChannelUpdateForumRequestBody(
       topic: $checkedConvert('topic', (v) => v as String?),
       url: $checkedConvert('url', (v) => v as String?),
-      parentId: $checkedConvert('parent_id', (v) => v as String?),
+      parentId: $checkedConvert('parent_id', (v) => v as SnowflakeType?),
       bitrate: $checkedConvert('bitrate', (v) => (v as num?)?.toInt()),
       userLimit: $checkedConvert('user_limit', (v) => (v as num?)?.toInt()),
       voiceConnectionLimit: $checkedConvert(
@@ -686,8 +686,8 @@ _$ChannelUpdateRequestBodyChannelUpdateForumRequestBodyFromJson(
         'content_warning_text',
         (v) => v as String?,
       ),
-      icon: $checkedConvert('icon', (v) => v as String?),
-      ownerId: $checkedConvert('owner_id', (v) => v as String?),
+      icon: $checkedConvert('icon', (v) => v as Base64ImageType?),
+      ownerId: $checkedConvert('owner_id', (v) => v as SnowflakeType?),
       nicks: $checkedConvert(
         'nicks',
         (v) => (v as Map<String, dynamic>?)?.map(
@@ -804,7 +804,7 @@ _$ChannelUpdateRequestBodyChannelUpdateMediaRequestBodyFromJson(
     final val = ChannelUpdateRequestBodyChannelUpdateMediaRequestBody(
       topic: $checkedConvert('topic', (v) => v as String?),
       url: $checkedConvert('url', (v) => v as String?),
-      parentId: $checkedConvert('parent_id', (v) => v as String?),
+      parentId: $checkedConvert('parent_id', (v) => v as SnowflakeType?),
       bitrate: $checkedConvert('bitrate', (v) => (v as num?)?.toInt()),
       userLimit: $checkedConvert('user_limit', (v) => (v as num?)?.toInt()),
       voiceConnectionLimit: $checkedConvert(
@@ -837,8 +837,8 @@ _$ChannelUpdateRequestBodyChannelUpdateMediaRequestBodyFromJson(
         'content_warning_text',
         (v) => v as String?,
       ),
-      icon: $checkedConvert('icon', (v) => v as String?),
-      ownerId: $checkedConvert('owner_id', (v) => v as String?),
+      icon: $checkedConvert('icon', (v) => v as Base64ImageType?),
+      ownerId: $checkedConvert('owner_id', (v) => v as SnowflakeType?),
       nicks: $checkedConvert(
         'nicks',
         (v) => (v as Map<String, dynamic>?)?.map(

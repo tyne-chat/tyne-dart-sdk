@@ -10,8 +10,11 @@ GuildEmojiMetadataResponse _$GuildEmojiMetadataResponseFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('GuildEmojiMetadataResponse', json, ($checkedConvert) {
   final val = GuildEmojiMetadataResponse(
-    id: $checkedConvert('id', (v) => v as String? ?? ''),
-    guildId: $checkedConvert('guild_id', (v) => v as String? ?? ''),
+    id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
+    guildId: $checkedConvert(
+      'guild_id',
+      (v) => v as SnowflakeStringType? ?? '',
+    ),
     name: $checkedConvert('name', (v) => v as String? ?? ''),
     animated: $checkedConvert('animated', (v) => v as bool? ?? false),
     allowCloning: $checkedConvert('allow_cloning', (v) => v as bool? ?? false),

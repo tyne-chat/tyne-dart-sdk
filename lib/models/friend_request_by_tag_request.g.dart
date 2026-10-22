@@ -10,8 +10,11 @@ FriendRequestByTagRequest _$FriendRequestByTagRequestFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('FriendRequestByTagRequest', json, ($checkedConvert) {
   final val = FriendRequestByTagRequest(
-    username: $checkedConvert('username', (v) => v as String? ?? ''),
-    discriminator: $checkedConvert('discriminator', (v) => v as String? ?? ''),
+    username: $checkedConvert('username', (v) => v as UsernameType? ?? ''),
+    discriminator: $checkedConvert(
+      'discriminator',
+      (v) => v as DiscriminatorType? ?? '',
+    ),
   );
   return val;
 });

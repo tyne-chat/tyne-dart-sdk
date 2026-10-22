@@ -15,10 +15,17 @@ GuildResponse _$GuildResponseFromJson(
     final val = GuildResponse(
       features: $checkedConvert(
         'features',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
+        (v) =>
+            (v as List<dynamic>?)
+                ?.map((e) => e as GuildFeatureSchema)
+                .toList() ??
+            [],
       ),
       name: $checkedConvert('name', (v) => v as String? ?? ''),
-      ownerId: $checkedConvert('owner_id', (v) => v as String? ?? ''),
+      ownerId: $checkedConvert(
+        'owner_id',
+        (v) => v as SnowflakeStringType? ?? '',
+      ),
       splashCardAlignment: $checkedConvert(
         'splash_card_alignment',
         (v) => v == null
@@ -27,7 +34,7 @@ GuildResponse _$GuildResponseFromJson(
                 (v as num).toInt(),
               ),
       ),
-      id: $checkedConvert('id', (v) => v as String? ?? ''),
+      id: $checkedConvert('id', (v) => v as SnowflakeStringType? ?? ''),
       contentWarningLevel: $checkedConvert(
         'content_warning_level',
         (v) => v == null
@@ -79,11 +86,17 @@ GuildResponse _$GuildResponseFromJson(
       ),
       systemChannelId: $checkedConvert(
         'system_channel_id',
-        (v) => v as String?,
+        (v) => v as SnowflakeStringType?,
       ),
       vanityUrlCode: $checkedConvert('vanity_url_code', (v) => v as String?),
-      rulesChannelId: $checkedConvert('rules_channel_id', (v) => v as String?),
-      afkChannelId: $checkedConvert('afk_channel_id', (v) => v as String?),
+      rulesChannelId: $checkedConvert(
+        'rules_channel_id',
+        (v) => v as SnowflakeStringType?,
+      ),
+      afkChannelId: $checkedConvert(
+        'afk_channel_id',
+        (v) => v as SnowflakeStringType?,
+      ),
       embedSplashHeight: $checkedConvert(
         'embed_splash_height',
         (v) => (v as num?)?.toInt(),
@@ -111,7 +124,7 @@ GuildResponse _$GuildResponseFromJson(
         'message_history_cutoff',
         (v) => v == null ? null : DateTime.parse(v as String),
       ),
-      permissions: $checkedConvert('permissions', (v) => v as String?),
+      permissions: $checkedConvert('permissions', (v) => v as Permissions?),
       roles: $checkedConvert(
         'roles',
         (v) => (v as List<dynamic>?)

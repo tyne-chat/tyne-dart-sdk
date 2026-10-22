@@ -10,7 +10,10 @@ HarvestCreationResponseSchema _$HarvestCreationResponseSchemaFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('HarvestCreationResponseSchema', json, ($checkedConvert) {
   final val = HarvestCreationResponseSchema(
-    harvestId: $checkedConvert('harvest_id', (v) => v as String? ?? ''),
+    harvestId: $checkedConvert(
+      'harvest_id',
+      (v) => v as SnowflakeStringType? ?? '',
+    ),
     status: $checkedConvert(
       'status',
       (v) => v == null

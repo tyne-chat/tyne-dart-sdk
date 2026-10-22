@@ -20,7 +20,7 @@ GuildBanResponse _$GuildBanResponseFromJson(Map<String, dynamic> json) =>
           ),
           moderatorId: $checkedConvert(
             'moderator_id',
-            (v) => v as String? ?? '',
+            (v) => v as SnowflakeStringType? ?? '',
           ),
           bannedAt: $checkedConvert(
             'banned_at',

@@ -17,7 +17,10 @@ _$AuthRegistrationPendingApprovalResponseFromJson(Map<String, dynamic> json) =>
             'registration_pending_approval',
             (v) => v as bool? ?? false,
           ),
-          userId: $checkedConvert('user_id', (v) => v as String? ?? ''),
+          userId: $checkedConvert(
+            'user_id',
+            (v) => v as SnowflakeStringType? ?? '',
+          ),
         );
         return val;
       },

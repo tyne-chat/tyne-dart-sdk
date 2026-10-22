@@ -13,7 +13,10 @@ _$EntranceSoundLibraryResponseSelectionsFromJson(Map<String, dynamic> json) =>
     ) {
       final val = EntranceSoundLibraryResponseSelections(
         scopeId: $checkedConvert('scope_id', (v) => v as String? ?? ''),
-        soundId: $checkedConvert('sound_id', (v) => v as String? ?? ''),
+        soundId: $checkedConvert(
+          'sound_id',
+          (v) => v as SnowflakeStringType? ?? '',
+        ),
       );
       return val;
     }, fieldKeyMap: const {'scopeId': 'scope_id', 'soundId': 'sound_id'});

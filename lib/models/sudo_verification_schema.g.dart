@@ -13,7 +13,7 @@ SudoVerificationSchema _$SudoVerificationSchemaFromJson(
   json,
   ($checkedConvert) {
     final val = SudoVerificationSchema(
-      password: $checkedConvert('password', (v) => v as String?),
+      password: $checkedConvert('password', (v) => v as PasswordType?),
       mfaMethod: $checkedConvert(
         'mfa_method',
         (v) => v == null

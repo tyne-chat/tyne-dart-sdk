@@ -25,7 +25,7 @@ GuildMediaChannelCreateRequest _$GuildMediaChannelCreateRequestFromJson(
       nsfw: $checkedConvert('nsfw', (v) => v as bool? ?? false),
       topicValue: $checkedConvert('topic', (v) => v as String?),
       urlValue: $checkedConvert('url', (v) => v as String?),
-      parentIdValue: $checkedConvert('parent_id', (v) => v as String?),
+      parentIdValue: $checkedConvert('parent_id', (v) => v as SnowflakeType?),
       bitrateValue: $checkedConvert('bitrate', (v) => (v as num?)?.toInt()),
       userLimitValue: $checkedConvert(
         'user_limit',

@@ -15,11 +15,11 @@ BulkDeleteSelfMessagesRequest _$BulkDeleteSelfMessagesRequestFromJson(
     final val = BulkDeleteSelfMessagesRequest._(
       excludedGuildIds: $checkedConvert(
         'excluded_guild_ids',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       includedGuildIds: $checkedConvert(
         'included_guild_ids',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       startDateValue: $checkedConvert(
         'start_date',
@@ -29,7 +29,7 @@ BulkDeleteSelfMessagesRequest _$BulkDeleteSelfMessagesRequestFromJson(
         'end_date',
         (v) => v == null ? null : DateTime.parse(v as String),
       ),
-      password: $checkedConvert('password', (v) => v as String?),
+      password: $checkedConvert('password', (v) => v as PasswordType?),
       mfaMethod: $checkedConvert(
         'mfa_method',
         (v) => v == null

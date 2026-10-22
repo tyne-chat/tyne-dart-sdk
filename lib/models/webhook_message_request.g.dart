@@ -14,7 +14,7 @@ WebhookMessageRequest _$WebhookMessageRequestFromJson(
   ($checkedConvert) {
     final val = WebhookMessageRequest(
       flags: $checkedConvert('flags', (v) => (v as num?)?.toInt() ?? 0),
-      content: $checkedConvert('content', (v) => v as String?),
+      content: $checkedConvert('content', (v) => v as MessageContentRequest?),
       embeds: $checkedConvert(
         'embeds',
         (v) => (v as List<dynamic>?)
@@ -33,11 +33,14 @@ WebhookMessageRequest _$WebhookMessageRequestFromJson(
             ? null
             : AllowedMentionsRequest.fromJson(v as Map<String, dynamic>),
       ),
-      nonce: $checkedConvert('nonce', (v) => v as String?),
-      favoriteMemeId: $checkedConvert('favorite_meme_id', (v) => v as String?),
+      nonce: $checkedConvert('nonce', (v) => v as MessageNonceRequest?),
+      favoriteMemeId: $checkedConvert(
+        'favorite_meme_id',
+        (v) => v as SnowflakeType?,
+      ),
       stickerIds: $checkedConvert(
         'sticker_ids',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
       tts: $checkedConvert('tts', (v) => v as bool?),
       username: $checkedConvert('username', (v) => v as String?),
@@ -55,7 +58,7 @@ WebhookMessageRequest _$WebhookMessageRequestFromJson(
       threadName: $checkedConvert('thread_name', (v) => v as String?),
       appliedTags: $checkedConvert(
         'applied_tags',
-        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+        (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
     );
     return val;

@@ -38,7 +38,10 @@ _$PasskeyBridgeLoginRedeemResponseCompletedPasskeyBridgeLoginRedeemResponseFromJ
         PasskeyBridgeLoginRedeemResponseCompletedPasskeyBridgeLoginRedeemResponse(
           status: $checkedConvert('status', (v) => v as String? ?? ''),
           token: $checkedConvert('token', (v) => v as String? ?? ''),
-          userId: $checkedConvert('user_id', (v) => v as String? ?? ''),
+          userId: $checkedConvert(
+            'user_id',
+            (v) => v as SnowflakeStringType? ?? '',
+          ),
           user: $checkedConvert(
             'user',
             (v) => v == null
