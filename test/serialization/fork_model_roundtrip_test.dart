@@ -42,7 +42,6 @@ void main() {
       expect(model.subprofile!.id, 'persona-abc');
       expect(model.subprofile!.name, 'Persona Alice');
       expect(model.subprofile!.displayTagText, 'Wonderland');
-      expect(model.subprofile!.pronouns, 'she/her');
 
       final serialized =
           jsonDecode(jsonEncode(model.toJson())) as Map<String, Object?>;
@@ -176,7 +175,8 @@ void main() {
       expect(model.avatarColor, 0xFF0000);
       expect(model.displayTagText, 'Wonderland');
       expect(model.displayTagIcon, 'icon_hash_1');
-      expect(model.pronouns, 'she/her');
+      // Pronouns are part of the profile; the field an older server still sends is dropped.
+      expect(model.toJson().containsKey('pronouns'), isFalse);
       expect(model.color, 0xFF0000);
       expect(model.visibility, PersonaVisibilitySchema.public);
 
@@ -203,7 +203,6 @@ void main() {
       expect(model.avatar, isNull);
       expect(model.avatarColor, isNull);
       expect(model.displayTagText, isNull);
-      expect(model.pronouns, isNull);
 
       final serialized = model.toJson();
       expect(serialized['id'], 'persona-2');
@@ -363,6 +362,32 @@ void main() {
         'persona_id': '20',
       });
       expect(model.toJson()['persona_id'], '20');
+    });
+  });
+
+  group('Looking up personas by ID', () {
+    test('a found persona carries its owner and what a message shows', () {
+      final model = PersonaLookupItemSchema.fromJson(<String, Object?>{
+        'id': '30',
+        'user_id': '10',
+        'name': 'Fox',
+        'avatar': null,
+        'avatar_color': 7,
+        'color': null,
+        'display_tag_text': 'The Den',
+        'display_tag_icon': null,
+        'visibility': 'private',
+      });
+      expect(model.id, '30');
+      expect(model.userId, '10');
+      expect(model.name, 'Fox');
+      expect(model.visibility, PersonaVisibilitySchema.private);
+
+      final roundtripped = PersonaLookupItemSchema.fromJson(
+        jsonDecode(jsonEncode(model.toJson())) as Map<String, Object?>,
+      );
+      expect(roundtripped.userId, '10');
+      expect(roundtripped.displayTagText, 'The Den');
     });
   });
 }
