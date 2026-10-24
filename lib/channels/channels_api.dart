@@ -9,6 +9,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:retrofit/error_logger.dart';
 
 import '../models/active_threads_response.dart';
+import '../models/add_reaction_body_schema.dart';
 import '../models/allowed_mentions_request.dart';
 import '../models/archived_threads_response.dart';
 import '../models/bulk_delete_messages_request.dart';
@@ -19,6 +20,7 @@ import '../models/call_ring_body_schema.dart';
 import '../models/call_update_body_schema.dart';
 import '../models/channel_follow_request.dart';
 import '../models/channel_follower_stats_response.dart';
+import '../models/channel_persona_mentions_response_schema.dart';
 import '../models/channel_pins_response.dart';
 import '../models/channel_response.dart';
 import '../models/channel_slowmode_state_response.dart';
@@ -29,6 +31,8 @@ import '../models/crosspost_source_response.dart';
 import '../models/followed_channel_response.dart';
 import '../models/forum_tag_request.dart';
 import '../models/forum_tag_setting_schema.dart';
+import '../models/indicate_typing_request_schema.dart';
+import '../models/legacy_message_subprofile_request_schema.dart';
 import '../models/message_ack_request.dart';
 import '../models/message_content_request.dart';
 import '../models/message_flags.dart';
@@ -47,6 +51,7 @@ import '../models/reaction_users_list_response.dart';
 import '../models/reaction_users_page_response.dart';
 import '../models/rich_embed_request.dart';
 import '../models/rtc_region_list_response.dart';
+import '../models/snowflake_string_type.dart';
 import '../models/snowflake_type.dart';
 import '../models/start_forum_thread_response.dart';
 import '../models/start_thread_from_message_request.dart';
@@ -288,6 +293,12 @@ abstract class ChannelsApi {
   ///
   /// [tts] - Whether this is a text-to-speech message.
   /// Name not received - field will be skipped.
+  ///
+  /// [personaId] - Name not received - field will be skipped.
+  /// Name not received - field will be skipped.
+  ///
+  /// [subprofile] - Name not received - field will be skipped.
+  /// Name not received - field will be skipped.
   @MultiPart()
   @POST('/channels/{channel_id}/messages')
   Future<MessageResponseSchema> sendMessage({
@@ -302,6 +313,8 @@ abstract class ChannelsApi {
     @Part(name: 'favorite_meme_id') SnowflakeType? favoriteMemeId,
     @Part(name: 'sticker_ids') List<SnowflakeType>? stickerIds,
     @Part(name: 'tts') bool? tts,
+    @Part(name: 'persona_id') SnowflakeType? personaId,
+    @Part(name: 'subprofile') LegacyMessageSubprofileRequestSchema? subprofile,
   });
 
   /// Clear channel read state.
@@ -397,6 +410,12 @@ abstract class ChannelsApi {
   /// [allowedMentions] - Name not received - field will be skipped.
   /// Name not received - field will be skipped.
   ///
+  /// [personaId] - Name not received - field will be skipped.
+  /// Name not received - field will be skipped.
+  ///
+  /// [subprofile] - Name not received - field will be skipped.
+  /// Name not received - field will be skipped.
+  ///
   /// [flags] - Message flags bitfield.
   /// Name not received - field will be skipped.
   ///
@@ -413,6 +432,8 @@ abstract class ChannelsApi {
     @Part(name: 'content') MessageContentRequest? content,
     @Part(name: 'embeds') List<RichEmbedRequest>? embeds,
     @Part(name: 'allowed_mentions') AllowedMentionsRequest? allowedMentions,
+    @Part(name: 'persona_id') SnowflakeType? personaId,
+    @Part(name: 'subprofile') LegacyMessageSubprofileRequestSchema? subprofile,
     @Part(name: 'flags') MessageFlags? flags,
     @Part(name: 'attachments') List<Object1>? attachments,
     @Part(name: 'message_snapshots') List<Object2>? messageSnapshots,
@@ -553,12 +574,15 @@ abstract class ChannelsApi {
   /// [emoji] - The emoji identifier.
   ///
   /// [sessionId] - The session ID for synchronization.
+  ///
+  /// [body] - Name not received - field will be skipped.
   @PUT('/channels/{channel_id}/messages/{message_id}/reactions/{emoji}/@me')
   Future<void> addReaction({
     @Path('channel_id') required SnowflakeType channelId,
     @Path('message_id') required SnowflakeType messageId,
     @Path('emoji') required String emoji,
     @Query('session_id') String? sessionId,
+    @Body() AddReactionBodySchema? body,
   });
 
   /// Remove own reaction from message.
@@ -571,13 +595,16 @@ abstract class ChannelsApi {
   ///
   /// [emoji] - The emoji identifier.
   ///
-  /// [sessionId] - The session ID for synchronization.
+  /// [sessionId] - Session ID to avoid echo.
+  ///
+  /// [personaId] - Persona ID whose reaction should be removed.
   @DELETE('/channels/{channel_id}/messages/{message_id}/reactions/{emoji}/@me')
   Future<void> removeOwnReaction({
     @Path('channel_id') required SnowflakeType channelId,
     @Path('message_id') required SnowflakeType messageId,
     @Path('emoji') required String emoji,
     @Query('session_id') String? sessionId,
+    @Query('persona_id') SnowflakeStringType? personaId,
   });
 
   /// List users who reacted with emoji.
@@ -614,7 +641,9 @@ abstract class ChannelsApi {
   ///
   /// [targetId] - The ID of the target user.
   ///
-  /// [sessionId] - The session ID for synchronization.
+  /// [sessionId] - Session ID to avoid echo.
+  ///
+  /// [personaId] - Persona ID whose reaction should be removed.
   @DELETE(
     '/channels/{channel_id}/messages/{message_id}/reactions/{emoji}/{target_id}',
   )
@@ -624,6 +653,7 @@ abstract class ChannelsApi {
     @Path('emoji') required String emoji,
     @Path('target_id') required SnowflakeType targetId,
     @Query('session_id') String? sessionId,
+    @Query('persona_id') SnowflakeStringType? personaId,
   });
 
   /// Start a thread from a message.
@@ -669,6 +699,18 @@ abstract class ChannelsApi {
   Future<void> deleteChannelPermissionOverwrite({
     @Path('channel_id') required SnowflakeType channelId,
     @Path('overwrite_id') required SnowflakeType overwriteId,
+  });
+
+  /// Get persona mention candidates for a channel.
+  ///
+  /// Retrieves mentionable personas belonging to members of the specified channel. Only public personas of other members are returned, along with own personas.
+  ///
+  /// [channelId] - The ID of the channel.
+  @GET('/channels/{channel_id}/persona-mentions')
+  Future<ChannelPersonaMentionsResponseSchema> getChannelPersonaMentions({
+    @Path('channel_id') required SnowflakeType channelId,
+    @Query('q') String? q = '',
+    @Query('limit') int? limit = 100,
   });
 
   /// Acknowledge new pin notifications.
@@ -1012,9 +1054,12 @@ abstract class ChannelsApi {
   /// Notifies other users in the channel that you are actively typing. Typing indicators typically expire after a short period (usually 10 seconds). Returns 204 No Content, or 200 with a JSON body holding the remaining slowmode cooldowns in message_send_cooldown_ms and thread_create_cooldown_ms when the user is rate limited. Commonly called repeatedly while the user is composing a message.
   ///
   /// [channelId] - The ID of the channel.
+  ///
+  /// [body] - Name not received - field will be skipped.
   @POST('/channels/{channel_id}/typing')
   Future<void> indicateTyping({
     @Path('channel_id') required SnowflakeType channelId,
+    @Body() IndicateTypingRequestSchema? body,
   });
 
   /// List joined private archived threads.
