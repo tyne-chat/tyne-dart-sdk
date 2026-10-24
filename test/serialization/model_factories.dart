@@ -605,6 +605,10 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'PersonaImportImageSourcesSchemaBanner':
       PersonaImportImageSourcesSchemaBanner.fromJson,
   'PersonaImportItemSchema': PersonaImportItemSchema.fromJson,
+  'PersonaLookupItemSchema': PersonaLookupItemSchema.fromJson,
+  'PersonaLookupRequestSchema': PersonaLookupRequestSchema.fromJson,
+  'PersonaLookupRequestSchemaPersonas':
+      PersonaLookupRequestSchemaPersonas.fromJson,
   'PersonaResponseSchema': PersonaResponseSchema.fromJson,
   'PersonaSettingsResponseSchema': PersonaSettingsResponseSchema.fromJson,
   'PersonaSettingsUpdateRequestSchema':

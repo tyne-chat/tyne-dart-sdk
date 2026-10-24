@@ -21,6 +21,41 @@ class _PersonasApi implements PersonasApi {
   final ParseErrorLogger? errorLogger;
 
   @override
+  Future<List<PersonaLookupItemSchema>> lookupPersonas({
+    required PersonaLookupRequestSchema body,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _options = _setStreamType<List<PersonaLookupItemSchema>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/personas/lookup',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<PersonaLookupItemSchema> _value;
+    try {
+      _value = _result.data!
+          .map(
+            (dynamic i) =>
+                PersonaLookupItemSchema.fromJson(i as Map<String, dynamic>),
+          )
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<List<PersonaResponseSchema>> listMyPersonas() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

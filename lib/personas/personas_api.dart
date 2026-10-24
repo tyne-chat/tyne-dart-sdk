@@ -15,6 +15,8 @@ import '../models/persona_export_response.dart';
 import '../models/persona_import_image_request.dart';
 import '../models/persona_import_image_response.dart';
 import '../models/persona_list_response_schema.dart';
+import '../models/persona_lookup_request_schema.dart';
+import '../models/persona_lookup_response_schema.dart';
 import '../models/persona_response_schema.dart';
 import '../models/persona_settings_response_schema.dart';
 import '../models/persona_settings_update_request_schema.dart';
@@ -29,6 +31,16 @@ part 'personas_api.g.dart';
 @RestApi()
 abstract class PersonasApi {
   factory PersonasApi(Dio dio, {String? baseUrl}) = _PersonasApi;
+
+  /// Look up personas by ID.
+  ///
+  /// Returns what messages from the given personas show (name, avatar, colours, display tag), whatever their visibility, including deleted ones, each with its owner. Nothing of their profiles. Pairs that name no persona of that user are left out.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/personas/lookup')
+  Future<PersonaLookupResponseSchema> lookupPersonas({
+    @Body() required PersonaLookupRequestSchema body,
+  });
 
   /// List own personas.
   ///

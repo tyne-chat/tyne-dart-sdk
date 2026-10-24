@@ -18,7 +18,6 @@ class MessageSubprofileResponseSchema {
     this.avatarColor,
     this.displayTagText,
     this.displayTagIcon,
-    this.pronouns,
     this.color,
     this.visibility,
   });
@@ -49,10 +48,6 @@ class MessageSubprofileResponseSchema {
   /// Hash of the display tag icon, an image stored under the account
   @JsonKey(includeIfNull: false, name: 'display_tag_icon')
   final PersonaAssetHashType? displayTagIcon;
-
-  /// Pronouns
-  @JsonKey(includeIfNull: false)
-  final String? pronouns;
 
   /// Custom color integer
   @JsonKey(includeIfNull: false)

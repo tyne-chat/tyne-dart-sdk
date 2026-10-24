@@ -22,7 +22,6 @@ MessageSubprofileResponseSchema _$MessageSubprofileResponseSchemaFromJson(
         'display_tag_icon',
         (v) => v as PersonaAssetHashType?,
       ),
-      pronouns: $checkedConvert('pronouns', (v) => v as String?),
       color: $checkedConvert('color', (v) => (v as num?)?.toInt()),
       visibility: $checkedConvert(
         'visibility',
@@ -47,7 +46,6 @@ Map<String, dynamic> _$MessageSubprofileResponseSchemaToJson(
   'avatar_color': ?instance.avatarColor,
   'display_tag_text': ?instance.displayTagText,
   'display_tag_icon': ?instance.displayTagIcon,
-  'pronouns': ?instance.pronouns,
   'color': ?instance.color,
   'visibility': ?instance.visibility,
 };

@@ -24,6 +24,7 @@ import 'guilds/guilds_api.dart';
 import 'users/users_api.dart';
 import 'geolocation/geolocation_api.dart';
 import 'gi_fs_deprecated/gi_fs_deprecated_api.dart';
+import 'personas/personas_api.dart';
 import 'premium/premium_api.dart';
 import 'billing/billing_api.dart';
 import 'read_states/read_states_api.dart';
@@ -32,7 +33,6 @@ import 'search/search_api.dart';
 import 'stickers/stickers_api.dart';
 import 'debug/debug_api.dart';
 import 'connections/connections_api.dart';
-import 'personas/personas_api.dart';
 import 'themes/themes_api.dart';
 import 'voice/voice_api.dart';
 
@@ -67,6 +67,7 @@ class FluxerClient {
   UsersApi? _users;
   GeolocationApi? _geolocation;
   GiFsDeprecatedApi? _giFsDeprecated;
+  PersonasApi? _personas;
   PremiumApi? _premium;
   BillingApi? _billing;
   ReadStatesApi? _readStates;
@@ -75,7 +76,6 @@ class FluxerClient {
   StickersApi? _stickers;
   DebugApi? _debug;
   ConnectionsApi? _connections;
-  PersonasApi? _personas;
   ThemesApi? _themes;
   VoiceApi? _voice;
 
@@ -130,6 +130,9 @@ class FluxerClient {
   GiFsDeprecatedApi get giFsDeprecated =>
       _giFsDeprecated ??= GiFsDeprecatedApi(_dio, baseUrl: _baseUrl);
 
+  PersonasApi get personas =>
+      _personas ??= PersonasApi(_dio, baseUrl: _baseUrl);
+
   PremiumApi get premium => _premium ??= PremiumApi(_dio, baseUrl: _baseUrl);
 
   BillingApi get billing => _billing ??= BillingApi(_dio, baseUrl: _baseUrl);
@@ -148,9 +151,6 @@ class FluxerClient {
 
   ConnectionsApi get connections =>
       _connections ??= ConnectionsApi(_dio, baseUrl: _baseUrl);
-
-  PersonasApi get personas =>
-      _personas ??= PersonasApi(_dio, baseUrl: _baseUrl);
 
   ThemesApi get themes => _themes ??= ThemesApi(_dio, baseUrl: _baseUrl);
 
