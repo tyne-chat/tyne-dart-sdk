@@ -231,6 +231,10 @@ enum ApiErrorCode {
   guildTemplateInvalid('GUILD_TEMPLATE_INVALID'),
   @JsonValue('GUILD_VERIFICATION_REQUIRED')
   guildVerificationRequired('GUILD_VERIFICATION_REQUIRED'),
+  @JsonValue('HANDOFF_ATTEMPTS_EXCEEDED')
+  handoffAttemptsExceeded('HANDOFF_ATTEMPTS_EXCEEDED'),
+  @JsonValue('HANDOFF_CODE_ALREADY_USED')
+  handoffCodeAlreadyUsed('HANDOFF_CODE_ALREADY_USED'),
   @JsonValue('HANDOFF_CODE_EXPIRED')
   handoffCodeExpired('HANDOFF_CODE_EXPIRED'),
   @JsonValue('HARVEST_EXPIRED')
@@ -667,6 +671,20 @@ enum ApiErrorCode {
   unknownPasskeyBridge('UNKNOWN_PASSKEY_BRIDGE'),
   @JsonValue('UNKNOWN_PASSKEY_MIGRATION')
   unknownPasskeyMigration('UNKNOWN_PASSKEY_MIGRATION'),
+  @JsonValue('UNKNOWN_PERSONA')
+  unknownPersona('UNKNOWN_PERSONA'),
+  @JsonValue('PRIVATE_PERSONA')
+  privatePersona('PRIVATE_PERSONA'),
+  @JsonValue('PERSONA_LIMIT_REACHED')
+  personaLimitReached('PERSONA_LIMIT_REACHED'),
+  @JsonValue('DUPLICATE_PERSONA_TAG')
+  duplicatePersonaTag('DUPLICATE_PERSONA_TAG'),
+  @JsonValue('PERSONA_TAG_LIMIT_REACHED')
+  personaTagLimitReached('PERSONA_TAG_LIMIT_REACHED'),
+  @JsonValue('DUPLICATE_SIGNATURE_EMOJI')
+  duplicateSignatureEmoji('DUPLICATE_SIGNATURE_EMOJI'),
+  @JsonValue('SIGNATURE_EMOJI_LIMIT_REACHED')
+  signatureEmojiLimitReached('SIGNATURE_EMOJI_LIMIT_REACHED'),
   @JsonValue('UNKNOWN_REPORT')
   unknownReport('UNKNOWN_REPORT'),
   @JsonValue('UNKNOWN_ROLE')

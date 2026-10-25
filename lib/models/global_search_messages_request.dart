@@ -17,7 +17,7 @@ part 'global_search_messages_request.g.dart';
 @JsonSerializable()
 class GlobalSearchMessagesRequest {
   const GlobalSearchMessagesRequest({
-    this.authorId,
+    this.mentions,
     this.contextGuildId,
     this.cursor,
     this.maxId,
@@ -29,19 +29,23 @@ class GlobalSearchMessagesRequest {
     this.excludeChannelId,
     this.authorType,
     this.excludeAuthorType,
-    this.scope,
+    this.authorId,
     this.excludeAuthorId,
-    this.mentions,
+    this.scope,
     this.excludeMentions,
+    this.personaId,
+    this.excludePersonaId,
+    this.personaMentions,
+    this.excludePersonaMentions,
     this.mentionEveryone,
     this.pinned,
     this.has,
     this.excludeHas,
     this.embedType,
     this.excludeEmbedType,
-    this.embedProvider,
-    this.excludeEmbedProvider,
     this.channelIds,
+    this.excludeEmbedProvider,
+    this.linkHostname,
     this.excludeLinkHostname,
     this.attachmentFilename,
     this.excludeAttachmentFilename,
@@ -53,7 +57,7 @@ class GlobalSearchMessagesRequest {
     this.sortBy = MessageSortField.timestamp,
     this.page = 1,
     this.sortOrder = MessageSortOrder.desc,
-    this.linkHostname,
+    this.embedProvider,
   });
 
   factory GlobalSearchMessagesRequest.fromJson(Map<String, Object?> json) =>
@@ -121,6 +125,22 @@ class GlobalSearchMessagesRequest {
   /// User IDs that must not be mentioned
   @JsonKey(includeIfNull: false, name: 'exclude_mentions')
   final List<SnowflakeType>? excludeMentions;
+
+  /// Persona IDs to filter by; a message matches if it is from any author_id or any persona_id given
+  @JsonKey(includeIfNull: false, name: 'persona_id')
+  final List<SnowflakeType>? personaId;
+
+  /// Persona IDs whose messages to exclude
+  @JsonKey(includeIfNull: false, name: 'exclude_persona_id')
+  final List<SnowflakeType>? excludePersonaId;
+
+  /// Persona IDs that must be mentioned
+  @JsonKey(includeIfNull: false, name: 'persona_mentions')
+  final List<SnowflakeType>? personaMentions;
+
+  /// Persona IDs that must not be mentioned
+  @JsonKey(includeIfNull: false, name: 'exclude_persona_mentions')
+  final List<SnowflakeType>? excludePersonaMentions;
 
   /// Filter by whether message mentions everyone
   @JsonKey(includeIfNull: false, name: 'mention_everyone')
