@@ -40,6 +40,10 @@ InstanceBrandingSchema _$InstanceBrandingSchemaFromJson(
         'upload_limit_message',
         (v) => v as String?,
       ),
+      desktopAppPromptEnabled: $checkedConvert(
+        'desktop_app_prompt_enabled',
+        (v) => v as bool? ?? true,
+      ),
     );
     return val;
   },
@@ -59,6 +63,7 @@ InstanceBrandingSchema _$InstanceBrandingSchemaFromJson(
     'signInBackdropUrl': 'sign_in_backdrop_url',
     'customCss': 'custom_css',
     'uploadLimitMessage': 'upload_limit_message',
+    'desktopAppPromptEnabled': 'desktop_app_prompt_enabled',
   },
 );
 
@@ -80,4 +85,5 @@ Map<String, dynamic> _$InstanceBrandingSchemaToJson(
   'sign_in_backdrop_url': instance.signInBackdropUrl,
   'custom_css': instance.customCss,
   'upload_limit_message': instance.uploadLimitMessage,
+  'desktop_app_prompt_enabled': instance.desktopAppPromptEnabled,
 };

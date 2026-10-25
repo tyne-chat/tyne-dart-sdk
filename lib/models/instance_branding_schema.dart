@@ -25,6 +25,7 @@ class InstanceBrandingSchema {
     required this.signInBackdropUrl,
     required this.customCss,
     required this.uploadLimitMessage,
+    this.desktopAppPromptEnabled = true,
   });
 
   factory InstanceBrandingSchema.fromJson(Map<String, Object?> json) =>
@@ -89,6 +90,10 @@ class InstanceBrandingSchema {
   /// Optional Markdown a self-hosted instance shows when a file is over the upload limit, in place of the default note
   @JsonKey(includeIfNull: true, name: 'upload_limit_message')
   final String? uploadLimitMessage;
+
+  /// Whether the web app shows prompts to open deep links or download the desktop app
+  @JsonKey(name: 'desktop_app_prompt_enabled')
+  final bool desktopAppPromptEnabled;
 
   Map<String, Object?> toJson() => _$InstanceBrandingSchemaToJson(this);
 }
