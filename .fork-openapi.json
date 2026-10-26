@@ -51362,6 +51362,7 @@
      },
      "attachments": {
       "description": "Array of attachment objects",
+      "maxItems": 100,
       "type": "array",
       "items": {
        "type": "object",
@@ -51392,6 +51393,7 @@
         },
         "fields": {
          "description": "Array of field objects",
+         "maxItems": 100,
          "type": "array",
          "items": {
           "type": "object",
@@ -51574,6 +51576,7 @@
      },
      "embeds": {
       "description": "Array of embed objects to include in the message",
+      "maxItems": 100,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/RichEmbedRequest"
@@ -52364,6 +52367,7 @@
        "previous_tags": {
         "anyOf": [
          {
+          "maxItems": 1000,
           "type": "array",
           "items": {
            "type": "string"
@@ -52377,6 +52381,7 @@
        "new_tags": {
         "anyOf": [
          {
+          "maxItems": 1000,
           "type": "array",
           "items": {
            "type": "string"
@@ -52460,6 +52465,7 @@
        "attachments": {
         "anyOf": [
          {
+          "maxItems": 1000,
           "type": "array",
           "items": {
            "type": "object",
@@ -52635,6 +52641,7 @@
          "incident_updates": {
           "anyOf": [
            {
+            "maxItems": 1000,
             "type": "array",
             "items": {
              "type": "object",
@@ -52686,6 +52693,7 @@
          "affected_components": {
           "anyOf": [
            {
+            "maxItems": 1000,
             "type": "array",
             "items": {
              "type": "object",
@@ -52791,6 +52799,7 @@
          "maintenance_updates": {
           "anyOf": [
            {
+            "maxItems": 1000,
             "type": "array",
             "items": {
              "type": "object",
@@ -52836,6 +52845,7 @@
          "affected_components": {
           "anyOf": [
            {
+            "maxItems": 1000,
             "type": "array",
             "items": {
              "type": "object",
@@ -53044,6 +53054,7 @@
            "pull_requests": {
             "anyOf": [
              {
+              "maxItems": 1000,
               "type": "array",
               "items": {
                "type": "object",
@@ -53112,6 +53123,7 @@
          "pull_requests": {
           "anyOf": [
            {
+            "maxItems": 1000,
             "type": "array",
             "items": {
              "type": "object",
@@ -53165,6 +53177,7 @@
          "pull_requests": {
           "anyOf": [
            {
+            "maxItems": 1000,
             "type": "array",
             "items": {
              "type": "object",
@@ -53264,6 +53277,7 @@
      "commits": {
       "anyOf": [
        {
+        "maxItems": 2048,
         "type": "array",
         "items": {
          "type": "object",
@@ -53775,6 +53789,7 @@
      },
      "embeds": {
       "description": "Array of embed objects to include in the message",
+      "maxItems": 100,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/RichEmbedRequest"
@@ -53856,6 +53871,7 @@
      },
      "attachments": {
       "description": "Array of multipart attachment metadata objects",
+      "maxItems": 100,
       "type": "array",
       "items": {
        "type": "object",
@@ -53957,6 +53973,7 @@
      },
      "embeds": {
       "description": "Array of embed objects to include in the message",
+      "maxItems": 100,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/RichEmbedRequest"
@@ -54038,6 +54055,7 @@
      },
      "attachments": {
       "description": "Array of attachments uploaded through the presigned upload endpoint",
+      "maxItems": 100,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/ClientUploadedAttachmentRequest"
@@ -55565,6 +55583,7 @@
      },
      "guild_positions": {
       "description": "Ordered array of guild IDs for sidebar positioning",
+      "maxItems": 10000,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/SnowflakeType"
@@ -55575,6 +55594,7 @@
      },
      "restricted_guilds": {
       "description": "Guilds with DM restrictions",
+      "maxItems": 10000,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/SnowflakeType"
@@ -55582,6 +55602,7 @@
      },
      "bot_restricted_guilds": {
       "description": "Guilds with bot DM restrictions",
+      "maxItems": 10000,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/SnowflakeType"
@@ -55683,6 +55704,7 @@
         },
         "guild_ids": {
          "description": "Guild IDs in this folder",
+         "maxItems": 10000,
          "type": "array",
          "items": {
           "$ref": "#/components/schemas/SnowflakeType"
@@ -55753,6 +55775,7 @@
       "description": "User IDs that bypass self-mention suppression",
       "anyOf": [
        {
+        "maxItems": 1000,
         "type": "array",
         "items": {
          "$ref": "#/components/schemas/SnowflakeType"
@@ -55767,6 +55790,7 @@
       "description": "User IDs with Staff DM Access enabled",
       "anyOf": [
        {
+        "maxItems": 1000,
         "type": "array",
         "items": {
          "$ref": "#/components/schemas/SnowflakeType"
@@ -58430,6 +58454,7 @@
       "description": "New tags for categorizing and searching the meme",
       "anyOf": [
        {
+        "maxItems": 1000,
         "type": "array",
         "items": {
          "type": "string"
@@ -58604,6 +58629,7 @@
       "default": [],
       "anyOf": [
        {
+        "maxItems": 1000,
         "type": "array",
         "items": {
          "type": "string"
@@ -61804,6 +61830,7 @@
      },
      "cursor": {
       "description": "Opaque cursor for search_after pagination. When provided, page is ignored.",
+      "maxItems": 16,
       "type": "array",
       "items": {
        "type": "string"
@@ -66012,6 +66039,7 @@
     "additionalProperties": false
    },
    "GuildRoleHoistPositionsRequest": {
+    "maxItems": 10000,
     "type": "array",
     "items": {
      "type": "object",
@@ -66034,6 +66062,7 @@
     }
    },
    "GuildRolePositionsRequest": {
+    "maxItems": 10000,
     "type": "array",
     "items": {
      "type": "object",
@@ -66954,6 +66983,7 @@
     }
    },
    "ChannelPositionUpdateRequest": {
+    "maxItems": 10000,
     "type": "array",
     "items": {
      "type": "object",
@@ -69223,6 +69253,7 @@
       "default": [],
       "anyOf": [
        {
+        "maxItems": 1000,
         "type": "array",
         "items": {
          "type": "string"
@@ -69366,6 +69397,7 @@
       ]
      },
      "embeds": {
+      "maxItems": 100,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/RichEmbedRequest"
@@ -69411,6 +69443,7 @@
      },
      "attachments": {
       "description": "Array of attachment objects to keep or add",
+      "maxItems": 100,
       "type": "array",
       "items": {
        "anyOf": [
@@ -69542,6 +69575,7 @@
       ]
      },
      "embeds": {
+      "maxItems": 100,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/RichEmbedRequest"
@@ -69549,6 +69583,7 @@
       "description": "Array of embed objects to include in the message"
      },
      "attachments": {
+      "maxItems": 100,
       "type": "array",
       "items": {
        "anyOf": [
@@ -69758,6 +69793,7 @@
     "properties": {
      "recipients": {
       "description": "User IDs to ring for the call",
+      "maxItems": 1000,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/SnowflakeType"
@@ -69948,6 +69984,7 @@
        },
        "permission_overwrites": {
         "description": "Permission overwrites for roles and members",
+        "maxItems": 10000,
         "type": "array",
         "items": {
          "type": "object",
@@ -70154,6 +70191,7 @@
        },
        "permission_overwrites": {
         "description": "Permission overwrites for roles and members",
+        "maxItems": 10000,
         "type": "array",
         "items": {
          "type": "object",
@@ -70360,6 +70398,7 @@
        },
        "permission_overwrites": {
         "description": "Permission overwrites for roles and members",
+        "maxItems": 10000,
         "type": "array",
         "items": {
          "type": "object",
@@ -70553,6 +70592,7 @@
        },
        "permission_overwrites": {
         "description": "Permission overwrites for roles and members",
+        "maxItems": 10000,
         "type": "array",
         "items": {
          "type": "object",
@@ -70746,6 +70786,7 @@
        },
        "permission_overwrites": {
         "description": "Permission overwrites for roles and members",
+        "maxItems": 10000,
         "type": "array",
         "items": {
          "type": "object",
@@ -71039,6 +71080,7 @@
          "const": "public-key"
         },
         "transports": {
+         "maxItems": 16,
          "type": "array",
          "items": {
           "type": "string",
@@ -73449,6 +73491,10 @@
       "description": "Whether friend requests are disabled instance-wide. Missing means direct_messages_disabled decides",
       "type": "boolean"
      },
+     "personal_notes_enabled": {
+      "description": "Whether people can use personal notes. Missing means they can",
+      "type": "boolean"
+     },
      "guild_create_access": {
       "type": "boolean",
       "description": "Whether every account can create communities. When false, only admins and accounts granted the feature_guild_create limit can"
@@ -74499,6 +74545,7 @@
      },
      "permission_overwrites": {
       "description": "Permission overwrites for roles and members",
+      "maxItems": 10000,
       "type": "array",
       "items": {
        "type": "object",
@@ -74646,6 +74693,7 @@
      },
      "available_tags": {
       "description": "Tags that can be applied to posts (max 20)",
+      "maxItems": 1000,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/ForumTagUpdateRequest"
@@ -74758,6 +74806,7 @@
      },
      "permission_overwrites": {
       "description": "Permission overwrites for roles and members",
+      "maxItems": 10000,
       "type": "array",
       "items": {
        "type": "object",
@@ -74905,6 +74954,7 @@
      },
      "available_tags": {
       "description": "Tags that can be applied to posts (max 20)",
+      "maxItems": 1000,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/ForumTagUpdateRequest"
@@ -76158,6 +76208,7 @@
     "properties": {
      "parse": {
       "description": "Types of mentions to parse from content",
+      "maxItems": 10,
       "type": "array",
       "items": {
        "description": "Types of mentions to parse from content",
@@ -78941,6 +78992,7 @@
         ]
        },
        "embeds": {
+        "maxItems": 100,
         "type": "array",
         "items": {
          "$ref": "#/components/schemas/RichEmbedRequest"
@@ -78948,6 +79000,7 @@
         "description": "Array of embed objects to include in the message"
        },
        "attachments": {
+        "maxItems": 100,
         "type": "array",
         "items": {
          "anyOf": [
@@ -79100,6 +79153,7 @@
       ]
      },
      "embeds": {
+      "maxItems": 100,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/RichEmbedRequest"
@@ -79107,6 +79161,7 @@
       "description": "Array of embed objects to include in the message"
      },
      "attachments": {
+      "maxItems": 100,
       "type": "array",
       "items": {
        "anyOf": [
@@ -79419,6 +79474,7 @@
       "type": "number"
      },
      "roles": {
+      "maxItems": 250,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/TemplateRole"
@@ -79426,6 +79482,7 @@
       "description": "The roles in the template"
      },
      "channels": {
+      "maxItems": 500,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/TemplateChannel"
@@ -79571,6 +79628,7 @@
       "description": "Permission overwrites for this channel",
       "anyOf": [
        {
+        "maxItems": 250,
         "type": "array",
         "items": {
          "type": "object",
@@ -80544,6 +80602,7 @@
      },
      "permission_overwrites": {
       "description": "Permission overwrites for roles and members",
+      "maxItems": 10000,
       "type": "array",
       "items": {
        "type": "object",
@@ -80661,6 +80720,7 @@
      },
      "available_tags": {
       "description": "Tags that can be applied to posts (max 20)",
+      "maxItems": 1000,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/ForumTagUpdateRequest"
@@ -80777,6 +80837,7 @@
      },
      "permission_overwrites": {
       "description": "Permission overwrites for roles and members",
+      "maxItems": 10000,
       "type": "array",
       "items": {
        "type": "object",
@@ -80894,6 +80955,7 @@
      },
      "available_tags": {
       "description": "Tags that can be applied to posts (max 20)",
+      "maxItems": 1000,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/ForumTagUpdateRequest"
@@ -81020,6 +81082,7 @@
      },
      "permission_overwrites": {
       "description": "Permission overwrites for roles and members",
+      "maxItems": 10000,
       "type": "array",
       "items": {
        "type": "object",
@@ -81187,6 +81250,7 @@
      },
      "permission_overwrites": {
       "description": "Permission overwrites for roles and members",
+      "maxItems": 10000,
       "type": "array",
       "items": {
        "type": "object",
@@ -81354,6 +81418,7 @@
      },
      "permission_overwrites": {
       "description": "Permission overwrites for roles and members",
+      "maxItems": 10000,
       "type": "array",
       "items": {
        "type": "object",
@@ -81521,6 +81586,7 @@
      },
      "permission_overwrites": {
       "description": "Permission overwrites for roles and members",
+      "maxItems": 10000,
       "type": "array",
       "items": {
        "type": "object",
@@ -81711,6 +81777,7 @@
      },
      "permission_overwrites": {
       "description": "Permission overwrites for roles and members",
+      "maxItems": 10000,
       "type": "array",
       "items": {
        "type": "object",
@@ -82946,7 +83013,6 @@
      "COUNTRY_UNAVAILABLE",
      "EMAIL_UNVERIFIED",
      "UNCLAIMED",
-     "NO_RECEIPT_EMAIL",
      "PURCHASE_DISABLED",
      "PAYMENT_DISPUTE_OPEN",
      "REMOVED"
@@ -82956,7 +83022,6 @@
      "The pass is not on sale in the country of the buyer right now",
      "The account email is not verified",
      "The account is not claimed",
-     "The account has no email to send receipts to",
      "Purchases are disabled for the account",
      "A payment dispute the account made is open, purchases come back when it closes",
      "The pass was removed from the account permanently under the Operator Pass terms"
@@ -82966,7 +83031,6 @@
      "country_unavailable",
      "email_unverified",
      "unclaimed",
-     "no_receipt_email",
      "purchase_disabled",
      "payment_dispute_open",
      "removed"
@@ -86214,6 +86278,7 @@
         "type": "string"
        },
        "transports": {
+        "maxItems": 16,
         "type": "array",
         "items": {
          "type": "string",
@@ -87476,7 +87541,6 @@
      "PROFILE_EMAIL_VERIFICATION_REQUIRED",
      "PUBLISHED_MESSAGE_EDIT_RATE_LIMITED",
      "PURCHASE_EMAIL_VERIFICATION_REQUIRED",
-     "PURCHASE_RECEIPT_EMAIL_REQUIRED",
      "REACTION_EMAIL_VERIFICATION_REQUIRED",
      "REPORT_EMAIL_VERIFICATION_REQUIRED",
      "REGISTRATION_CLOSED",
@@ -87629,6 +87693,7 @@
      "STRIPE_WEBHOOK_SIGNATURE_MISSING",
      "DIRECT_MESSAGES_DISABLED",
      "FRIENDS_DISABLED",
+     "PERSONAL_NOTES_DISABLED",
      "NEW_CONVERSATIONS_LIMITED",
      "DONATION_AMOUNT_INVALID",
      "DONATION_MAGIC_LINK_EXPIRED",
@@ -87845,7 +87910,6 @@
      "Email verification is required for this action.",
      "This published message has reached its editing limit. It allows 3 quick edits, then 1 every 20 minutes.",
      "Email verification is required for this action.",
-     "Purchases need an email address to send receipts to, and this account doesn't have one.",
      "Email verification is required for this action.",
      "Email verification is required for this action.",
      "Registration is closed on this instance.",
@@ -87998,6 +88062,7 @@
      "Stripe webhook signature is missing.",
      "Direct messages are disabled on this instance.",
      "Friend requests are disabled on this instance.",
+     "Personal notes are turned off on this instance.",
      "You can't start new conversations right now. Please try again later.",
      "Donation amount is invalid.",
      "Magic link has expired.",
