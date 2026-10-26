@@ -185,8 +185,6 @@ enum ApiErrorCode {
   publishedMessageEditRateLimited('PUBLISHED_MESSAGE_EDIT_RATE_LIMITED'),
   @JsonValue('PURCHASE_EMAIL_VERIFICATION_REQUIRED')
   purchaseEmailVerificationRequired('PURCHASE_EMAIL_VERIFICATION_REQUIRED'),
-  @JsonValue('PURCHASE_RECEIPT_EMAIL_REQUIRED')
-  purchaseReceiptEmailRequired('PURCHASE_RECEIPT_EMAIL_REQUIRED'),
   @JsonValue('REACTION_EMAIL_VERIFICATION_REQUIRED')
   reactionEmailVerificationRequired('REACTION_EMAIL_VERIFICATION_REQUIRED'),
   @JsonValue('REPORT_EMAIL_VERIFICATION_REQUIRED')
@@ -493,6 +491,8 @@ enum ApiErrorCode {
   directMessagesDisabled('DIRECT_MESSAGES_DISABLED'),
   @JsonValue('FRIENDS_DISABLED')
   friendsDisabled('FRIENDS_DISABLED'),
+  @JsonValue('PERSONAL_NOTES_DISABLED')
+  personalNotesDisabled('PERSONAL_NOTES_DISABLED'),
   @JsonValue('NEW_CONVERSATIONS_LIMITED')
   newConversationsLimited('NEW_CONVERSATIONS_LIMITED'),
   @JsonValue('DONATION_AMOUNT_INVALID')
@@ -671,6 +671,20 @@ enum ApiErrorCode {
   unknownPasskeyBridge('UNKNOWN_PASSKEY_BRIDGE'),
   @JsonValue('UNKNOWN_PASSKEY_MIGRATION')
   unknownPasskeyMigration('UNKNOWN_PASSKEY_MIGRATION'),
+  @JsonValue('UNKNOWN_PERSONA')
+  unknownPersona('UNKNOWN_PERSONA'),
+  @JsonValue('PRIVATE_PERSONA')
+  privatePersona('PRIVATE_PERSONA'),
+  @JsonValue('PERSONA_LIMIT_REACHED')
+  personaLimitReached('PERSONA_LIMIT_REACHED'),
+  @JsonValue('DUPLICATE_PERSONA_TAG')
+  duplicatePersonaTag('DUPLICATE_PERSONA_TAG'),
+  @JsonValue('PERSONA_TAG_LIMIT_REACHED')
+  personaTagLimitReached('PERSONA_TAG_LIMIT_REACHED'),
+  @JsonValue('DUPLICATE_SIGNATURE_EMOJI')
+  duplicateSignatureEmoji('DUPLICATE_SIGNATURE_EMOJI'),
+  @JsonValue('SIGNATURE_EMOJI_LIMIT_REACHED')
+  signatureEmojiLimitReached('SIGNATURE_EMOJI_LIMIT_REACHED'),
   @JsonValue('UNKNOWN_REPORT')
   unknownReport('UNKNOWN_REPORT'),
   @JsonValue('UNKNOWN_ROLE')

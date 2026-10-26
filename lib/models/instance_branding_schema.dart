@@ -26,6 +26,7 @@ class InstanceBrandingSchema {
     required this.customCss,
     required this.uploadLimitMessage,
     required this.trustedDomains,
+    this.desktopAppPromptEnabled = true,
   });
 
   factory InstanceBrandingSchema.fromJson(Map<String, Object?> json) =>
@@ -94,6 +95,10 @@ class InstanceBrandingSchema {
   /// Extra domains a self-hosted instance trusts, so links to them open without a warning. Each entry is a hostname, or a hostname with a *. prefix that also covers its subdomains
   @JsonKey(name: 'trusted_domains', defaultValue: <String>[])
   final List<String> trustedDomains;
+
+  /// Whether the web app shows prompts to open deep links or download the desktop app
+  @JsonKey(name: 'desktop_app_prompt_enabled')
+  final bool desktopAppPromptEnabled;
 
   Map<String, Object?> toJson() => _$InstanceBrandingSchemaToJson(this);
 }

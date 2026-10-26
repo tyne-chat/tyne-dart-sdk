@@ -15,8 +15,6 @@ enum OperatorPassPurchaseBlockedReasonSchema {
   emailUnverified('email_unverified'),
   @JsonValue('unclaimed')
   unclaimed('unclaimed'),
-  @JsonValue('no_receipt_email')
-  noReceiptEmail('no_receipt_email'),
   @JsonValue('purchase_disabled')
   purchaseDisabled('purchase_disabled'),
   @JsonValue('payment_dispute_open')
