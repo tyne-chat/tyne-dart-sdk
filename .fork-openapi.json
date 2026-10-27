@@ -47852,458 +47852,6 @@
     }
    }
   },
-  "/users/@me/subprofiles/avatar": {
-   "post": {
-    "operationId": "upload_subprofile_avatar",
-    "summary": "Upload subprofile avatar (legacy alias)",
-    "tags": [
-     "Users"
-    ],
-    "responses": {
-     "200": {
-      "description": "Success",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/PersonaAvatarUploadResponse"
-        }
-       }
-      }
-     },
-     "400": {
-      "description": "Bad Request - The request was malformed or contained invalid data",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "401": {
-      "description": "Unauthorized - Authentication is required or the token is invalid",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "403": {
-      "description": "Forbidden - You do not have permission to perform this action",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "429": {
-      "description": "Too Many Requests - You are being rate limited",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/ThrottledError"
-        }
-       }
-      },
-      "headers": {
-       "Retry-After": {
-        "description": "Number of seconds to wait before retrying (only on 429)",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Limit": {
-        "description": "The number of requests that can be made in the current window",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Remaining": {
-        "description": "The number of remaining requests that can be made",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Reset": {
-        "description": "Unix timestamp when the rate limit resets",
-        "schema": {
-         "type": "integer"
-        }
-       }
-      }
-     },
-     "500": {
-      "description": "Internal Server Error - An unexpected error occurred",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     }
-    },
-    "description": "Uploads and processes an avatar image for a subprofile/persona, hosting it on the instance CDN/storage.",
-    "security": [
-     {
-      "sessionToken": []
-     }
-    ],
-    "requestBody": {
-     "required": true,
-     "content": {
-      "application/json": {
-       "schema": {
-        "$ref": "#/components/schemas/PersonaAvatarUploadRequest"
-       }
-      }
-     }
-    }
-   }
-  },
-  "/users/@me/subprofiles/banner": {
-   "post": {
-    "operationId": "upload_subprofile_banner",
-    "summary": "Upload subprofile banner (legacy alias)",
-    "tags": [
-     "Users"
-    ],
-    "responses": {
-     "200": {
-      "description": "Success",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/PersonaBannerUploadResponse"
-        }
-       }
-      }
-     },
-     "400": {
-      "description": "Bad Request - The request was malformed or contained invalid data",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "401": {
-      "description": "Unauthorized - Authentication is required or the token is invalid",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "403": {
-      "description": "Forbidden - You do not have permission to perform this action",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "429": {
-      "description": "Too Many Requests - You are being rate limited",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/ThrottledError"
-        }
-       }
-      },
-      "headers": {
-       "Retry-After": {
-        "description": "Number of seconds to wait before retrying (only on 429)",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Limit": {
-        "description": "The number of requests that can be made in the current window",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Remaining": {
-        "description": "The number of remaining requests that can be made",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Reset": {
-        "description": "Unix timestamp when the rate limit resets",
-        "schema": {
-         "type": "integer"
-        }
-       }
-      }
-     },
-     "500": {
-      "description": "Internal Server Error - An unexpected error occurred",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     }
-    },
-    "description": "Uploads and processes a banner image for a subprofile/persona, hosting it on the instance CDN/storage.",
-    "security": [
-     {
-      "sessionToken": []
-     }
-    ],
-    "requestBody": {
-     "required": true,
-     "content": {
-      "application/json": {
-       "schema": {
-        "$ref": "#/components/schemas/PersonaBannerUploadRequest"
-       }
-      }
-     }
-    }
-   }
-  },
-  "/users/@me/subprofiles/import-avatar": {
-   "post": {
-    "operationId": "import_subprofile_avatar",
-    "summary": "Import subprofile avatar from remote URL (legacy alias)",
-    "tags": [
-     "Users"
-    ],
-    "responses": {
-     "200": {
-      "description": "Success",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/PersonaAvatarImportResponse"
-        }
-       }
-      }
-     },
-     "400": {
-      "description": "Bad Request - The request was malformed or contained invalid data",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "401": {
-      "description": "Unauthorized - Authentication is required or the token is invalid",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "403": {
-      "description": "Forbidden - You do not have permission to perform this action",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "429": {
-      "description": "Too Many Requests - You are being rate limited",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/ThrottledError"
-        }
-       }
-      },
-      "headers": {
-       "Retry-After": {
-        "description": "Number of seconds to wait before retrying (only on 429)",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Limit": {
-        "description": "The number of requests that can be made in the current window",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Remaining": {
-        "description": "The number of remaining requests that can be made",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Reset": {
-        "description": "Unix timestamp when the rate limit resets",
-        "schema": {
-         "type": "integer"
-        }
-       }
-      }
-     },
-     "500": {
-      "description": "Internal Server Error - An unexpected error occurred",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     }
-    },
-    "description": "Downloads an avatar image from an external URL and stores it on the instance CDN/storage.",
-    "security": [
-     {
-      "sessionToken": []
-     }
-    ],
-    "requestBody": {
-     "required": true,
-     "content": {
-      "application/json": {
-       "schema": {
-        "$ref": "#/components/schemas/PersonaAvatarImportRequest"
-       }
-      }
-     }
-    }
-   }
-  },
-  "/users/@me/subprofiles/import-batch-avatars": {
-   "post": {
-    "operationId": "import_subprofile_batch_avatars",
-    "summary": "Batch import subprofile avatars from remote URLs (legacy alias)",
-    "tags": [
-     "Users"
-    ],
-    "responses": {
-     "200": {
-      "description": "Success",
-      "content": {
-       "application/x-ndjson": {
-        "schema": {
-         "$ref": "#/components/schemas/PersonaBatchAvatarImportStream"
-        }
-       }
-      }
-     },
-     "400": {
-      "description": "Bad Request - The request was malformed or contained invalid data",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "401": {
-      "description": "Unauthorized - Authentication is required or the token is invalid",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "403": {
-      "description": "Forbidden - You do not have permission to perform this action",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "429": {
-      "description": "Too Many Requests - You are being rate limited",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/ThrottledError"
-        }
-       }
-      },
-      "headers": {
-       "Retry-After": {
-        "description": "Number of seconds to wait before retrying (only on 429)",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Limit": {
-        "description": "The number of requests that can be made in the current window",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Remaining": {
-        "description": "The number of remaining requests that can be made",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Reset": {
-        "description": "Unix timestamp when the rate limit resets",
-        "schema": {
-         "type": "integer"
-        }
-       }
-      }
-     },
-     "500": {
-      "description": "Internal Server Error - An unexpected error occurred",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     }
-    },
-    "description": "Downloads up to 500 avatar images from external URLs and stores them on the instance CDN/storage, streaming NDJSON progress events.",
-    "security": [
-     {
-      "sessionToken": []
-     }
-    ],
-    "requestBody": {
-     "required": true,
-     "content": {
-      "application/json": {
-       "schema": {
-        "$ref": "#/components/schemas/PersonaBatchAvatarImportRequest"
-       }
-      }
-     }
-    }
-   }
-  },
   "/users/@me/sudo/email-code": {
    "post": {
     "operationId": "send_sudo_email_code",
@@ -54461,102 +54009,6 @@
      "sound_id"
     ]
    },
-   "SnowflakeStringType": {
-    "type": "string",
-    "pattern": "^(0|[1-9][0-9]*)$",
-    "format": "snowflake"
-   },
-   "PublicPersonaResponseSchema": {
-    "type": "object",
-    "properties": {
-     "id": {
-      "description": "The unique Snowflake identifier for this persona",
-      "$ref": "#/components/schemas/SnowflakeStringType"
-     },
-     "name": {
-      "type": "string",
-      "description": "The persona display name"
-     },
-     "avatar_hash": {
-      "description": "Avatar asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "banner_hash": {
-      "description": "Banner asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "pronouns": {
-      "description": "Optional pronouns",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "color": {
-      "description": "Optional accent color integer",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "avatar_color": {
-      "description": "Avatar accent color",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "bio": {
-      "description": "Optional persona bio",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "visibility": {
-      "description": "Visibility setting",
-      "$ref": "#/components/schemas/PersonaVisibilitySchema"
-     }
-    },
-    "required": [
-     "id",
-     "name",
-     "visibility"
-    ],
-    "additionalProperties": false
-   },
-   "PublicPersonaListResponseSchema": {
-    "type": "array",
-    "items": {
-     "$ref": "#/components/schemas/PublicPersonaResponseSchema"
-    }
-   },
    "UserPartialResponse": {
     "type": "object",
     "properties": {
@@ -54765,6 +54217,12 @@
        "string",
        "null"
       ]
+     },
+     "hidden_profile_badge_count": {
+      "description": "How many of the badges you hold are hidden from other people. Only present on your own profile",
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
      },
      "mutual_friends": {
       "description": "Array of mutual friends",
@@ -55098,9 +54556,16 @@
       "type": "boolean",
       "description": "Whether the user selected a premium-only discriminator that will be rerolled when non-lifetime premium access ends"
      },
+     "hidden_profile_badges": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Keys of the badges hidden from other people, as in the key field of a profile badge"
+     },
      "premium_badge_hidden": {
       "type": "boolean",
-      "description": "Whether the premium badge is hidden on the profile"
+      "description": "Deprecated, use hidden_profile_badges. Whether the premium badge held is in that list"
      },
      "premium_badge_masked": {
       "type": "boolean",
@@ -55112,7 +54577,7 @@
      },
      "premium_badge_sequence_hidden": {
       "type": "boolean",
-      "description": "Whether the lifetime sequence number is hidden"
+      "description": "Deprecated, use hidden_profile_badges. Whether visionary_number is in that list"
      },
      "premium_purchase_disabled": {
       "type": "boolean",
@@ -55127,7 +54592,7 @@
       "description": "Whether premium perks are temporarily disabled for this account"
      },
      "operator_pass_badge_hidden": {
-      "description": "Whether the Operator Pass badge is hidden from other people. Only present on the current user response. Older servers omit it",
+      "description": "Deprecated, use hidden_profile_badges. Whether operator_pass is in that list. Only present on the current user response. Older servers omit it",
       "type": "boolean"
      },
      "operator_pass_badge_timestamp_hidden": {
@@ -55295,6 +54760,7 @@
      "premium_lifetime_sequence",
      "premium_grace_ends_at",
      "premium_discriminator",
+     "hidden_profile_badges",
      "premium_badge_hidden",
      "premium_badge_masked",
      "premium_badge_timestamp_hidden",
@@ -55389,136 +54855,6 @@
      "ticket",
      "code_expires_at",
      "resend_available_at"
-    ],
-    "additionalProperties": false
-   },
-   "PersonaBatchAvatarImportRequest": {
-    "type": "object",
-    "properties": {
-     "urls": {
-      "minItems": 1,
-      "maxItems": 500,
-      "type": "array",
-      "items": {
-       "type": "string",
-       "maxLength": 2048,
-       "format": "uri"
-      },
-      "description": "List of remote avatar URLs to import"
-     },
-     "kind": {
-      "description": "Whether the links are avatars or banners; avatars when absent",
-      "$ref": "#/components/schemas/PersonaImportImageKindSchema"
-     }
-    },
-    "required": [
-     "urls"
-    ]
-   },
-   "PersonaBatchAvatarImportStream": {
-    "type": "string",
-    "description": "Newline-delimited JSON: a start line with the total, a progress line as each URL finishes, and a complete line with every result"
-   },
-   "PersonaAvatarImportRequest": {
-    "type": "object",
-    "properties": {
-     "url": {
-      "type": "string",
-      "maxLength": 2048,
-      "format": "uri",
-      "description": "Remote URL of the avatar image to import"
-     }
-    },
-    "required": [
-     "url"
-    ]
-   },
-   "PersonaAvatarImportResponse": {
-    "type": "object",
-    "properties": {
-     "avatar_hash": {
-      "description": "Hash of the imported avatar",
-      "$ref": "#/components/schemas/PersonaAssetHashType"
-     },
-     "avatar_color": {
-      "description": "Dominant avatar color",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    },
-    "required": [
-     "avatar_hash"
-    ],
-    "additionalProperties": false
-   },
-   "PersonaBannerUploadRequest": {
-    "type": "object",
-    "properties": {
-     "banner": {
-      "type": "string",
-      "description": "Base64 data URI of the banner image"
-     }
-    },
-    "required": [
-     "banner"
-    ]
-   },
-   "PersonaBannerUploadResponse": {
-    "type": "object",
-    "properties": {
-     "banner_hash": {
-      "description": "Hash of the uploaded banner",
-      "$ref": "#/components/schemas/PersonaAssetHashType"
-     }
-    },
-    "required": [
-     "banner_hash"
-    ],
-    "additionalProperties": false
-   },
-   "PersonaAvatarUploadRequest": {
-    "type": "object",
-    "properties": {
-     "avatar": {
-      "type": "string",
-      "description": "Base64 data URI of the avatar image"
-     }
-    },
-    "required": [
-     "avatar"
-    ]
-   },
-   "PersonaAvatarUploadResponse": {
-    "type": "object",
-    "properties": {
-     "avatar_hash": {
-      "description": "Hash of the uploaded avatar",
-      "$ref": "#/components/schemas/PersonaAssetHashType"
-     },
-     "avatar_color": {
-      "description": "Dominant avatar color",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    },
-    "required": [
-     "avatar_hash"
     ],
     "additionalProperties": false
    },
@@ -56530,9 +55866,8 @@
    "ProfileBadgePreviewRequest": {
     "type": "object",
     "properties": {
-     "premium_badge_hidden": {
-      "description": "Preview with the premium badge hidden",
-      "type": "boolean"
+     "hidden_profile_badges": {
+      "$ref": "#/components/schemas/HiddenProfileBadgesType"
      },
      "premium_badge_masked": {
       "description": "Preview with the premium badge masked",
@@ -56542,20 +55877,24 @@
       "description": "Preview with the premium badge date hidden",
       "type": "boolean"
      },
-     "premium_badge_sequence_hidden": {
-      "description": "Preview with the Visionary ID hidden",
-      "type": "boolean"
-     },
-     "operator_pass_badge_hidden": {
-      "description": "Preview with the Operator Pass badge hidden, or shown when false",
-      "type": "boolean"
-     },
      "operator_pass_badge_timestamp_hidden": {
       "description": "Preview with the month and year the Operator Pass was first held hidden",
       "type": "boolean"
      },
      "operator_pass_badge_count_hidden": {
       "description": "Preview with the number of Operator Passes held hidden",
+      "type": "boolean"
+     },
+     "premium_badge_hidden": {
+      "description": "Deprecated, use hidden_profile_badges",
+      "type": "boolean"
+     },
+     "premium_badge_sequence_hidden": {
+      "description": "Deprecated, use hidden_profile_badges",
+      "type": "boolean"
+     },
+     "operator_pass_badge_hidden": {
+      "description": "Deprecated, use hidden_profile_badges",
       "type": "boolean"
      }
     }
@@ -56564,11 +55903,20 @@
     "type": "object",
     "properties": {
      "profile_badges": {
+      "description": "The badges other people would see with these settings",
       "$ref": "#/components/schemas/ProfileBadgeListResponse"
+     },
+     "own_badges": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/OwnProfileBadgeResponse"
+      },
+      "description": "Every badge you hold, in display order, with whether these settings hide it"
      }
     },
     "required": [
-     "profile_badges"
+     "profile_badges",
+     "own_badges"
     ],
     "additionalProperties": false
    },
@@ -56604,634 +55952,6 @@
      ]
     },
     "description": "A map of channel IDs to the latest message in each channel"
-   },
-   "PersonaUpdateRequestSchema": {
-    "type": "object",
-    "properties": {
-     "name": {
-      "description": "Persona display name",
-      "type": "string"
-     },
-     "avatar_hash": {
-      "description": "Avatar asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "banner_hash": {
-      "description": "Banner asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "pronouns": {
-      "description": "Optional pronouns",
-      "anyOf": [
-       {
-        "type": "string",
-        "maxLength": 100
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "color": {
-      "description": "Optional color integer",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "avatar_color": {
-      "description": "Optional avatar accent color",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "bio": {
-      "description": "Optional persona bio",
-      "anyOf": [
-       {
-        "type": "string",
-        "maxLength": 4096
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "auto_tag_disabled": {
-      "description": "Whether auto-tagging is disabled",
-      "type": "boolean"
-     },
-     "persona_tags": {
-      "description": "Persona prefix/suffix tags",
-      "maxItems": 5,
-      "type": "array",
-      "items": {
-       "$ref": "#/components/schemas/PersonaTagSchemaInput"
-      }
-     },
-     "signature_emojis": {
-      "description": "Signature emojis for this persona",
-      "maxItems": 10000,
-      "type": "array",
-      "items": {
-       "$ref": "#/components/schemas/SignatureEmojiSchemaInput"
-      }
-     },
-     "visibility": {
-      "description": "Visibility setting",
-      "type": "string",
-      "enum": [
-       "unlisted",
-       "public",
-       "private"
-      ]
-     },
-     "external_uuid": {
-      "description": "Optional external UUID",
-      "anyOf": [
-       {
-        "type": "string",
-        "maxLength": 64
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    }
-   },
-   "PersonaResponseSchema": {
-    "type": "object",
-    "properties": {
-     "id": {
-      "description": "The unique Snowflake identifier for this persona",
-      "$ref": "#/components/schemas/SnowflakeStringType"
-     },
-     "name": {
-      "type": "string",
-      "description": "The persona display name"
-     },
-     "avatar_hash": {
-      "description": "Avatar asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "banner_hash": {
-      "description": "Banner asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "pronouns": {
-      "description": "Optional pronouns",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "color": {
-      "description": "Optional accent color integer",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "avatar_color": {
-      "description": "Avatar accent color",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "bio": {
-      "description": "Optional persona bio",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "auto_tag_disabled": {
-      "default": false,
-      "description": "Whether persona tag matching is disabled",
-      "type": "boolean"
-     },
-     "persona_tags": {
-      "default": [],
-      "description": "Persona prefix and suffix tags",
-      "type": "array",
-      "items": {
-       "$ref": "#/components/schemas/PersonaTagSchema"
-      }
-     },
-     "signature_emojis": {
-      "default": [],
-      "description": "Signature emojis for this persona",
-      "type": "array",
-      "items": {
-       "$ref": "#/components/schemas/SignatureEmojiSchema"
-      }
-     },
-     "use_count": {
-      "default": 0,
-      "description": "Usage counter for frecency ranking",
-      "type": "integer",
-      "minimum": -9007199254740991,
-      "maximum": 9007199254740991
-     },
-     "last_used_at_ms": {
-      "description": "Timestamp in ms when the persona was last used",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "visibility": {
-      "description": "Visibility setting: unlisted (default), public, or private",
-      "$ref": "#/components/schemas/PersonaVisibilitySchema"
-     },
-     "external_uuid": {
-      "description": "External UUID for idempotent PluralKit imports",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "created_at": {
-      "type": "string",
-      "description": "ISO timestamp of persona creation"
-     },
-     "updated_at": {
-      "type": "string",
-      "description": "ISO timestamp of last update"
-     },
-     "deleted_at": {
-      "description": "ISO timestamp if the persona has been soft-deleted",
-      "anyOf": [
-       {
-        "type": "string",
-        "format": "date-time",
-        "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    },
-    "required": [
-     "id",
-     "name",
-     "auto_tag_disabled",
-     "persona_tags",
-     "signature_emojis",
-     "use_count",
-     "visibility",
-     "created_at",
-     "updated_at"
-    ],
-    "additionalProperties": false
-   },
-   "PersonaSettingsUpdateRequestSchema": {
-    "type": "object",
-    "properties": {
-     "active_persona_mode": {
-      "$ref": "#/components/schemas/ActivePersonaModeSchema"
-     },
-     "active_persona_scope": {
-      "$ref": "#/components/schemas/ActivePersonaScopeSchema"
-     },
-     "active_persona_id": {
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/SnowflakeStringType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "is_latched": {
-      "type": "boolean"
-     },
-     "display_tag_text": {
-      "anyOf": [
-       {
-        "type": "string",
-        "maxLength": 100
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "display_tag_icon": {
-      "description": "Hash of the display tag icon, from the persona avatar upload or import routes",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    }
-   },
-   "PersonaSettingsResponseSchema": {
-    "type": "object",
-    "properties": {
-     "user_id": {
-      "description": "User Snowflake ID",
-      "$ref": "#/components/schemas/SnowflakeStringType"
-     },
-     "active_persona_mode": {
-      "default": "manual",
-      "$ref": "#/components/schemas/ActivePersonaModeSchema"
-     },
-     "active_persona_scope": {
-      "default": "global",
-      "description": "Whether the selected persona is one for every channel or remembered per channel",
-      "$ref": "#/components/schemas/ActivePersonaScopeSchema"
-     },
-     "active_persona_id": {
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/SnowflakeStringType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "is_latched": {
-      "default": false,
-      "type": "boolean"
-     },
-     "display_tag_text": {
-      "anyOf": [
-       {
-        "type": "string",
-        "maxLength": 100
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "display_tag_icon": {
-      "description": "Hash of the display tag icon, an image stored under the account",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "updated_at": {
-      "type": "string"
-     }
-    },
-    "required": [
-     "user_id",
-     "active_persona_mode",
-     "active_persona_scope",
-     "is_latched"
-    ],
-    "additionalProperties": false
-   },
-   "PersonaImportImageRequest": {
-    "type": "object",
-    "properties": {
-     "kind": {
-      "description": "Whether the image is an avatar or a banner",
-      "$ref": "#/components/schemas/PersonaImportImageKindSchema"
-     },
-     "image": {
-      "type": "string",
-      "description": "Base64 data URI of the image"
-     }
-    },
-    "required": [
-     "kind",
-     "image"
-    ]
-   },
-   "PersonaImportImageResponse": {
-    "type": "object",
-    "properties": {
-     "hash": {
-      "description": "Hash of the stored image",
-      "$ref": "#/components/schemas/PersonaAssetHashType"
-     },
-     "avatar_color": {
-      "description": "Dominant colour, for an avatar",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    },
-    "required": [
-     "hash"
-    ],
-    "additionalProperties": false
-   },
-   "PersonaBulkImportRequestSchema": {
-    "maxItems": 250,
-    "type": "array",
-    "items": {
-     "$ref": "#/components/schemas/PersonaImportItemSchema"
-    }
-   },
-   "PersonaListResponseSchema": {
-    "type": "array",
-    "items": {
-     "$ref": "#/components/schemas/PersonaResponseSchema"
-    }
-   },
-   "PersonaExportResponse": {
-    "type": "string",
-    "format": "binary",
-    "contentEncoding": "binary",
-    "description": "A ZIP file with the personas as a PluralKit export (pluralkit.json), their images, tyne.json and a README"
-   },
-   "PersonaChannelStateUpdateRequestSchema": {
-    "type": "object",
-    "properties": {
-     "persona_id": {
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/SnowflakeStringType"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "description": "The persona to select in the channel, or null for the account"
-     }
-    },
-    "required": [
-     "persona_id"
-    ]
-   },
-   "PersonaChannelStateSchema": {
-    "type": "object",
-    "properties": {
-     "channel_id": {
-      "description": "The channel this selection belongs to",
-      "$ref": "#/components/schemas/SnowflakeStringType"
-     },
-     "persona_id": {
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/SnowflakeStringType"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "description": "The persona selected in the channel, or null when the channel is used as the account itself"
-     }
-    },
-    "required": [
-     "channel_id",
-     "persona_id"
-    ],
-    "additionalProperties": false
-   },
-   "PersonaChannelStatesResponseSchema": {
-    "type": "object",
-    "properties": {
-     "states": {
-      "type": "array",
-      "items": {
-       "$ref": "#/components/schemas/PersonaChannelStateSchema"
-      },
-      "description": "Every channel that has a persona selected"
-     }
-    },
-    "required": [
-     "states"
-    ],
-    "additionalProperties": false
-   },
-   "PersonaCreateRequestSchema": {
-    "type": "object",
-    "properties": {
-     "name": {
-      "description": "Persona display name",
-      "type": "string"
-     },
-     "avatar_hash": {
-      "description": "Avatar asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "banner_hash": {
-      "description": "Banner asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "pronouns": {
-      "description": "Optional pronouns",
-      "anyOf": [
-       {
-        "type": "string",
-        "maxLength": 100
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "color": {
-      "description": "Optional color integer",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "avatar_color": {
-      "description": "Optional avatar accent color",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "bio": {
-      "description": "Optional persona bio",
-      "anyOf": [
-       {
-        "type": "string",
-        "maxLength": 4096
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "auto_tag_disabled": {
-      "description": "Whether auto-tagging is disabled",
-      "type": "boolean"
-     },
-     "persona_tags": {
-      "description": "Persona prefix/suffix tags",
-      "maxItems": 5,
-      "type": "array",
-      "items": {
-       "$ref": "#/components/schemas/PersonaTagSchemaInput"
-      }
-     },
-     "signature_emojis": {
-      "description": "Signature emojis for this persona",
-      "maxItems": 10000,
-      "type": "array",
-      "items": {
-       "$ref": "#/components/schemas/SignatureEmojiSchemaInput"
-      }
-     },
-     "visibility": {
-      "description": "Visibility: unlisted (default), public, or private",
-      "$ref": "#/components/schemas/PersonaVisibilitySchema"
-     },
-     "external_uuid": {
-      "description": "Optional external UUID (e.g. PluralKit)",
-      "anyOf": [
-       {
-        "type": "string",
-        "maxLength": 64
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    },
-    "required": [
-     "name"
-    ]
    },
    "PasswordChangeVerifyRequest": {
     "type": "object",
@@ -59548,6 +58268,10 @@
       },
       "description": "Array of guild feature flags"
      },
+     "badge_ids": {
+      "description": "IDs of the custom badges assigned to the community. Look them up in guild_badges of the instance discovery document and skip IDs that are not there",
+      "$ref": "#/components/schemas/CustomBadgeIdListResponse"
+     },
      "verification_level": {
       "$ref": "#/components/schemas/GuildVerificationLevel",
       "description": "Required verification level for members to participate"
@@ -59665,6 +58389,7 @@
      "system_channel_flags",
      "afk_timeout",
      "features",
+     "badge_ids",
      "verification_level",
      "mfa_level",
      "nsfw_level",
@@ -60854,9 +59579,12 @@
      "timezone_privacy_flags": {
       "$ref": "#/components/schemas/ProfileFieldPrivacyFlags"
      },
+     "hidden_profile_badges": {
+      "$ref": "#/components/schemas/HiddenProfileBadgesType"
+     },
      "premium_badge_hidden": {
       "type": "boolean",
-      "description": "Whether to hide the premium badge"
+      "description": "Deprecated, use hidden_profile_badges. true adds plutonium, visionary and premium to the list, and false removes them"
      },
      "premium_badge_masked": {
       "type": "boolean",
@@ -60868,11 +59596,11 @@
      },
      "premium_badge_sequence_hidden": {
       "type": "boolean",
-      "description": "Whether to hide premium badge sequence"
+      "description": "Deprecated, use hidden_profile_badges. true adds visionary_number to the list, and false removes it"
      },
      "operator_pass_badge_hidden": {
       "type": "boolean",
-      "description": "Whether to hide the Operator Pass badge from other people. Either value replaces the default"
+      "description": "Deprecated, use hidden_profile_badges. true adds operator_pass to the list, and false removes it"
      },
      "operator_pass_badge_timestamp_hidden": {
       "type": "boolean",
@@ -61161,9 +59889,16 @@
       "type": "boolean",
       "description": "Whether the user selected a premium-only discriminator that will be rerolled when non-lifetime premium access ends"
      },
+     "hidden_profile_badges": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Keys of the badges hidden from other people, as in the key field of a profile badge"
+     },
      "premium_badge_hidden": {
       "type": "boolean",
-      "description": "Whether the premium badge is hidden on the profile"
+      "description": "Deprecated, use hidden_profile_badges. Whether the premium badge held is in that list"
      },
      "premium_badge_masked": {
       "type": "boolean",
@@ -61175,7 +59910,7 @@
      },
      "premium_badge_sequence_hidden": {
       "type": "boolean",
-      "description": "Whether the lifetime sequence number is hidden"
+      "description": "Deprecated, use hidden_profile_badges. Whether visionary_number is in that list"
      },
      "premium_purchase_disabled": {
       "type": "boolean",
@@ -61190,7 +59925,7 @@
       "description": "Whether premium perks are temporarily disabled for this account"
      },
      "operator_pass_badge_hidden": {
-      "description": "Whether the Operator Pass badge is hidden from other people. Only present on the current user response. Older servers omit it",
+      "description": "Deprecated, use hidden_profile_badges. Whether operator_pass is in that list. Only present on the current user response. Older servers omit it",
       "type": "boolean"
      },
      "operator_pass_badge_timestamp_hidden": {
@@ -61366,6 +60101,7 @@
      "premium_lifetime_sequence",
      "premium_grace_ends_at",
      "premium_discriminator",
+     "hidden_profile_badges",
      "premium_badge_hidden",
      "premium_badge_masked",
      "premium_badge_timestamp_hidden",
@@ -63399,43 +62135,6 @@
      "billing_cycle"
     ]
    },
-   "PersonaLookupRequestSchema": {
-    "type": "object",
-    "properties": {
-     "personas": {
-      "minItems": 1,
-      "maxItems": 100,
-      "type": "array",
-      "items": {
-       "type": "object",
-       "properties": {
-        "user_id": {
-         "description": "The persona owner’s user ID",
-         "$ref": "#/components/schemas/SnowflakeStringType"
-        },
-        "persona_id": {
-         "description": "The persona’s ID",
-         "$ref": "#/components/schemas/SnowflakeStringType"
-        }
-       },
-       "required": [
-        "user_id",
-        "persona_id"
-       ]
-      },
-      "description": "Personas to look up"
-     }
-    },
-    "required": [
-     "personas"
-    ]
-   },
-   "PersonaLookupResponseSchema": {
-    "type": "array",
-    "items": {
-     "$ref": "#/components/schemas/PersonaLookupItemSchema"
-    }
-   },
    "OperatorPassWallResponse": {
     "type": "object",
     "properties": {
@@ -65393,107 +64092,6 @@
      }
     ]
    },
-   "SignalBarUpdateRequestSchema": {
-    "type": "object",
-    "properties": {
-     "signals": {
-      "maxItems": 50,
-      "type": "array",
-      "items": {
-       "type": "object",
-       "properties": {
-        "id": {
-         "description": "Existing signal ID; omit to add a new signal",
-         "anyOf": [
-          {
-           "type": "string",
-           "pattern": "^[a-z0-9]{1,32}$",
-           "description": "The unique identifier of the signal within the bar"
-          },
-          {
-           "type": "null"
-          }
-         ]
-        },
-        "emoji_id": {
-         "description": "Custom emoji ID (null for Unicode)",
-         "anyOf": [
-          {
-           "$ref": "#/components/schemas/SnowflakeStringType"
-          },
-          {
-           "type": "null"
-          }
-         ]
-        },
-        "emoji_name": {
-         "type": "string",
-         "minLength": 1,
-         "maxLength": 64,
-         "description": "Emoji name or Unicode character"
-        },
-        "label": {
-         "anyOf": [
-          {
-           "type": "string",
-           "maxLength": 32
-          },
-          {
-           "type": "null"
-          }
-         ]
-        }
-       },
-       "required": [
-        "emoji_name"
-       ]
-      }
-     }
-    },
-    "required": [
-     "signals"
-    ]
-   },
-   "SignalBarResponseSchema": {
-    "type": "object",
-    "properties": {
-     "version": {
-      "type": "integer",
-      "minimum": 0,
-      "maximum": 9007199254740991,
-      "description": "Incremented on every change to the bar"
-     },
-     "signals": {
-      "maxItems": 50,
-      "type": "array",
-      "items": {
-       "$ref": "#/components/schemas/SignalBarSignalSchema"
-      }
-     },
-     "guild_id": {
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/SnowflakeStringType"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "description": "The home community that owns the bar"
-     },
-     "can_manage": {
-      "type": "boolean",
-      "description": "Whether the requesting user may edit the bar"
-     }
-    },
-    "required": [
-     "version",
-     "signals",
-     "guild_id",
-     "can_manage"
-    ],
-    "additionalProperties": false
-   },
    "InstanceSetupTokenCheckRequest": {
     "type": "object",
     "properties": {
@@ -65869,75 +64467,6 @@
      "name",
      "image"
     ]
-   },
-   "GuildSignalBarSettingsSchemaInput": {
-    "type": "object",
-    "properties": {
-     "default": {
-      "type": "boolean",
-      "description": "Whether channels without a category or channel setting show the signal bar"
-     },
-     "categories": {
-      "type": "object",
-      "propertyNames": {
-       "type": "string",
-       "maxLength": 20
-      },
-      "additionalProperties": {
-       "type": "boolean"
-      }
-     },
-     "channels": {
-      "type": "object",
-      "propertyNames": {
-       "type": "string",
-       "maxLength": 20
-      },
-      "additionalProperties": {
-       "type": "boolean"
-      }
-     }
-    },
-    "required": [
-     "default",
-     "categories",
-     "channels"
-    ]
-   },
-   "GuildSignalBarSettingsSchema": {
-    "type": "object",
-    "properties": {
-     "default": {
-      "type": "boolean",
-      "description": "Whether channels without a category or channel setting show the signal bar"
-     },
-     "categories": {
-      "type": "object",
-      "propertyNames": {
-       "type": "string",
-       "maxLength": 20
-      },
-      "additionalProperties": {
-       "type": "boolean"
-      }
-     },
-     "channels": {
-      "type": "object",
-      "propertyNames": {
-       "type": "string",
-       "maxLength": 20
-      },
-      "additionalProperties": {
-       "type": "boolean"
-      }
-     }
-    },
-    "required": [
-     "default",
-     "categories",
-     "channels"
-    ],
-    "additionalProperties": false
    },
    "GuildRoleUpdateRequest": {
     "type": "object",
@@ -67884,6 +66413,10 @@
          },
          "description": "Guild feature flags"
         },
+        "badge_ids": {
+         "description": "IDs of the custom badges assigned to the community",
+         "$ref": "#/components/schemas/CustomBadgeIdListResponse"
+        },
         "verification_level": {
          "type": "number",
          "description": "Verification level"
@@ -67902,6 +66435,7 @@
         "member_count",
         "online_count",
         "features",
+        "badge_ids",
         "verification_level"
        ],
        "additionalProperties": false
@@ -68048,33 +66582,6 @@
      "has_more"
     ],
     "additionalProperties": false
-   },
-   "IndicateTypingRequestSchema": {
-    "type": "object",
-    "properties": {
-     "persona_id": {
-      "description": "ID of one of your personas to show as typing",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/SnowflakeType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "subprofile": {
-      "description": "Deprecated, use persona_id. Only its id is read, and persona_id wins when both are sent",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/LegacyMessageSubprofileRequestSchema"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    }
    },
    "ThreadSearchSortOrderSchema": {
     "type": "string",
@@ -68690,59 +67197,6 @@
     ],
     "additionalProperties": false
    },
-   "ChannelSignalToggleRequestSchema": {
-    "type": "object",
-    "properties": {
-     "persona_id": {
-      "description": "Persona the account is currently signalling as",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/SnowflakeStringType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    }
-   },
-   "ChannelSignalsResponseSchema": {
-    "type": "object",
-    "properties": {
-     "enabled": {
-      "type": "boolean",
-      "description": "Whether the signal bar is switched on in this channel"
-     },
-     "bar_version": {
-      "type": "integer",
-      "minimum": -9007199254740991,
-      "maximum": 9007199254740991
-     },
-     "entries": {
-      "type": "array",
-      "items": {
-       "$ref": "#/components/schemas/ChannelSignalEntrySchema"
-      }
-     }
-    },
-    "required": [
-     "enabled",
-     "bar_version",
-     "entries"
-    ],
-    "additionalProperties": false
-   },
-   "ChannelSignalBarEnabledRequestSchema": {
-    "type": "object",
-    "properties": {
-     "enabled": {
-      "type": "boolean"
-     }
-    },
-    "required": [
-     "enabled"
-    ]
-   },
    "RtcRegionListResponse": {
     "type": "array",
     "items": {
@@ -68786,12 +67240,6 @@
     ],
     "additionalProperties": false,
     "x-fluxer-experiment": "channel_threads"
-   },
-   "ChannelPersonaMentionsResponseSchema": {
-    "type": "array",
-    "items": {
-     "$ref": "#/components/schemas/ChannelPersonaMentionItemSchema"
-    }
    },
    "PermissionOverwriteCreateRequest": {
     "type": "object",
@@ -69204,29 +67652,6 @@
      "next_after"
     ],
     "additionalProperties": false
-   },
-   "AddReactionBodySchema": {
-    "anyOf": [
-     {
-      "type": "object",
-      "properties": {
-       "persona_id": {
-        "description": "Persona ID to attribute the reaction to",
-        "anyOf": [
-         {
-          "$ref": "#/components/schemas/SnowflakeStringType"
-         },
-         {
-          "type": "null"
-         }
-        ]
-       }
-      }
-     },
-     {
-      "type": "null"
-     }
-    ]
    },
    "ReactionUsersListResponse": {
     "type": "array",
@@ -73026,6 +71451,14 @@
      "domain_migration": {
       "description": "Web domain migration switch and anonymous rollout, only acted on by official instance clients",
       "$ref": "#/components/schemas/DomainMigrationDiscoveryResponse"
+     },
+     "guild_badges": {
+      "description": "Custom badges that communities on this instance can show next to their name, in display order",
+      "maxItems": 10,
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/InstanceGuildBadgeSchema"
+      }
      }
     },
     "required": [
@@ -73041,6 +71474,45 @@
      "limits",
      "push",
      "app_public"
+    ],
+    "additionalProperties": false
+   },
+   "InstanceGuildBadgeSchema": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "description": "The ID of the badge, as listed in badge_ids of a community",
+      "$ref": "#/components/schemas/SnowflakeStringType"
+     },
+     "name": {
+      "type": "string",
+      "description": "The name of the badge"
+     },
+     "description": {
+      "description": "Text shown under the name when hovering over the badge, or null",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "asset_url": {
+      "type": "string",
+      "description": "URL of the badge image, served as WebP by the media proxy"
+     },
+     "href": {
+      "description": "URL opened when the badge is clicked, or null",
+      "type": [
+       "string",
+       "null"
+      ]
+     }
+    },
+    "required": [
+     "id",
+     "name",
+     "description",
+     "asset_url",
+     "href"
     ],
     "additionalProperties": false
    },
@@ -73957,45 +72429,6 @@
     ],
     "type": "string"
    },
-   "ServerListButtonsSchema": {
-    "type": "object",
-    "properties": {
-     "favorites": {
-      "default": true,
-      "description": "Whether the Favorites button is visible in the server list",
-      "type": "boolean"
-     },
-     "explore": {
-      "default": true,
-      "description": "Whether the Explore communities button is visible in the server list",
-      "type": "boolean"
-     },
-     "create_join": {
-      "default": true,
-      "description": "Whether the Create or join a community button is visible in the server list",
-      "type": "boolean"
-     },
-     "download": {
-      "default": true,
-      "description": "Whether the Download desktop app button is visible in the server list",
-      "type": "boolean"
-     },
-     "help": {
-      "default": true,
-      "description": "Whether the Help center button is visible in the server list",
-      "type": "boolean"
-     }
-    },
-    "required": [
-     "favorites",
-     "explore",
-     "create_join",
-     "download",
-     "help"
-    ],
-    "additionalProperties": false,
-    "description": "Visibility configuration for special buttons in the server list column"
-   },
    "InstancePushDeliveryModeSchema": {
     "type": "string",
     "enum": [
@@ -74059,6 +72492,11 @@
      "restrict",
      "block"
     ]
+   },
+   "SnowflakeStringType": {
+    "type": "string",
+    "pattern": "^(0|[1-9][0-9]*)$",
+    "format": "snowflake"
    },
    "BotFlags": {
     "type": "integer",
@@ -75768,6 +74206,10 @@
         },
         "description": "Array of guild feature flags"
        },
+       "badge_ids": {
+        "description": "IDs of the custom badges assigned to the community. Look them up in guild_badges of the instance discovery document and skip IDs that are not there",
+        "$ref": "#/components/schemas/CustomBadgeIdListResponse"
+       },
        "visits_enabled": {
         "type": "boolean",
         "description": "Whether opening this invite starts a visit instead of a join for the requesting user. Omitted for a caller outside the guild visits experiment",
@@ -75996,6 +74438,10 @@
       },
       "description": "Array of guild feature flags"
      },
+     "badge_ids": {
+      "description": "IDs of the custom badges assigned to the community. Look them up in guild_badges of the instance discovery document and skip IDs that are not there",
+      "$ref": "#/components/schemas/CustomBadgeIdListResponse"
+     },
      "visits_enabled": {
       "type": "boolean",
       "description": "Whether opening this invite starts a visit instead of a join for the requesting user. Omitted for a caller outside the guild visits experiment",
@@ -76006,9 +74452,18 @@
      "id",
      "name",
      "splash_card_alignment",
-     "features"
+     "features",
+     "badge_ids"
     ],
     "additionalProperties": false
+   },
+   "CustomBadgeIdListResponse": {
+    "maxItems": 10,
+    "type": "array",
+    "items": {
+     "$ref": "#/components/schemas/SnowflakeStringType"
+    },
+    "description": "IDs of the custom badges assigned to it"
    },
    "GuildFeatureSchema": {
     "description": "A guild feature flag Known values: ANIMATED_ICON, ANIMATED_BANNER, AUDIO_BITRATE_128_KBPS, AUDIO_BITRATE_256_KBPS, AUDIO_BITRATE_384_KBPS, BANNER, CLONE_EMOJI_DISABLED, CLONE_EMOJI_ENABLED, CLONE_STICKER_DISABLED, CLONE_STICKER_ENABLED, DETACHED_BANNER, INVITE_SPLASH, INVITES_DISABLED, RAID_DETECTED, TEXT_CHANNEL_FLEXIBLE_NAMES, HIDE_OWNER_CROWN, MORE_EMOJI, MORE_STICKERS, UNLIMITED_EMOJI, UNLIMITED_STICKERS, EXPRESSION_PURGE_ALLOWED, VANITY_URL, DISCOVERABLE, PARTNERED, VERIFIED, VIP_VOICE, VOICE_E2EE, UNAVAILABLE_FOR_EVERYONE, UNAVAILABLE_FOR_EVERYONE_BUT_STAFF, UNAVAILABLE_HIDDEN, VISIONARY, LARGE_GUILD_OVERRIDE, VERY_LARGE_GUILD, ANNOUNCEMENT_CHANNELS_DISABLED, VISITS_ENABLED (other values allowed)",
@@ -76136,19 +74591,6 @@
      "A channel that can only contain threads in a gallery view",
      "A link channel for external resources",
      "Personal notes DM channel"
-    ]
-   },
-   "LegacyMessageSubprofileRequestSchema": {
-    "type": "object",
-    "properties": {
-     "id": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 64
-     }
-    },
-    "required": [
-     "id"
     ]
    },
    "MessageNonceRequest": {
@@ -77011,90 +75453,6 @@
     "required": [
      "message",
      "pinned_at"
-    ],
-    "additionalProperties": false
-   },
-   "MessageSubprofileResponseSchema": {
-    "type": "object",
-    "properties": {
-     "id": {
-      "type": "string",
-      "description": "Persona ID"
-     },
-     "name": {
-      "type": "string",
-      "description": "Persona display name"
-     },
-     "avatar": {
-      "description": "Avatar asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "avatar_color": {
-      "description": "Avatar accent color",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "display_tag_text": {
-      "description": "Display tag text",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "display_tag_icon": {
-      "description": "Hash of the display tag icon, an image stored under the account",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "color": {
-      "description": "Custom color integer",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "visibility": {
-      "description": "Persona visibility setting",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaVisibilitySchema"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    },
-    "required": [
-     "id",
-     "name"
     ],
     "additionalProperties": false
    },
@@ -78110,19 +76468,6 @@
      }
     ]
    },
-   "PersonaVisibilitySchema": {
-    "default": "unlisted",
-    "type": "string",
-    "enum": [
-     "unlisted",
-     "public",
-     "private"
-    ]
-   },
-   "PersonaAssetHashType": {
-    "type": "string",
-    "pattern": "^(a_)?[0-9a-f]{8}$"
-   },
    "ClientAttachmentReferenceRequest": {
     "type": "object",
     "properties": {
@@ -78255,95 +76600,6 @@
      "approximate_member_count",
      "approximate_presence_count",
      "discoverable"
-    ],
-    "additionalProperties": false
-   },
-   "ReactionUserItemResponse": {
-    "type": "object",
-    "properties": {
-     "id": {
-      "description": "The unique identifier (snowflake) for this user",
-      "$ref": "#/components/schemas/SnowflakeStringType"
-     },
-     "username": {
-      "type": "string",
-      "description": "The username of the user, not unique across the platform"
-     },
-     "discriminator": {
-      "type": "string",
-      "description": "The four-digit discriminator tag of the user"
-     },
-     "global_name": {
-      "description": "The display name of the user, if set",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "avatar": {
-      "description": "The hash of the user avatar image",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "avatar_color": {
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/Int32Type"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "description": "The dominant avatar color of the user as an integer"
-     },
-     "bot": {
-      "description": "Whether the user is a bot account",
-      "type": "boolean"
-     },
-     "system": {
-      "description": "Whether the user is an official system user",
-      "type": "boolean"
-     },
-     "flags": {
-      "$ref": "#/components/schemas/PublicUserFlags"
-     },
-     "mention_flags": {
-      "description": "The user's account-wide reply mention preference. Omitted when the user has no preference set (treated as NO_PREFERENCE).",
-      "$ref": "#/components/schemas/MentionReplyPreferences"
-     },
-     "subprofile": {
-      "description": "Persona subprofile who reacted, if any",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/MessageSubprofileResponseSchema"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "persona_id": {
-      "description": "Persona ID who reacted, if any",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/SnowflakeStringType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    },
-    "required": [
-     "id",
-     "username",
-     "discriminator",
-     "global_name",
-     "avatar",
-     "avatar_color",
-     "flags"
     ],
     "additionalProperties": false
    },
@@ -78713,142 +76969,6 @@
     ],
     "type": "integer"
    },
-   "ChannelPersonaMentionItemSchema": {
-    "type": "object",
-    "properties": {
-     "id": {
-      "description": "The unique Snowflake identifier for this persona",
-      "$ref": "#/components/schemas/SnowflakeStringType"
-     },
-     "name": {
-      "type": "string",
-      "description": "The persona display name"
-     },
-     "avatar_hash": {
-      "description": "Avatar asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "banner_hash": {
-      "description": "Banner asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "display_tag_text": {
-      "description": "Optional display tag text",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "display_tag_icon": {
-      "description": "Hash of the display tag icon, an image stored under the account",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "pronouns": {
-      "description": "Optional pronouns",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "color": {
-      "description": "Optional accent color integer",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "bio": {
-      "description": "Optional persona bio",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "visibility": {
-      "description": "Visibility setting",
-      "$ref": "#/components/schemas/PersonaVisibilitySchema"
-     },
-     "use_count": {
-      "default": 0,
-      "description": "Usage counter for frecency ranking",
-      "type": "integer",
-      "minimum": -9007199254740991,
-      "maximum": 9007199254740991
-     },
-     "last_used_at_ms": {
-      "description": "Timestamp in ms when the persona was last used",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "owner_user_id": {
-      "description": "User ID of the persona owner",
-      "$ref": "#/components/schemas/SnowflakeStringType"
-     },
-     "owner_username": {
-      "type": "string",
-      "description": "Username of the persona owner"
-     },
-     "owner_discriminator": {
-      "description": "Discriminator of the persona owner",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "owner_global_name": {
-      "description": "Global display name of the persona owner",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "owner_nickname": {
-      "description": "Guild nickname if applicable",
-      "type": [
-       "string",
-       "null"
-      ]
-     }
-    },
-    "required": [
-     "id",
-     "name",
-     "visibility",
-     "use_count",
-     "owner_user_id",
-     "owner_username"
-    ],
-    "additionalProperties": false
-   },
    "ThreadPostDataEntryResponse": {
     "type": "object",
     "properties": {
@@ -78901,54 +77021,6 @@
      "id",
      "name",
      "emoji"
-    ],
-    "additionalProperties": false
-   },
-   "ChannelSignalEntrySchema": {
-    "type": "object",
-    "properties": {
-     "signal_id": {
-      "type": "string",
-      "pattern": "^[a-z0-9]{1,32}$",
-      "description": "The unique identifier of the signal within the bar"
-     },
-     "user": {
-      "$ref": "#/components/schemas/UserPartialResponse"
-     },
-     "persona_id": {
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/SnowflakeStringType"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "description": "The persona the account is currently signalling as, if any"
-     },
-     "subprofile": {
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/MessageSubprofileResponseSchema"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "activated_at": {
-      "type": "integer",
-      "minimum": -9007199254740991,
-      "maximum": 9007199254740991,
-      "description": "Unix timestamp in milliseconds"
-     }
-    },
-    "required": [
-     "signal_id",
-     "user",
-     "persona_id",
-     "subprofile",
-     "activated_at"
     ],
     "additionalProperties": false
    },
@@ -82201,57 +80273,6 @@
     ],
     "additionalProperties": false
    },
-   "SignalBarSignalSchema": {
-    "type": "object",
-    "properties": {
-     "id": {
-      "type": "string",
-      "pattern": "^[a-z0-9]{1,32}$",
-      "description": "The unique identifier of the signal within the bar"
-     },
-     "emoji_id": {
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/SnowflakeStringType"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "description": "Custom emoji ID (null for Unicode)"
-     },
-     "emoji_name": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 64,
-      "description": "Emoji name or Unicode character"
-     },
-     "animated": {
-      "type": "boolean",
-      "description": "Whether the emoji is animated"
-     },
-     "label": {
-      "anyOf": [
-       {
-        "type": "string",
-        "maxLength": 32
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "description": "Optional label shown instead of the emoji name"
-     }
-    },
-    "required": [
-     "id",
-     "emoji_id",
-     "emoji_name",
-     "animated",
-     "label"
-    ],
-    "additionalProperties": false
-   },
    "GroupDmInviteResponse": {
     "type": "object",
     "properties": {
@@ -83258,95 +81279,6 @@
      "avatar",
      "avatar_url",
      "tier"
-    ],
-    "additionalProperties": false
-   },
-   "PersonaLookupItemSchema": {
-    "type": "object",
-    "properties": {
-     "id": {
-      "type": "string",
-      "description": "Persona ID"
-     },
-     "name": {
-      "type": "string",
-      "description": "Persona display name"
-     },
-     "avatar": {
-      "description": "Avatar asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "avatar_color": {
-      "description": "Avatar accent color",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "display_tag_text": {
-      "description": "Display tag text",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "display_tag_icon": {
-      "description": "Hash of the display tag icon, an image stored under the account",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "color": {
-      "description": "Custom color integer",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "visibility": {
-      "description": "Persona visibility setting",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaVisibilitySchema"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "user_id": {
-      "type": "string",
-      "description": "The persona owner’s user ID"
-     }
-    },
-    "required": [
-     "id",
-     "name",
-     "user_id"
     ],
     "additionalProperties": false
    },
@@ -85360,31 +83292,6 @@
     ],
     "additionalProperties": false
    },
-   "MessageReactionPersonaEntry": {
-    "type": "object",
-    "properties": {
-     "persona_id": {
-      "description": "The persona ID that reacted",
-      "$ref": "#/components/schemas/SnowflakeStringType"
-     },
-     "count": {
-      "description": "Count of reactions by this persona",
-      "$ref": "#/components/schemas/Int32Type"
-     },
-     "me": {
-      "description": "Whether the current user reacted as this persona",
-      "type": [
-       "boolean",
-       "null"
-      ]
-     }
-    },
-    "required": [
-     "persona_id",
-     "count"
-    ],
-    "additionalProperties": false
-   },
    "MessageSearchScope": {
     "description": "Search scope for message searches",
     "x-enumNames": [
@@ -85745,6 +83652,15 @@
       "description": "Allow members from mutual guilds to see this profile field"
      }
     ]
+   },
+   "HiddenProfileBadgesType": {
+    "maxItems": 18,
+    "type": "array",
+    "items": {
+     "type": "string",
+     "description": "A badge key: a built-in badge kind, or custom:{id} for a custom badge"
+    },
+    "description": "The full list of badge keys to hide from other people. It replaces the stored list, takes precedence over the deprecated hide fields, and keys of custom badges that no longer exist are dropped"
    },
    "ConfirmEmailClaimAccountResponse": {
     "type": "object",
@@ -86355,335 +84271,16 @@
     ],
     "additionalProperties": false
    },
-   "SignatureEmojiSchemaInput": {
+   "OwnProfileBadgeResponse": {
     "type": "object",
     "properties": {
-     "id": {
-      "description": "Custom emoji ID (null for Unicode)",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/SnowflakeStringType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "name": {
+     "key": {
       "type": "string",
-      "minLength": 1,
-      "maxLength": 64,
-      "description": "Emoji name or Unicode character"
+      "description": "Stable identity of the badge. It equals kind for built-in badges and is custom:{id} for custom badges, so use it as the list key"
      },
-     "animated": {
-      "description": "Whether the emoji is animated",
-      "type": [
-       "boolean",
-       "null"
-      ]
-     }
-    },
-    "required": [
-     "name"
-    ]
-   },
-   "PersonaTagSchemaInput": {
-    "type": "object",
-    "properties": {
-     "prefix": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 32
-     },
-     "suffix": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 32
-     }
-    }
-   },
-   "PersonaImportItemSchema": {
-    "type": "object",
-    "properties": {
-     "name": {
-      "description": "Persona display name",
-      "type": "string"
-     },
-     "avatar_hash": {
-      "description": "Avatar asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "banner_hash": {
-      "description": "Banner asset hash",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaAssetHashType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "pronouns": {
-      "description": "Optional pronouns",
-      "anyOf": [
-       {
-        "type": "string",
-        "maxLength": 100
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "color": {
-      "description": "Optional color integer",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "avatar_color": {
-      "description": "Optional avatar accent color",
-      "anyOf": [
-       {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "bio": {
-      "description": "Optional persona bio",
-      "anyOf": [
-       {
-        "type": "string",
-        "maxLength": 4096
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "auto_tag_disabled": {
-      "description": "Whether auto-tagging is disabled",
-      "type": "boolean"
-     },
-     "persona_tags": {
-      "description": "Persona prefix/suffix tags",
-      "maxItems": 5,
-      "type": "array",
-      "items": {
-       "$ref": "#/components/schemas/PersonaTagSchemaInput"
-      }
-     },
-     "signature_emojis": {
-      "description": "Signature emojis for this persona",
-      "maxItems": 10000,
-      "type": "array",
-      "items": {
-       "$ref": "#/components/schemas/SignatureEmojiSchemaInput"
-      }
-     },
-     "visibility": {
-      "description": "Visibility: unlisted (default), public, or private",
-      "$ref": "#/components/schemas/PersonaVisibilitySchema"
-     },
-     "external_uuid": {
-      "description": "Optional external UUID (e.g. PluralKit)",
-      "anyOf": [
-       {
-        "type": "string",
-        "maxLength": 64
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "image_sources": {
-      "description": "Where the persona's images were imported from; null when the file gave it none",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/PersonaImportImageSourcesSchema"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    },
-    "required": [
-     "name"
-    ]
-   },
-   "PersonaImportImageSourcesSchema": {
-    "type": "object",
-    "properties": {
-     "avatar": {
-      "anyOf": [
-       {
-        "type": "object",
-        "properties": {
-         "url": {
-          "description": "The link the avatar was imported from",
-          "anyOf": [
-           {
-            "type": "string",
-            "maxLength": 2048
-           },
-           {
-            "type": "null"
-           }
-          ]
-         },
-         "field": {
-          "type": "string",
-          "enum": [
-           "avatar_url",
-           "webhook_avatar_url"
-          ],
-          "description": "The PluralKit field it came from"
-         },
-         "main_avatar_empty": {
-          "description": "Whether the member's avatar_url was empty, when the avatar came from webhook_avatar_url",
-          "type": "boolean"
-         }
-        },
-        "required": [
-         "field"
-        ]
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "banner": {
-      "anyOf": [
-       {
-        "type": "object",
-        "properties": {
-         "url": {
-          "description": "The link the banner was imported from",
-          "anyOf": [
-           {
-            "type": "string",
-            "maxLength": 2048
-           },
-           {
-            "type": "null"
-           }
-          ]
-         }
-        }
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    }
-   },
-   "PersonaImportImageKindSchema": {
-    "type": "string",
-    "enum": [
-     "avatar",
-     "banner"
-    ]
-   },
-   "ActivePersonaScopeSchema": {
-    "type": "string",
-    "enum": [
-     "global",
-     "channel"
-    ]
-   },
-   "ActivePersonaModeSchema": {
-    "type": "string",
-    "enum": [
-     "manual",
-     "last"
-    ]
-   },
-   "SignatureEmojiSchema": {
-    "type": "object",
-    "properties": {
-     "id": {
-      "description": "Custom emoji ID (null for Unicode)",
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/SnowflakeStringType"
-       },
-       {
-        "type": "null"
-       }
-      ]
-     },
-     "name": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 64,
-      "description": "Emoji name or Unicode character"
-     },
-     "animated": {
-      "description": "Whether the emoji is animated",
-      "type": [
-       "boolean",
-       "null"
-      ]
-     }
-    },
-    "required": [
-     "name"
-    ],
-    "additionalProperties": false
-   },
-   "PersonaTagSchema": {
-    "type": "object",
-    "properties": {
-     "prefix": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 32
-     },
-     "suffix": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 32
-     }
-    },
-    "additionalProperties": false
-   },
-   "ProfileBadgeListResponse": {
-    "type": "array",
-    "items": {
-     "$ref": "#/components/schemas/ProfileBadgeResponse"
-    },
-    "description": "Profile badges in display order. Empty when there is nothing to show"
-   },
-   "ProfileBadgeResponse": {
-    "type": "object",
-    "properties": {
      "kind": {
       "type": "string",
-      "description": "Stable badge key. Known values: staff, partner, bug_hunter, operator_pass, visionary, visionary_number, plutonium, and premium on self-hosted instances. Clients must render unknown values from the other fields."
+      "description": "Badge type. Known values: staff, partner, bug_hunter, operator_pass, visionary, visionary_number, plutonium, custom, and premium on self-hosted instances. Clients must render unknown values from the other fields."
      },
      "label": {
       "type": "string",
@@ -86698,7 +84295,151 @@
         "type": "null"
        }
       ],
-      "description": "Badge image hash. The image is served at {static_cdn}/badges/{asset}.webp. Null for text badges"
+      "description": "Badge image hash. The image is served at {static_cdn}/badges/{asset}.webp. Null for text badges and for badges with asset_url"
+     },
+     "asset_url": {
+      "description": "Absolute image URL for a badge whose image is not a static badge hash, such as a custom badge. Null otherwise",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "small_asset": {
+      "description": "Image hash drawn for 20 pixels and smaller, served like asset. Use it instead of asset at those sizes. Absent when asset reads well small",
+      "$ref": "#/components/schemas/HexString16Type"
+     },
+     "aspect_ratio": {
+      "anyOf": [
+       {
+        "type": "number",
+        "exclusiveMinimum": 0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Image width divided by its height. Render the image at the badge height and this many times as wide. Null for square badges"
+     },
+     "caption": {
+      "description": "Short text for the badge, such as #42. A badge with an image uses it as alt text, and a badge without one shows it as text. Null when the label covers it",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "href": {
+      "description": "Absolute URL to open when the badge is clicked, or null",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "count": {
+      "description": "How many passes the badge stands for, from 2. The badge art already carries the number, so clients never draw it on top. Absent below 2 and when the holder hides the number from other people",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "accessible_label": {
+      "description": "Label for screen readers with the full count, used instead of label when present",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "details": {
+      "description": "Content for the richer vertical tooltip, null or absent when label is the whole tooltip",
+      "anyOf": [
+       {
+        "type": "object",
+        "properties": {
+         "title": {
+          "type": "string",
+          "description": "First line of the tooltip under the larger badge art"
+         },
+         "lines": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          },
+          "description": "Further tooltip lines, in order"
+         }
+        },
+        "required": [
+         "title",
+         "lines"
+        ],
+        "additionalProperties": false
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "hidden": {
+      "type": "boolean",
+      "description": "True when the badge key is in your hidden_profile_badges, so other people do not see it"
+     }
+    },
+    "required": [
+     "key",
+     "kind",
+     "label",
+     "asset",
+     "asset_url",
+     "aspect_ratio",
+     "caption",
+     "href",
+     "hidden"
+    ],
+    "additionalProperties": false
+   },
+   "ProfileBadgeListResponse": {
+    "type": "array",
+    "items": {
+     "$ref": "#/components/schemas/ProfileBadgeResponse"
+    },
+    "description": "Profile badges in display order. Empty when there is nothing to show"
+   },
+   "ProfileBadgeResponse": {
+    "type": "object",
+    "properties": {
+     "key": {
+      "type": "string",
+      "description": "Stable identity of the badge. It equals kind for built-in badges and is custom:{id} for custom badges, so use it as the list key"
+     },
+     "kind": {
+      "type": "string",
+      "description": "Badge type. Known values: staff, partner, bug_hunter, operator_pass, visionary, visionary_number, plutonium, custom, and premium on self-hosted instances. Clients must render unknown values from the other fields."
+     },
+     "label": {
+      "type": "string",
+      "description": "Full badge description, localized for the viewer. Use it as the tooltip, and as alt text when there is no caption"
+     },
+     "asset": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/HexString16Type"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Badge image hash. The image is served at {static_cdn}/badges/{asset}.webp. Null for text badges and for badges with asset_url"
+     },
+     "asset_url": {
+      "description": "Absolute image URL for a badge whose image is not a static badge hash, such as a custom badge. Null otherwise",
+      "type": [
+       "string",
+       "null"
+      ]
      },
      "small_asset": {
       "description": "Image hash drawn for 20 pixels and smaller, served like asset. Use it instead of asset at those sizes. Absent when asset reads well small",
@@ -86781,9 +84522,11 @@
      }
     },
     "required": [
+     "key",
      "kind",
      "label",
      "asset",
+     "asset_url",
      "aspect_ratio",
      "caption",
      "href"
@@ -87609,6 +85352,7 @@
      "IP_BAN_DECLINED",
      "IP_BAN_LINKED_TO_DECISION",
      "MAX_APPLICATIONS",
+     "MAX_BADGES",
      "MAX_BOOKMARKS",
      "MAX_ACTIVE_THREADS",
      "MAX_CATEGORY_CHANNELS",
@@ -87756,6 +85500,7 @@
      "UNCLAIMED_ACCOUNT_CANNOT_SEND_FRIEND_REQUESTS",
      "UNCLAIMED_ACCOUNT_CANNOT_SEND_MESSAGES",
      "UNCLAIMED_ACCOUNT_CANNOT_SUBMIT_REPORTS",
+     "UNKNOWN_BADGE",
      "UNKNOWN_CHANNEL",
      "UNKNOWN_EMOJI",
      "UNKNOWN_ENFORCEMENT_DECISION",
@@ -87770,13 +85515,6 @@
      "UNKNOWN_ORIGIN_HANDOFF",
      "UNKNOWN_PASSKEY_BRIDGE",
      "UNKNOWN_PASSKEY_MIGRATION",
-     "UNKNOWN_PERSONA",
-     "PRIVATE_PERSONA",
-     "PERSONA_LIMIT_REACHED",
-     "DUPLICATE_PERSONA_TAG",
-     "PERSONA_TAG_LIMIT_REACHED",
-     "DUPLICATE_SIGNATURE_EMOJI",
-     "SIGNATURE_EMOJI_LIMIT_REACHED",
      "UNKNOWN_REPORT",
      "UNKNOWN_ROLE",
      "UNKNOWN_STICKER",
@@ -87822,7 +85560,14 @@
      "PASSWORD_REQUIRED_TO_CLAIM",
      "GUILD_VISITS_DISABLED",
      "GUILD_VISIT_AGE_RESTRICTED",
-     "GUILD_VISIT_NOT_FOUND"
+     "GUILD_VISIT_NOT_FOUND",
+     "UNKNOWN_PERSONA",
+     "PRIVATE_PERSONA",
+     "PERSONA_LIMIT_REACHED",
+     "DUPLICATE_PERSONA_TAG",
+     "PERSONA_TAG_LIMIT_REACHED",
+     "DUPLICATE_SIGNATURE_EMOJI",
+     "SIGNATURE_EMOJI_LIMIT_REACHED"
     ],
     "description": "Known error codes returned by API operations",
     "x-enumDescriptions": [
@@ -87978,6 +85723,7 @@
      "This IP address cannot be added to the blocklist.",
      "This network block belongs to an enforcement decision. End the decision to remove it.",
      "You've reached the maximum of {limit, plural, one {# application} other {# applications}}.",
+     "You've reached the maximum of {count, plural, one {# badge} other {# badges}} for this type.",
      "You've reached the maximum of {count, plural, one {# bookmark} other {# bookmarks}}.",
      "This community has reached its active thread limit of {count}.",
      "You've reached the maximum of {count, plural, one {# category channel} other {# category channels}}.",
@@ -88125,6 +85871,7 @@
      "Claim your account to send friend requests.",
      "Claim your account to send messages.",
      "Claim your account to submit reports.",
+     "Badge wasn't found.",
      "Channel wasn't found.",
      "Unknown emoji.",
      "Unknown enforcement decision.",
@@ -88139,13 +85886,6 @@
      "This sign-in transfer has expired or was already used.",
      "This passkey request has expired. Try again.",
      "There is no passkey to update right now.",
-     "User wasn't found.",
-     "You don't have access to this resource or feature.",
-     "You've reached the maximum number of connections ({limit}).",
-     "This tag is already taken.",
-     "You've reached the maximum number of connections ({limit}).",
-     "This tag is already taken.",
-     "You've reached the maximum number of connections ({limit}).",
      "Unknown report.",
      "Role wasn't found.",
      "Unknown sticker.",
@@ -88193,6 +85933,2074 @@
      "This community is for adults only.",
      "You're not previewing this community anymore."
     ]
+   },
+   "PublicPersonaResponseSchema": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "description": "The unique Snowflake identifier for this persona",
+      "$ref": "#/components/schemas/SnowflakeStringType"
+     },
+     "name": {
+      "type": "string",
+      "description": "The persona display name"
+     },
+     "avatar_hash": {
+      "description": "Avatar asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "banner_hash": {
+      "description": "Banner asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "pronouns": {
+      "description": "Optional pronouns",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "color": {
+      "description": "Optional accent color integer",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "avatar_color": {
+      "description": "Avatar accent color",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "bio": {
+      "description": "Optional persona bio",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "visibility": {
+      "description": "Visibility setting",
+      "$ref": "#/components/schemas/PersonaVisibilitySchema"
+     }
+    },
+    "required": [
+     "id",
+     "name",
+     "visibility"
+    ],
+    "additionalProperties": false
+   },
+   "PublicPersonaListResponseSchema": {
+    "type": "array",
+    "items": {
+     "$ref": "#/components/schemas/PublicPersonaResponseSchema"
+    }
+   },
+   "PersonaUpdateRequestSchema": {
+    "type": "object",
+    "properties": {
+     "name": {
+      "description": "Persona display name",
+      "type": "string"
+     },
+     "avatar_hash": {
+      "description": "Avatar asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "banner_hash": {
+      "description": "Banner asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "pronouns": {
+      "description": "Optional pronouns",
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 100
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "color": {
+      "description": "Optional color integer",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "avatar_color": {
+      "description": "Optional avatar accent color",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "bio": {
+      "description": "Optional persona bio",
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 4096
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "auto_tag_disabled": {
+      "description": "Whether auto-tagging is disabled",
+      "type": "boolean"
+     },
+     "persona_tags": {
+      "description": "Persona prefix/suffix tags",
+      "maxItems": 5,
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/PersonaTagSchemaInput"
+      }
+     },
+     "signature_emojis": {
+      "description": "Signature emojis for this persona",
+      "maxItems": 10000,
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/SignatureEmojiSchemaInput"
+      }
+     },
+     "visibility": {
+      "description": "Visibility setting",
+      "type": "string",
+      "enum": [
+       "unlisted",
+       "public",
+       "private"
+      ]
+     },
+     "external_uuid": {
+      "description": "Optional external UUID",
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 64
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    }
+   },
+   "PersonaResponseSchema": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "description": "The unique Snowflake identifier for this persona",
+      "$ref": "#/components/schemas/SnowflakeStringType"
+     },
+     "name": {
+      "type": "string",
+      "description": "The persona display name"
+     },
+     "avatar_hash": {
+      "description": "Avatar asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "banner_hash": {
+      "description": "Banner asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "pronouns": {
+      "description": "Optional pronouns",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "color": {
+      "description": "Optional accent color integer",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "avatar_color": {
+      "description": "Avatar accent color",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "bio": {
+      "description": "Optional persona bio",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "auto_tag_disabled": {
+      "default": false,
+      "description": "Whether persona tag matching is disabled",
+      "type": "boolean"
+     },
+     "persona_tags": {
+      "default": [],
+      "description": "Persona prefix and suffix tags",
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/PersonaTagSchema"
+      }
+     },
+     "signature_emojis": {
+      "default": [],
+      "description": "Signature emojis for this persona",
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/SignatureEmojiSchema"
+      }
+     },
+     "use_count": {
+      "default": 0,
+      "description": "Usage counter for frecency ranking",
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+     },
+     "last_used_at_ms": {
+      "description": "Timestamp in ms when the persona was last used",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "visibility": {
+      "description": "Visibility setting: unlisted (default), public, or private",
+      "$ref": "#/components/schemas/PersonaVisibilitySchema"
+     },
+     "external_uuid": {
+      "description": "External UUID for idempotent PluralKit imports",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "created_at": {
+      "type": "string",
+      "description": "ISO timestamp of persona creation"
+     },
+     "updated_at": {
+      "type": "string",
+      "description": "ISO timestamp of last update"
+     },
+     "deleted_at": {
+      "description": "ISO timestamp if the persona has been soft-deleted",
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date-time",
+        "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "required": [
+     "id",
+     "name",
+     "auto_tag_disabled",
+     "persona_tags",
+     "signature_emojis",
+     "use_count",
+     "visibility",
+     "created_at",
+     "updated_at"
+    ],
+    "additionalProperties": false
+   },
+   "PersonaSettingsUpdateRequestSchema": {
+    "type": "object",
+    "properties": {
+     "active_persona_mode": {
+      "$ref": "#/components/schemas/ActivePersonaModeSchema"
+     },
+     "active_persona_scope": {
+      "$ref": "#/components/schemas/ActivePersonaScopeSchema"
+     },
+     "active_persona_id": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SnowflakeStringType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "is_latched": {
+      "type": "boolean"
+     },
+     "display_tag_text": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 100
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "display_tag_icon": {
+      "description": "Hash of the display tag icon, from the persona avatar upload or import routes",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    }
+   },
+   "PersonaSettingsResponseSchema": {
+    "type": "object",
+    "properties": {
+     "user_id": {
+      "description": "User Snowflake ID",
+      "$ref": "#/components/schemas/SnowflakeStringType"
+     },
+     "active_persona_mode": {
+      "default": "manual",
+      "$ref": "#/components/schemas/ActivePersonaModeSchema"
+     },
+     "active_persona_scope": {
+      "default": "global",
+      "description": "Whether the selected persona is one for every channel or remembered per channel",
+      "$ref": "#/components/schemas/ActivePersonaScopeSchema"
+     },
+     "active_persona_id": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SnowflakeStringType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "is_latched": {
+      "default": false,
+      "type": "boolean"
+     },
+     "display_tag_text": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 100
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "display_tag_icon": {
+      "description": "Hash of the display tag icon, an image stored under the account",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "updated_at": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "user_id",
+     "active_persona_mode",
+     "active_persona_scope",
+     "is_latched"
+    ],
+    "additionalProperties": false
+   },
+   "PersonaImportImageRequest": {
+    "type": "object",
+    "properties": {
+     "kind": {
+      "description": "Whether the image is an avatar or a banner",
+      "$ref": "#/components/schemas/PersonaImportImageKindSchema"
+     },
+     "image": {
+      "type": "string",
+      "description": "Base64 data URI of the image"
+     }
+    },
+    "required": [
+     "kind",
+     "image"
+    ]
+   },
+   "PersonaImportImageResponse": {
+    "type": "object",
+    "properties": {
+     "hash": {
+      "description": "Hash of the stored image",
+      "$ref": "#/components/schemas/PersonaAssetHashType"
+     },
+     "avatar_color": {
+      "description": "Dominant colour, for an avatar",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "required": [
+     "hash"
+    ],
+    "additionalProperties": false
+   },
+   "PersonaBatchAvatarImportRequest": {
+    "type": "object",
+    "properties": {
+     "urls": {
+      "minItems": 1,
+      "maxItems": 500,
+      "type": "array",
+      "items": {
+       "type": "string",
+       "maxLength": 2048,
+       "format": "uri"
+      },
+      "description": "List of remote avatar URLs to import"
+     },
+     "kind": {
+      "description": "Whether the links are avatars or banners; avatars when absent",
+      "$ref": "#/components/schemas/PersonaImportImageKindSchema"
+     }
+    },
+    "required": [
+     "urls"
+    ]
+   },
+   "PersonaBatchAvatarImportStream": {
+    "type": "string",
+    "description": "Newline-delimited JSON: a start line with the total, a progress line as each URL finishes, and a complete line with every result"
+   },
+   "PersonaAvatarImportRequest": {
+    "type": "object",
+    "properties": {
+     "url": {
+      "type": "string",
+      "maxLength": 2048,
+      "format": "uri",
+      "description": "Remote URL of the avatar image to import"
+     }
+    },
+    "required": [
+     "url"
+    ]
+   },
+   "PersonaAvatarImportResponse": {
+    "type": "object",
+    "properties": {
+     "avatar_hash": {
+      "description": "Hash of the imported avatar",
+      "$ref": "#/components/schemas/PersonaAssetHashType"
+     },
+     "avatar_color": {
+      "description": "Dominant avatar color",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "required": [
+     "avatar_hash"
+    ],
+    "additionalProperties": false
+   },
+   "PersonaBulkImportRequestSchema": {
+    "maxItems": 250,
+    "type": "array",
+    "items": {
+     "$ref": "#/components/schemas/PersonaImportItemSchema"
+    }
+   },
+   "PersonaListResponseSchema": {
+    "type": "array",
+    "items": {
+     "$ref": "#/components/schemas/PersonaResponseSchema"
+    }
+   },
+   "PersonaExportResponse": {
+    "type": "string",
+    "format": "binary",
+    "contentEncoding": "binary",
+    "description": "A ZIP file with the personas as a PluralKit export (pluralkit.json), their images, tyne.json and a README"
+   },
+   "PersonaChannelStateUpdateRequestSchema": {
+    "type": "object",
+    "properties": {
+     "persona_id": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SnowflakeStringType"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "The persona to select in the channel, or null for the account"
+     }
+    },
+    "required": [
+     "persona_id"
+    ]
+   },
+   "PersonaChannelStateSchema": {
+    "type": "object",
+    "properties": {
+     "channel_id": {
+      "description": "The channel this selection belongs to",
+      "$ref": "#/components/schemas/SnowflakeStringType"
+     },
+     "persona_id": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SnowflakeStringType"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "The persona selected in the channel, or null when the channel is used as the account itself"
+     }
+    },
+    "required": [
+     "channel_id",
+     "persona_id"
+    ],
+    "additionalProperties": false
+   },
+   "PersonaChannelStatesResponseSchema": {
+    "type": "object",
+    "properties": {
+     "states": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/PersonaChannelStateSchema"
+      },
+      "description": "Every channel that has a persona selected"
+     }
+    },
+    "required": [
+     "states"
+    ],
+    "additionalProperties": false
+   },
+   "PersonaBannerUploadRequest": {
+    "type": "object",
+    "properties": {
+     "banner": {
+      "type": "string",
+      "description": "Base64 data URI of the banner image"
+     }
+    },
+    "required": [
+     "banner"
+    ]
+   },
+   "PersonaBannerUploadResponse": {
+    "type": "object",
+    "properties": {
+     "banner_hash": {
+      "description": "Hash of the uploaded banner",
+      "$ref": "#/components/schemas/PersonaAssetHashType"
+     }
+    },
+    "required": [
+     "banner_hash"
+    ],
+    "additionalProperties": false
+   },
+   "PersonaAvatarUploadRequest": {
+    "type": "object",
+    "properties": {
+     "avatar": {
+      "type": "string",
+      "description": "Base64 data URI of the avatar image"
+     }
+    },
+    "required": [
+     "avatar"
+    ]
+   },
+   "PersonaAvatarUploadResponse": {
+    "type": "object",
+    "properties": {
+     "avatar_hash": {
+      "description": "Hash of the uploaded avatar",
+      "$ref": "#/components/schemas/PersonaAssetHashType"
+     },
+     "avatar_color": {
+      "description": "Dominant avatar color",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "required": [
+     "avatar_hash"
+    ],
+    "additionalProperties": false
+   },
+   "PersonaCreateRequestSchema": {
+    "type": "object",
+    "properties": {
+     "name": {
+      "description": "Persona display name",
+      "type": "string"
+     },
+     "avatar_hash": {
+      "description": "Avatar asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "banner_hash": {
+      "description": "Banner asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "pronouns": {
+      "description": "Optional pronouns",
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 100
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "color": {
+      "description": "Optional color integer",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "avatar_color": {
+      "description": "Optional avatar accent color",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "bio": {
+      "description": "Optional persona bio",
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 4096
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "auto_tag_disabled": {
+      "description": "Whether auto-tagging is disabled",
+      "type": "boolean"
+     },
+     "persona_tags": {
+      "description": "Persona prefix/suffix tags",
+      "maxItems": 5,
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/PersonaTagSchemaInput"
+      }
+     },
+     "signature_emojis": {
+      "description": "Signature emojis for this persona",
+      "maxItems": 10000,
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/SignatureEmojiSchemaInput"
+      }
+     },
+     "visibility": {
+      "description": "Visibility: unlisted (default), public, or private",
+      "$ref": "#/components/schemas/PersonaVisibilitySchema"
+     },
+     "external_uuid": {
+      "description": "Optional external UUID (e.g. PluralKit)",
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 64
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "required": [
+     "name"
+    ]
+   },
+   "PersonaLookupRequestSchema": {
+    "type": "object",
+    "properties": {
+     "personas": {
+      "minItems": 1,
+      "maxItems": 100,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "user_id": {
+         "description": "The persona owner’s user ID",
+         "$ref": "#/components/schemas/SnowflakeStringType"
+        },
+        "persona_id": {
+         "description": "The persona’s ID",
+         "$ref": "#/components/schemas/SnowflakeStringType"
+        }
+       },
+       "required": [
+        "user_id",
+        "persona_id"
+       ]
+      },
+      "description": "Personas to look up"
+     }
+    },
+    "required": [
+     "personas"
+    ]
+   },
+   "PersonaLookupResponseSchema": {
+    "type": "array",
+    "items": {
+     "$ref": "#/components/schemas/PersonaLookupItemSchema"
+    }
+   },
+   "SignalBarUpdateRequestSchema": {
+    "type": "object",
+    "properties": {
+     "signals": {
+      "maxItems": 50,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "id": {
+         "description": "Existing signal ID; omit to add a new signal",
+         "anyOf": [
+          {
+           "type": "string",
+           "pattern": "^[a-z0-9]{1,32}$",
+           "description": "The unique identifier of the signal within the bar"
+          },
+          {
+           "type": "null"
+          }
+         ]
+        },
+        "emoji_id": {
+         "description": "Custom emoji ID (null for Unicode)",
+         "anyOf": [
+          {
+           "$ref": "#/components/schemas/SnowflakeStringType"
+          },
+          {
+           "type": "null"
+          }
+         ]
+        },
+        "emoji_name": {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 64,
+         "description": "Emoji name or Unicode character"
+        },
+        "label": {
+         "anyOf": [
+          {
+           "type": "string",
+           "maxLength": 32
+          },
+          {
+           "type": "null"
+          }
+         ]
+        }
+       },
+       "required": [
+        "emoji_name"
+       ]
+      }
+     }
+    },
+    "required": [
+     "signals"
+    ]
+   },
+   "SignalBarResponseSchema": {
+    "type": "object",
+    "properties": {
+     "version": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991,
+      "description": "Incremented on every change to the bar"
+     },
+     "signals": {
+      "maxItems": 50,
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/SignalBarSignalSchema"
+      }
+     },
+     "guild_id": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SnowflakeStringType"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "The home community that owns the bar"
+     },
+     "can_manage": {
+      "type": "boolean",
+      "description": "Whether the requesting user may edit the bar"
+     }
+    },
+    "required": [
+     "version",
+     "signals",
+     "guild_id",
+     "can_manage"
+    ],
+    "additionalProperties": false
+   },
+   "GuildSignalBarSettingsSchemaInput": {
+    "type": "object",
+    "properties": {
+     "default": {
+      "type": "boolean",
+      "description": "Whether channels without a category or channel setting show the signal bar"
+     },
+     "categories": {
+      "type": "object",
+      "propertyNames": {
+       "type": "string",
+       "maxLength": 20
+      },
+      "additionalProperties": {
+       "type": "boolean"
+      }
+     },
+     "channels": {
+      "type": "object",
+      "propertyNames": {
+       "type": "string",
+       "maxLength": 20
+      },
+      "additionalProperties": {
+       "type": "boolean"
+      }
+     }
+    },
+    "required": [
+     "default",
+     "categories",
+     "channels"
+    ]
+   },
+   "GuildSignalBarSettingsSchema": {
+    "type": "object",
+    "properties": {
+     "default": {
+      "type": "boolean",
+      "description": "Whether channels without a category or channel setting show the signal bar"
+     },
+     "categories": {
+      "type": "object",
+      "propertyNames": {
+       "type": "string",
+       "maxLength": 20
+      },
+      "additionalProperties": {
+       "type": "boolean"
+      }
+     },
+     "channels": {
+      "type": "object",
+      "propertyNames": {
+       "type": "string",
+       "maxLength": 20
+      },
+      "additionalProperties": {
+       "type": "boolean"
+      }
+     }
+    },
+    "required": [
+     "default",
+     "categories",
+     "channels"
+    ],
+    "additionalProperties": false
+   },
+   "IndicateTypingRequestSchema": {
+    "type": "object",
+    "properties": {
+     "persona_id": {
+      "description": "ID of one of your personas to show as typing",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SnowflakeType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "subprofile": {
+      "description": "Deprecated, use persona_id. Only its id is read, and persona_id wins when both are sent",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/LegacyMessageSubprofileRequestSchema"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    }
+   },
+   "ChannelSignalToggleRequestSchema": {
+    "type": "object",
+    "properties": {
+     "persona_id": {
+      "description": "Persona the account is currently signalling as",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SnowflakeStringType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    }
+   },
+   "ChannelSignalsResponseSchema": {
+    "type": "object",
+    "properties": {
+     "enabled": {
+      "type": "boolean",
+      "description": "Whether the signal bar is switched on in this channel"
+     },
+     "bar_version": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+     },
+     "entries": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ChannelSignalEntrySchema"
+      }
+     }
+    },
+    "required": [
+     "enabled",
+     "bar_version",
+     "entries"
+    ],
+    "additionalProperties": false
+   },
+   "ChannelSignalBarEnabledRequestSchema": {
+    "type": "object",
+    "properties": {
+     "enabled": {
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "enabled"
+    ]
+   },
+   "ChannelPersonaMentionsResponseSchema": {
+    "type": "array",
+    "items": {
+     "$ref": "#/components/schemas/ChannelPersonaMentionItemSchema"
+    }
+   },
+   "AddReactionBodySchema": {
+    "anyOf": [
+     {
+      "type": "object",
+      "properties": {
+       "persona_id": {
+        "description": "Persona ID to attribute the reaction to",
+        "anyOf": [
+         {
+          "$ref": "#/components/schemas/SnowflakeStringType"
+         },
+         {
+          "type": "null"
+         }
+        ]
+       }
+      }
+     },
+     {
+      "type": "null"
+     }
+    ]
+   },
+   "ServerListButtonsSchema": {
+    "type": "object",
+    "properties": {
+     "favorites": {
+      "default": true,
+      "description": "Whether the Favorites button is visible in the server list",
+      "type": "boolean"
+     },
+     "explore": {
+      "default": true,
+      "description": "Whether the Explore communities button is visible in the server list",
+      "type": "boolean"
+     },
+     "create_join": {
+      "default": true,
+      "description": "Whether the Create or join a community button is visible in the server list",
+      "type": "boolean"
+     },
+     "download": {
+      "default": true,
+      "description": "Whether the Download desktop app button is visible in the server list",
+      "type": "boolean"
+     },
+     "help": {
+      "default": true,
+      "description": "Whether the Help center button is visible in the server list",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "favorites",
+     "explore",
+     "create_join",
+     "download",
+     "help"
+    ],
+    "additionalProperties": false,
+    "description": "Visibility configuration for special buttons in the server list column"
+   },
+   "LegacyMessageSubprofileRequestSchema": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+     }
+    },
+    "required": [
+     "id"
+    ]
+   },
+   "MessageSubprofileResponseSchema": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "Persona ID"
+     },
+     "name": {
+      "type": "string",
+      "description": "Persona display name"
+     },
+     "avatar": {
+      "description": "Avatar asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "avatar_color": {
+      "description": "Avatar accent color",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "display_tag_text": {
+      "description": "Display tag text",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "display_tag_icon": {
+      "description": "Hash of the display tag icon, an image stored under the account",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "color": {
+      "description": "Custom color integer",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "visibility": {
+      "description": "Persona visibility setting",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaVisibilitySchema"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "required": [
+     "id",
+     "name"
+    ],
+    "additionalProperties": false
+   },
+   "PersonaVisibilitySchema": {
+    "default": "unlisted",
+    "type": "string",
+    "enum": [
+     "unlisted",
+     "public",
+     "private"
+    ]
+   },
+   "PersonaAssetHashType": {
+    "type": "string",
+    "pattern": "^(a_)?[0-9a-f]{8}$"
+   },
+   "ReactionUserItemResponse": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "description": "The unique identifier (snowflake) for this user",
+      "$ref": "#/components/schemas/SnowflakeStringType"
+     },
+     "username": {
+      "type": "string",
+      "description": "The username of the user, not unique across the platform"
+     },
+     "discriminator": {
+      "type": "string",
+      "description": "The four-digit discriminator tag of the user"
+     },
+     "global_name": {
+      "description": "The display name of the user, if set",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "avatar": {
+      "description": "The hash of the user avatar image",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "avatar_color": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/Int32Type"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "The dominant avatar color of the user as an integer"
+     },
+     "bot": {
+      "description": "Whether the user is a bot account",
+      "type": "boolean"
+     },
+     "system": {
+      "description": "Whether the user is an official system user",
+      "type": "boolean"
+     },
+     "flags": {
+      "$ref": "#/components/schemas/PublicUserFlags"
+     },
+     "mention_flags": {
+      "description": "The user's account-wide reply mention preference. Omitted when the user has no preference set (treated as NO_PREFERENCE).",
+      "$ref": "#/components/schemas/MentionReplyPreferences"
+     },
+     "subprofile": {
+      "description": "Persona subprofile who reacted, if any",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/MessageSubprofileResponseSchema"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "persona_id": {
+      "description": "Persona ID who reacted, if any",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SnowflakeStringType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "required": [
+     "id",
+     "username",
+     "discriminator",
+     "global_name",
+     "avatar",
+     "avatar_color",
+     "flags"
+    ],
+    "additionalProperties": false
+   },
+   "ChannelPersonaMentionItemSchema": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "description": "The unique Snowflake identifier for this persona",
+      "$ref": "#/components/schemas/SnowflakeStringType"
+     },
+     "name": {
+      "type": "string",
+      "description": "The persona display name"
+     },
+     "avatar_hash": {
+      "description": "Avatar asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "banner_hash": {
+      "description": "Banner asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "display_tag_text": {
+      "description": "Optional display tag text",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "display_tag_icon": {
+      "description": "Hash of the display tag icon, an image stored under the account",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "pronouns": {
+      "description": "Optional pronouns",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "color": {
+      "description": "Optional accent color integer",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "bio": {
+      "description": "Optional persona bio",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "visibility": {
+      "description": "Visibility setting",
+      "$ref": "#/components/schemas/PersonaVisibilitySchema"
+     },
+     "use_count": {
+      "default": 0,
+      "description": "Usage counter for frecency ranking",
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+     },
+     "last_used_at_ms": {
+      "description": "Timestamp in ms when the persona was last used",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "owner_user_id": {
+      "description": "User ID of the persona owner",
+      "$ref": "#/components/schemas/SnowflakeStringType"
+     },
+     "owner_username": {
+      "type": "string",
+      "description": "Username of the persona owner"
+     },
+     "owner_discriminator": {
+      "description": "Discriminator of the persona owner",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "owner_global_name": {
+      "description": "Global display name of the persona owner",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "owner_nickname": {
+      "description": "Guild nickname if applicable",
+      "type": [
+       "string",
+       "null"
+      ]
+     }
+    },
+    "required": [
+     "id",
+     "name",
+     "visibility",
+     "use_count",
+     "owner_user_id",
+     "owner_username"
+    ],
+    "additionalProperties": false
+   },
+   "ChannelSignalEntrySchema": {
+    "type": "object",
+    "properties": {
+     "signal_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]{1,32}$",
+      "description": "The unique identifier of the signal within the bar"
+     },
+     "user": {
+      "$ref": "#/components/schemas/UserPartialResponse"
+     },
+     "persona_id": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SnowflakeStringType"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "The persona the account is currently signalling as, if any"
+     },
+     "subprofile": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/MessageSubprofileResponseSchema"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "activated_at": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991,
+      "description": "Unix timestamp in milliseconds"
+     }
+    },
+    "required": [
+     "signal_id",
+     "user",
+     "persona_id",
+     "subprofile",
+     "activated_at"
+    ],
+    "additionalProperties": false
+   },
+   "SignalBarSignalSchema": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]{1,32}$",
+      "description": "The unique identifier of the signal within the bar"
+     },
+     "emoji_id": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SnowflakeStringType"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Custom emoji ID (null for Unicode)"
+     },
+     "emoji_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "description": "Emoji name or Unicode character"
+     },
+     "animated": {
+      "type": "boolean",
+      "description": "Whether the emoji is animated"
+     },
+     "label": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 32
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Optional label shown instead of the emoji name"
+     }
+    },
+    "required": [
+     "id",
+     "emoji_id",
+     "emoji_name",
+     "animated",
+     "label"
+    ],
+    "additionalProperties": false
+   },
+   "PersonaLookupItemSchema": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "Persona ID"
+     },
+     "name": {
+      "type": "string",
+      "description": "Persona display name"
+     },
+     "avatar": {
+      "description": "Avatar asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "avatar_color": {
+      "description": "Avatar accent color",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "display_tag_text": {
+      "description": "Display tag text",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "display_tag_icon": {
+      "description": "Hash of the display tag icon, an image stored under the account",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "color": {
+      "description": "Custom color integer",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "visibility": {
+      "description": "Persona visibility setting",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaVisibilitySchema"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "user_id": {
+      "type": "string",
+      "description": "The persona owner’s user ID"
+     }
+    },
+    "required": [
+     "id",
+     "name",
+     "user_id"
+    ],
+    "additionalProperties": false
+   },
+   "MessageReactionPersonaEntry": {
+    "type": "object",
+    "properties": {
+     "persona_id": {
+      "description": "The persona ID that reacted",
+      "$ref": "#/components/schemas/SnowflakeStringType"
+     },
+     "count": {
+      "description": "Count of reactions by this persona",
+      "$ref": "#/components/schemas/Int32Type"
+     },
+     "me": {
+      "description": "Whether the current user reacted as this persona",
+      "type": [
+       "boolean",
+       "null"
+      ]
+     }
+    },
+    "required": [
+     "persona_id",
+     "count"
+    ],
+    "additionalProperties": false
+   },
+   "SignatureEmojiSchemaInput": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "description": "Custom emoji ID (null for Unicode)",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SnowflakeStringType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "description": "Emoji name or Unicode character"
+     },
+     "animated": {
+      "description": "Whether the emoji is animated",
+      "type": [
+       "boolean",
+       "null"
+      ]
+     }
+    },
+    "required": [
+     "name"
+    ]
+   },
+   "PersonaTagSchemaInput": {
+    "type": "object",
+    "properties": {
+     "prefix": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+     },
+     "suffix": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+     }
+    }
+   },
+   "PersonaImportItemSchema": {
+    "type": "object",
+    "properties": {
+     "name": {
+      "description": "Persona display name",
+      "type": "string"
+     },
+     "avatar_hash": {
+      "description": "Avatar asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "banner_hash": {
+      "description": "Banner asset hash",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "pronouns": {
+      "description": "Optional pronouns",
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 100
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "color": {
+      "description": "Optional color integer",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "avatar_color": {
+      "description": "Optional avatar accent color",
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "bio": {
+      "description": "Optional persona bio",
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 4096
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "auto_tag_disabled": {
+      "description": "Whether auto-tagging is disabled",
+      "type": "boolean"
+     },
+     "persona_tags": {
+      "description": "Persona prefix/suffix tags",
+      "maxItems": 5,
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/PersonaTagSchemaInput"
+      }
+     },
+     "signature_emojis": {
+      "description": "Signature emojis for this persona",
+      "maxItems": 10000,
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/SignatureEmojiSchemaInput"
+      }
+     },
+     "visibility": {
+      "description": "Visibility: unlisted (default), public, or private",
+      "$ref": "#/components/schemas/PersonaVisibilitySchema"
+     },
+     "external_uuid": {
+      "description": "Optional external UUID (e.g. PluralKit)",
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 64
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "image_sources": {
+      "description": "Where the persona's images were imported from; null when the file gave it none",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaImportImageSourcesSchema"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "required": [
+     "name"
+    ]
+   },
+   "PersonaImportImageSourcesSchema": {
+    "type": "object",
+    "properties": {
+     "avatar": {
+      "anyOf": [
+       {
+        "type": "object",
+        "properties": {
+         "url": {
+          "description": "The link the avatar was imported from",
+          "anyOf": [
+           {
+            "type": "string",
+            "maxLength": 2048
+           },
+           {
+            "type": "null"
+           }
+          ]
+         },
+         "field": {
+          "type": "string",
+          "enum": [
+           "avatar_url",
+           "webhook_avatar_url"
+          ],
+          "description": "The PluralKit field it came from"
+         },
+         "main_avatar_empty": {
+          "description": "Whether the member's avatar_url was empty, when the avatar came from webhook_avatar_url",
+          "type": "boolean"
+         }
+        },
+        "required": [
+         "field"
+        ]
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "banner": {
+      "anyOf": [
+       {
+        "type": "object",
+        "properties": {
+         "url": {
+          "description": "The link the banner was imported from",
+          "anyOf": [
+           {
+            "type": "string",
+            "maxLength": 2048
+           },
+           {
+            "type": "null"
+           }
+          ]
+         }
+        }
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    }
+   },
+   "PersonaImportImageKindSchema": {
+    "type": "string",
+    "enum": [
+     "avatar",
+     "banner"
+    ]
+   },
+   "ActivePersonaScopeSchema": {
+    "type": "string",
+    "enum": [
+     "global",
+     "channel"
+    ]
+   },
+   "ActivePersonaModeSchema": {
+    "type": "string",
+    "enum": [
+     "manual",
+     "last"
+    ]
+   },
+   "SignatureEmojiSchema": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "description": "Custom emoji ID (null for Unicode)",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SnowflakeStringType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "description": "Emoji name or Unicode character"
+     },
+     "animated": {
+      "description": "Whether the emoji is animated",
+      "type": [
+       "boolean",
+       "null"
+      ]
+     }
+    },
+    "required": [
+     "name"
+    ],
+    "additionalProperties": false
+   },
+   "PersonaTagSchema": {
+    "type": "object",
+    "properties": {
+     "prefix": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+     },
+     "suffix": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+     }
+    },
+    "additionalProperties": false
    }
   },
   "securitySchemes": {
