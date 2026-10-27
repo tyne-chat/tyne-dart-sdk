@@ -108,7 +108,7 @@ class OperatorPassListingResponse {
   @JsonKey(name: 'has_wall', defaultValue: false)
   final bool hasWall;
 
-  /// How many passes the account holds now, shown to the holder in every case
+  /// Public count of valid held passes and purchases passed on, shown to the holder even when hidden publicly
   @JsonKey(name: 'pass_count', defaultValue: 0)
   final int passCount;
 

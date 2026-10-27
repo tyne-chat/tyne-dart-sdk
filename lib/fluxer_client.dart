@@ -11,6 +11,7 @@ import 'auth/auth_api.dart';
 import 'channels/channels_api.dart';
 import 'invites/invites_api.dart';
 import 'saved_media/saved_media_api.dart';
+import 'signal_bar/signal_bar_api.dart';
 import 'webhooks/webhooks_api.dart';
 import 'discovery/discovery_api.dart';
 import 'donations/donations_api.dart';
@@ -24,6 +25,7 @@ import 'users/users_api.dart';
 import 'geolocation/geolocation_api.dart';
 import 'gi_fs_deprecated/gi_fs_deprecated_api.dart';
 import 'operator_pass/operator_pass_api.dart';
+import 'personas/personas_api.dart';
 import 'premium/premium_api.dart';
 import 'billing/billing_api.dart';
 import 'read_states/read_states_api.dart';
@@ -54,6 +56,7 @@ class FluxerClient {
   ChannelsApi? _channels;
   InvitesApi? _invites;
   SavedMediaApi? _savedMedia;
+  SignalBarApi? _signalBar;
   WebhooksApi? _webhooks;
   DiscoveryApi? _discovery;
   DonationsApi? _donations;
@@ -67,6 +70,7 @@ class FluxerClient {
   GeolocationApi? _geolocation;
   GiFsDeprecatedApi? _giFsDeprecated;
   OperatorPassApi? _operatorPass;
+  PersonasApi? _personas;
   PremiumApi? _premium;
   BillingApi? _billing;
   ReadStatesApi? _readStates;
@@ -96,6 +100,9 @@ class FluxerClient {
 
   SavedMediaApi get savedMedia =>
       _savedMedia ??= SavedMediaApi(_dio, baseUrl: _baseUrl);
+
+  SignalBarApi get signalBar =>
+      _signalBar ??= SignalBarApi(_dio, baseUrl: _baseUrl);
 
   WebhooksApi get webhooks =>
       _webhooks ??= WebhooksApi(_dio, baseUrl: _baseUrl);
@@ -129,6 +136,9 @@ class FluxerClient {
 
   OperatorPassApi get operatorPass =>
       _operatorPass ??= OperatorPassApi(_dio, baseUrl: _baseUrl);
+
+  PersonasApi get personas =>
+      _personas ??= PersonasApi(_dio, baseUrl: _baseUrl);
 
   PremiumApi get premium => _premium ??= PremiumApi(_dio, baseUrl: _baseUrl);
 

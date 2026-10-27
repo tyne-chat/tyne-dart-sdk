@@ -16,6 +16,7 @@ class OperatorPassPassesResponse {
     required this.passes,
     required this.incomingOffers,
     required this.outgoingOffers,
+    this.recognitionCount,
     this.passedOn,
   });
 
@@ -25,6 +26,10 @@ class OperatorPassPassesResponse {
   /// How many passes the account holds now
   @JsonKey(defaultValue: 0)
   final int count;
+
+  /// The public count of valid held passes and purchases passed on. It is zero without active benefits.
+  @JsonKey(includeIfNull: false, name: 'recognition_count')
+  final int? recognitionCount;
 
   /// Passes the account holds, oldest first
   @JsonKey(defaultValue: <OperatorPassUnitResponse>[])
