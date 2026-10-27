@@ -767,6 +767,20 @@ enum ApiErrorCode {
   guildVisitAgeRestricted('GUILD_VISIT_AGE_RESTRICTED'),
   @JsonValue('GUILD_VISIT_NOT_FOUND')
   guildVisitNotFound('GUILD_VISIT_NOT_FOUND'),
+  @JsonValue('UNKNOWN_PERSONA')
+  unknownPersona('UNKNOWN_PERSONA'),
+  @JsonValue('PRIVATE_PERSONA')
+  privatePersona('PRIVATE_PERSONA'),
+  @JsonValue('PERSONA_LIMIT_REACHED')
+  personaLimitReached('PERSONA_LIMIT_REACHED'),
+  @JsonValue('DUPLICATE_PERSONA_TAG')
+  duplicatePersonaTag('DUPLICATE_PERSONA_TAG'),
+  @JsonValue('PERSONA_TAG_LIMIT_REACHED')
+  personaTagLimitReached('PERSONA_TAG_LIMIT_REACHED'),
+  @JsonValue('DUPLICATE_SIGNATURE_EMOJI')
+  duplicateSignatureEmoji('DUPLICATE_SIGNATURE_EMOJI'),
+  @JsonValue('SIGNATURE_EMOJI_LIMIT_REACHED')
+  signatureEmojiLimitReached('SIGNATURE_EMOJI_LIMIT_REACHED'),
 
   /// Default value for all unparsed values, allows backward compatibility when adding new values on the backend.
   $unknown(null);
