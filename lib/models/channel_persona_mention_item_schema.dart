@@ -25,6 +25,7 @@ class ChannelPersonaMentionItemSchema {
     this.displayTagIcon,
     this.pronouns,
     this.color,
+    this.avatarColor,
     this.bio,
     this.lastUsedAtMs,
     this.ownerDiscriminator,
@@ -66,6 +67,10 @@ class ChannelPersonaMentionItemSchema {
   /// Optional accent color integer
   @JsonKey(includeIfNull: false)
   final int? color;
+
+  /// Color taken from the avatar, shown for the persona when it has no accent color
+  @JsonKey(includeIfNull: false, name: 'avatar_color')
+  final int? avatarColor;
 
   /// Optional persona bio
   @JsonKey(includeIfNull: false)

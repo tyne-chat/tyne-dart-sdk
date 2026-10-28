@@ -45,6 +45,7 @@ ChannelPersonaMentionItemSchema _$ChannelPersonaMentionItemSchemaFromJson(
       ),
       pronouns: $checkedConvert('pronouns', (v) => v as String?),
       color: $checkedConvert('color', (v) => (v as num?)?.toInt()),
+      avatarColor: $checkedConvert('avatar_color', (v) => (v as num?)?.toInt()),
       bio: $checkedConvert('bio', (v) => v as String?),
       lastUsedAtMs: $checkedConvert('last_used_at_ms', (v) => v as String?),
       ownerDiscriminator: $checkedConvert(
@@ -67,6 +68,7 @@ ChannelPersonaMentionItemSchema _$ChannelPersonaMentionItemSchemaFromJson(
     'bannerHash': 'banner_hash',
     'displayTagText': 'display_tag_text',
     'displayTagIcon': 'display_tag_icon',
+    'avatarColor': 'avatar_color',
     'lastUsedAtMs': 'last_used_at_ms',
     'ownerDiscriminator': 'owner_discriminator',
     'ownerGlobalName': 'owner_global_name',
@@ -85,6 +87,7 @@ Map<String, dynamic> _$ChannelPersonaMentionItemSchemaToJson(
   'display_tag_icon': ?instance.displayTagIcon,
   'pronouns': ?instance.pronouns,
   'color': ?instance.color,
+  'avatar_color': ?instance.avatarColor,
   'bio': ?instance.bio,
   'visibility': instance.visibility,
   'use_count': instance.useCount,
