@@ -14,6 +14,10 @@ SsoStatusResponse _$SsoStatusResponseFromJson(Map<String, dynamic> json) =>
         final val = SsoStatusResponse(
           enabled: $checkedConvert('enabled', (v) => v as bool? ?? false),
           enforced: $checkedConvert('enforced', (v) => v as bool? ?? false),
+          usernameFromProvider: $checkedConvert(
+            'username_from_provider',
+            (v) => v as bool? ?? false,
+          ),
           displayName: $checkedConvert('display_name', (v) => v as String?),
           buttonLabel: $checkedConvert('button_label', (v) => v as String?),
           redirectUri: $checkedConvert(
@@ -24,6 +28,7 @@ SsoStatusResponse _$SsoStatusResponseFromJson(Map<String, dynamic> json) =>
         return val;
       },
       fieldKeyMap: const {
+        'usernameFromProvider': 'username_from_provider',
         'displayName': 'display_name',
         'buttonLabel': 'button_label',
         'redirectUri': 'redirect_uri',
@@ -34,6 +39,7 @@ Map<String, dynamic> _$SsoStatusResponseToJson(SsoStatusResponse instance) =>
     <String, dynamic>{
       'enabled': instance.enabled,
       'enforced': instance.enforced,
+      'username_from_provider': instance.usernameFromProvider,
       'display_name': instance.displayName,
       'button_label': instance.buttonLabel,
       'redirect_uri': instance.redirectUri,

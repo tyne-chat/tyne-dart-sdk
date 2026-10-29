@@ -17,6 +17,7 @@ import 'message_search_results_response_messages_message_reference.dart';
 import 'message_snapshot_response.dart';
 import 'message_search_results_response_messages_call.dart';
 import 'thread_channel_response.dart';
+import 'message_subprofile_response_schema.dart';
 
 part 'message_search_results_response_messages.g.dart';
 
@@ -48,6 +49,8 @@ class MessageSearchResultsResponseMessages {
     this.nonce,
     this.call,
     this.thread,
+    this.subprofile,
+    this.mentionPersonas,
   });
 
   factory MessageSearchResultsResponseMessages.fromJson(
@@ -151,6 +154,14 @@ class MessageSearchResultsResponseMessages {
   /// The thread started from this message, when the viewer can see threads
   @JsonKey(includeIfNull: false)
   final ThreadChannelResponse? thread;
+
+  /// Optional subprofile persona information
+  @JsonKey(includeIfNull: false)
+  final MessageSubprofileResponseSchema? subprofile;
+
+  /// The personas mentioned in the message, its embeds or what it forwards, shown as a message sent as them would show them; absent when there are none
+  @JsonKey(includeIfNull: false, name: 'mention_personas')
+  final List<MessageSubprofileResponseSchema>? mentionPersonas;
 
   Map<String, Object?> toJson() =>
       _$MessageSearchResultsResponseMessagesToJson(this);

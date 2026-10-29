@@ -15,7 +15,9 @@ ReactionUsersPageResponse _$ReactionUsersPageResponseFromJson(
       (v) =>
           (v as List<dynamic>?)
               ?.map(
-                (e) => UserPartialResponse.fromJson(e as Map<String, dynamic>),
+                (e) => ReactionUserItemResponse.fromJson(
+                  e as Map<String, dynamic>,
+                ),
               )
               .toList() ??
           [],

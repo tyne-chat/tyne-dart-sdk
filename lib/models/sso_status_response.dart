@@ -11,6 +11,7 @@ class SsoStatusResponse {
   const SsoStatusResponse({
     required this.enabled,
     required this.enforced,
+    required this.usernameFromProvider,
     required this.displayName,
     required this.buttonLabel,
     required this.redirectUri,
@@ -26,6 +27,10 @@ class SsoStatusResponse {
   /// Whether SSO is required for all users
   @JsonKey(defaultValue: false)
   final bool enforced;
+
+  /// Whether each SSO sign-in sets the username from the provider, so SSO accounts cannot change it
+  @JsonKey(name: 'username_from_provider', defaultValue: false)
+  final bool usernameFromProvider;
 
   /// Display name of the SSO provider
   @JsonKey(includeIfNull: true, name: 'display_name')

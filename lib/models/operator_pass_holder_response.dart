@@ -15,6 +15,7 @@ class OperatorPassHolderResponse {
     required this.source,
     required this.count,
     required this.wallChosen,
+    this.recognitionCount,
   });
 
   factory OperatorPassHolderResponse.fromJson(Map<String, Object?> json) =>
@@ -29,6 +30,10 @@ class OperatorPassHolderResponse {
   /// How many passes the account holds now
   @JsonKey(defaultValue: 0)
   final int count;
+
+  /// The public count of valid held passes and purchases passed on. It is zero without active benefits.
+  @JsonKey(includeIfNull: false, name: 'recognition_count')
+  final int? recognitionCount;
 
   /// Whether the account already chose to be listed or not listed on the Operators' wall. When false, checkout and accepting an offer ask for the choice
   @JsonKey(name: 'wall_chosen', defaultValue: false)
