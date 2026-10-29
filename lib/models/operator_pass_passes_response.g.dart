@@ -50,6 +50,10 @@ OperatorPassPassesResponse _$OperatorPassPassesResponseFromJson(
                 .toList() ??
             [],
       ),
+      recognitionCount: $checkedConvert(
+        'recognition_count',
+        (v) => (v as num?)?.toInt(),
+      ),
       passedOn: $checkedConvert(
         'passed_on',
         (v) => (v as List<dynamic>?)
@@ -65,6 +69,7 @@ OperatorPassPassesResponse _$OperatorPassPassesResponseFromJson(
   fieldKeyMap: const {
     'incomingOffers': 'incoming_offers',
     'outgoingOffers': 'outgoing_offers',
+    'recognitionCount': 'recognition_count',
     'passedOn': 'passed_on',
   },
 );
@@ -73,6 +78,7 @@ Map<String, dynamic> _$OperatorPassPassesResponseToJson(
   OperatorPassPassesResponse instance,
 ) => <String, dynamic>{
   'count': instance.count,
+  'recognition_count': ?instance.recognitionCount,
   'passes': instance.passes,
   'incoming_offers': instance.incomingOffers,
   'outgoing_offers': instance.outgoingOffers,
