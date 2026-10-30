@@ -16,6 +16,8 @@ import 'channel_pin_response_message_message_reference.dart';
 import 'message_snapshot_response.dart';
 import 'channel_pin_response_message_call.dart';
 import 'thread_channel_response.dart';
+import 'message_subprofile_response_schema.dart';
+import 'message_guild_command_response_schema.dart';
 
 part 'channel_pin_response_message.g.dart';
 
@@ -46,6 +48,9 @@ class ChannelPinResponseMessage {
     this.nonce,
     this.call,
     this.thread,
+    this.subprofile,
+    this.mentionPersonas,
+    this.command,
   });
 
   factory ChannelPinResponseMessage.fromJson(Map<String, Object?> json) =>
@@ -144,6 +149,18 @@ class ChannelPinResponseMessage {
   /// The thread started from this message, when the viewer can see threads
   @JsonKey(includeIfNull: false)
   final ThreadChannelResponse? thread;
+
+  /// Optional subprofile persona information
+  @JsonKey(includeIfNull: false)
+  final MessageSubprofileResponseSchema? subprofile;
+
+  /// The personas mentioned in the message, its embeds or what it forwards, shown as a message sent as them would show them; absent when there are none
+  @JsonKey(includeIfNull: false, name: 'mention_personas')
+  final List<MessageSubprofileResponseSchema>? mentionPersonas;
+
+  /// The server command that made this message; absent for other messages and after an edit
+  @JsonKey(includeIfNull: false)
+  final MessageGuildCommandResponseSchema? command;
 
   Map<String, Object?> toJson() => _$ChannelPinResponseMessageToJson(this);
 }

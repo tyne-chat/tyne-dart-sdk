@@ -677,6 +677,30 @@ enum ApiErrorCode {
   unknownPasskeyBridge('UNKNOWN_PASSKEY_BRIDGE'),
   @JsonValue('UNKNOWN_PASSKEY_MIGRATION')
   unknownPasskeyMigration('UNKNOWN_PASSKEY_MIGRATION'),
+  @JsonValue('UNKNOWN_PERSONA')
+  unknownPersona('UNKNOWN_PERSONA'),
+  @JsonValue('PRIVATE_PERSONA')
+  privatePersona('PRIVATE_PERSONA'),
+  @JsonValue('PERSONA_LIMIT_REACHED')
+  personaLimitReached('PERSONA_LIMIT_REACHED'),
+  @JsonValue('DUPLICATE_PERSONA_TAG')
+  duplicatePersonaTag('DUPLICATE_PERSONA_TAG'),
+  @JsonValue('PERSONA_TAG_LIMIT_REACHED')
+  personaTagLimitReached('PERSONA_TAG_LIMIT_REACHED'),
+  @JsonValue('DUPLICATE_SIGNATURE_EMOJI')
+  duplicateSignatureEmoji('DUPLICATE_SIGNATURE_EMOJI'),
+  @JsonValue('SIGNATURE_EMOJI_LIMIT_REACHED')
+  signatureEmojiLimitReached('SIGNATURE_EMOJI_LIMIT_REACHED'),
+  @JsonValue('UNKNOWN_GUILD_COMMAND')
+  unknownGuildCommand('UNKNOWN_GUILD_COMMAND'),
+  @JsonValue('GUILD_COMMAND_NAME_TAKEN')
+  guildCommandNameTaken('GUILD_COMMAND_NAME_TAKEN'),
+  @JsonValue('GUILD_COMMAND_LIMIT_REACHED')
+  guildCommandLimitReached('GUILD_COMMAND_LIMIT_REACHED'),
+  @JsonValue('GUILD_COMMAND_TEMPLATE_INVALID')
+  guildCommandTemplateInvalid('GUILD_COMMAND_TEMPLATE_INVALID'),
+  @JsonValue('GUILD_COMMAND_INPUT_INVALID')
+  guildCommandInputInvalid('GUILD_COMMAND_INPUT_INVALID'),
   @JsonValue('UNKNOWN_REPORT')
   unknownReport('UNKNOWN_REPORT'),
   @JsonValue('UNKNOWN_ROLE')
