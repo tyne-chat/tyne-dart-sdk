@@ -46,6 +46,15 @@ GuildCommandResponseSchema _$GuildCommandResponseSchemaFromJson(
       createdAt: $checkedConvert('created_at', (v) => v as String? ?? ''),
       updatedAt: $checkedConvert('updated_at', (v) => v as String? ?? ''),
       template: $checkedConvert('template', (v) => v as String?),
+      counters: $checkedConvert(
+        'counters',
+        (v) => (v as List<dynamic>?)
+            ?.map(
+              (e) =>
+                  GuildCommandCounterSchema.fromJson(e as Map<String, dynamic>),
+            )
+            .toList(),
+      ),
     );
     return val;
   },
@@ -75,4 +84,5 @@ Map<String, dynamic> _$GuildCommandResponseSchemaToJson(
   'created_at': instance.createdAt,
   'updated_at': instance.updatedAt,
   'template': ?instance.template,
+  'counters': ?instance.counters,
 };

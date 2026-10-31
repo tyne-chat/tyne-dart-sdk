@@ -4,6 +4,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'guild_command_counter_schema.dart';
 import 'guild_command_input_mode.dart';
 import 'guild_command_input_type.dart';
 import 'guild_command_kind.dart';
@@ -26,6 +27,7 @@ class GuildCommandResponseSchema {
     required this.createdAt,
     required this.updatedAt,
     this.template,
+    this.counters,
   });
 
   factory GuildCommandResponseSchema.fromJson(Map<String, Object?> json) =>
@@ -66,6 +68,10 @@ class GuildCommandResponseSchema {
   /// The template; only returned to those who may edit the community's commands
   @JsonKey(includeIfNull: false)
   final String? template;
+
+  /// The counters; only returned to those who may edit the community's commands
+  @JsonKey(includeIfNull: false)
+  final List<GuildCommandCounterSchema>? counters;
 
   Map<String, Object?> toJson() => _$GuildCommandResponseSchemaToJson(this);
 }

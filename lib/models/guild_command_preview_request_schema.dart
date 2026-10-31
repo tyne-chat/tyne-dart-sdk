@@ -6,6 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import 'json_nullable.dart';
 
+import 'guild_command_counter_input_schema.dart';
 import 'snowflake_type.dart';
 
 part 'guild_command_preview_request_schema.g.dart';
@@ -14,6 +15,7 @@ part 'guild_command_preview_request_schema.g.dart';
 class GuildCommandPreviewRequestSchema {
   GuildCommandPreviewRequestSchema({
     required this.template,
+    this.counters,
     JsonNullable<String> input = const JsonNullable<String>.undefined(),
     JsonNullable<SnowflakeType> channelId =
         const JsonNullable<SnowflakeType>.undefined(),
@@ -28,6 +30,7 @@ class GuildCommandPreviewRequestSchema {
     required this.template,
     this.inputValue,
     this.channelIdValue,
+    this.counters,
   }) : input = const JsonNullable<String>.undefined(),
        _inputPresent = false,
        channelId = const JsonNullable<SnowflakeType>.undefined(),
@@ -45,12 +48,17 @@ class GuildCommandPreviewRequestSchema {
       channelId: json.containsKey('channel_id')
           ? JsonNullable<SnowflakeType>.of(value.channelIdValue)
           : const JsonNullable<SnowflakeType>.undefined(),
+      counters: value.counters,
     );
   }
 
   /// The Liquid template the server fills in when the command runs
   @JsonKey(defaultValue: '')
   final String template;
+
+  /// The counters being edited, each filled in as the next run would see it
+  @JsonKey(includeIfNull: false)
+  final List<GuildCommandCounterInputSchema>? counters;
   @JsonKey(includeFromJson: false, includeToJson: false)
   final JsonNullable<String> input;
   @JsonKey(includeIfNull: false, name: 'input')

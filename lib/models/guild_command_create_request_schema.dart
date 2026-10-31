@@ -6,6 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import 'json_nullable.dart';
 
+import 'guild_command_counter_input_schema.dart';
 import 'guild_command_input_mode.dart';
 import 'guild_command_input_type.dart';
 
@@ -17,6 +18,7 @@ class GuildCommandCreateRequestSchema {
     required this.name,
     required this.template,
     required this.inputMode,
+    this.counters,
     this.inputType = GuildCommandInputType.text,
     JsonNullable<String> description = const JsonNullable<String>.undefined(),
     JsonNullable<String> inputHint = const JsonNullable<String>.undefined(),
@@ -33,6 +35,7 @@ class GuildCommandCreateRequestSchema {
     required this.inputMode,
     this.inputType = GuildCommandInputType.text,
     this.descriptionValue,
+    this.counters,
     this.inputHintValue,
   }) : description = const JsonNullable<String>.undefined(),
        _descriptionPresent = false,
@@ -51,6 +54,7 @@ class GuildCommandCreateRequestSchema {
       description: json.containsKey('description')
           ? JsonNullable<String>.of(value.descriptionValue)
           : const JsonNullable<String>.undefined(),
+      counters: value.counters,
       inputHint: json.containsKey('input_hint')
           ? JsonNullable<String>.of(value.inputHintValue)
           : const JsonNullable<String>.undefined(),
@@ -68,6 +72,8 @@ class GuildCommandCreateRequestSchema {
   final GuildCommandInputMode inputMode;
   @JsonKey(name: 'input_type')
   final GuildCommandInputType inputType;
+  @JsonKey(includeIfNull: false)
+  final List<GuildCommandCounterInputSchema>? counters;
   @JsonKey(includeFromJson: false, includeToJson: false)
   final JsonNullable<String> description;
   @JsonKey(includeIfNull: false, name: 'description')

@@ -331,6 +331,11 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
       GuildCategoryChannelCreateRequest.fromJson,
   'GuildCategoryChannelCreateRequestPermissionOverwrites':
       GuildCategoryChannelCreateRequestPermissionOverwrites.fromJson,
+  'GuildCommandCountSchema': GuildCommandCountSchema.fromJson,
+  'GuildCommandCountSetRequestSchema':
+      GuildCommandCountSetRequestSchema.fromJson,
+  'GuildCommandCounterInputSchema': GuildCommandCounterInputSchema.fromJson,
+  'GuildCommandCounterSchema': GuildCommandCounterSchema.fromJson,
   'GuildCommandCreateRequestSchema': GuildCommandCreateRequestSchema.fromJson,
   'GuildCommandPreviewRequestSchema': GuildCommandPreviewRequestSchema.fromJson,
   'GuildCommandPreviewResponseSchema':

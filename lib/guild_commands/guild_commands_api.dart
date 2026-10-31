@@ -6,6 +6,8 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 import 'package:retrofit/error_logger.dart';
 
+import '../models/guild_command_count_list_response_schema.dart';
+import '../models/guild_command_count_set_request_schema.dart';
 import '../models/guild_command_create_request_schema.dart';
 import '../models/guild_command_list_response_schema.dart';
 import '../models/guild_command_preview_request_schema.dart';
@@ -101,6 +103,53 @@ abstract class GuildCommandsApi {
   Future<void> deleteGuildCommand({
     @Path('guild_id') required SnowflakeType guildId,
     @Path('command_id') required SnowflakeType commandId,
+  });
+
+  /// Reset guild command counter.
+  ///
+  /// Deletes all of a counter's counts, for those who may edit the command.
+  ///
+  /// [guildId] - The ID of the guild.
+  ///
+  /// [commandId] - The ID of the command.
+  ///
+  /// [counterId] - The ID of the counter.
+  @DELETE(
+    '/guilds/{guild_id}/commands/{command_id}/counters/{counter_id}/counts',
+  )
+  Future<void> resetGuildCommandCounter({
+    @Path('guild_id') required SnowflakeType guildId,
+    @Path('command_id') required SnowflakeType commandId,
+    @Path('counter_id') required SnowflakeType counterId,
+  });
+
+  /// List guild command counts.
+  ///
+  /// Lists a command's counts, for those who may edit it.
+  ///
+  /// [guildId] - The ID of the guild.
+  ///
+  /// [commandId] - The ID of the command.
+  @GET('/guilds/{guild_id}/commands/{command_id}/counts')
+  Future<GuildCommandCountListResponseSchema> listGuildCommandCounts({
+    @Path('guild_id') required SnowflakeType guildId,
+    @Path('command_id') required SnowflakeType commandId,
+  });
+
+  /// Set guild command count.
+  ///
+  /// Sets one count, for those who may edit the command.
+  ///
+  /// [guildId] - The ID of the guild.
+  ///
+  /// [commandId] - The ID of the command.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @PUT('/guilds/{guild_id}/commands/{command_id}/counts')
+  Future<void> setGuildCommandCount({
+    @Path('guild_id') required SnowflakeType guildId,
+    @Path('command_id') required SnowflakeType commandId,
+    @Body() required GuildCommandCountSetRequestSchema body,
   });
 
   /// List the commands of all my communities.

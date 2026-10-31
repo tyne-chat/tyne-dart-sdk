@@ -24,6 +24,16 @@ GuildCommandUpdateRequestSchema _$GuildCommandUpdateRequestSchemaFromJson(
         'input_type',
         (v) => v == null ? null : GuildCommandInputType.fromJson(v as String),
       ),
+      counters: $checkedConvert(
+        'counters',
+        (v) => (v as List<dynamic>?)
+            ?.map(
+              (e) => GuildCommandCounterInputSchema.fromJson(
+                e as Map<String, dynamic>,
+              ),
+            )
+            .toList(),
+      ),
       inputHintValue: $checkedConvert('input_hint', (v) => v as String?),
     );
     return val;
@@ -43,6 +53,7 @@ Map<String, dynamic> _$GuildCommandUpdateRequestSchemaToJson(
   'template': ?instance.template,
   'input_mode': ?instance.inputMode,
   'input_type': ?instance.inputType,
+  'counters': ?instance.counters,
   'description': ?instance.descriptionValue,
   'input_hint': ?instance.inputHintValue,
 };
