@@ -23769,6 +23769,128 @@
     ]
    }
   },
+  "/instance/badges": {
+   "get": {
+    "operationId": "list_instance_badges",
+    "summary": "List community badges",
+    "tags": [
+     "Instance"
+    ],
+    "responses": {
+     "200": {
+      "description": "Success",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/InstanceBadgesResponse"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request - The request was malformed or contained invalid data",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Too Many Requests - You are being rate limited",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ThrottledError"
+        }
+       }
+      },
+      "headers": {
+       "Retry-After": {
+        "description": "Number of seconds to wait before retrying (only on 429)",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Limit": {
+        "description": "The number of requests that can be made in the current window",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Remaining": {
+        "description": "The number of remaining requests that can be made",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Reset": {
+        "description": "Unix timestamp when the rate limit resets",
+        "schema": {
+         "type": "integer"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Internal Server Error - An unexpected error occurred",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     }
+    },
+    "description": "Lists the custom badges that communities on this instance can show, in display order. Send ids to look up the badges listed in badge_ids of a community, or page through every badge with after and limit. Send the custom_badges_version from discovery as version. While that is still the current version, the response can be cached for a day.",
+    "parameters": [
+     {
+      "name": "ids",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "description": "Up to 100 badge IDs separated by commas. Only these badges are returned. Cannot be sent with after",
+       "type": "string",
+       "pattern": "^[0-9]{1,20}(?:,[0-9]{1,20}){0,99}$"
+      },
+      "description": "Up to 100 badge IDs separated by commas. Only these badges are returned. Cannot be sent with after"
+     },
+     {
+      "name": "after",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/CustomBadgeCursorType"
+      },
+      "description": "Opaque cursor from the next field of a previous page"
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "description": "Most badges to return, from 1 to 200. Not used with ids",
+       "default": "100",
+       "type": "string"
+      },
+      "description": "Most badges to return, from 1 to 200. Not used with ids"
+     },
+     {
+      "name": "version",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "description": "The catalog version the client already holds. When it is the current version the response can be cached for a day",
+       "type": "string",
+       "maxLength": 64
+      },
+      "description": "The catalog version the client already holds. When it is the current version the response can be cached for a day"
+     }
+    ]
+   }
+  },
   "/instance/setup/account-identity": {
    "put": {
     "operationId": "set_instance_account_identity",
@@ -55821,6 +55943,30 @@
         "type": "null"
        }
       ]
+     },
+     "public_ipv4": {
+      "description": "Public IPv4 address, or an empty string for none",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/VoicePublicIpv4Type"
+       },
+       {
+        "type": "string",
+        "const": ""
+       }
+      ]
+     },
+     "public_ipv6": {
+      "description": "Public IPv6 address, or an empty string for none",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/VoicePublicIpv6Type"
+       },
+       {
+        "type": "string",
+        "const": ""
+       }
+      ]
      }
     },
     "additionalProperties": false
@@ -55869,6 +56015,34 @@
        "null"
       ]
      },
+     "public_ipv4": {
+      "description": "Public IPv4 address the server last reported, or null",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "public_ipv6": {
+      "description": "Public IPv6 address the server last reported, or null",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "turn_servers": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/VoiceTurnServer"
+      },
+      "description": "TURN servers of the instance, for the LiveKit configuration of the voice server"
+     },
+     "features": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "What this API supports for voice servers. server_addresses means it accepts public_ipv4 and public_ipv6 in updates"
+     },
      "health": {
       "description": "Health of the server as this API node last saw it",
       "$ref": "#/components/schemas/VoiceServerHealthResponse"
@@ -55883,6 +56057,10 @@
      "is_active",
      "draining",
      "soft_connection_limit",
+     "public_ipv4",
+     "public_ipv6",
+     "turn_servers",
+     "features",
      "health"
     ],
     "additionalProperties": false
@@ -55897,6 +56075,19 @@
         "type": "string",
         "format": "ipv4",
         "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "public_ipv6": {
+      "description": "Public IPv6 address of the voice machine",
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "ipv6",
+        "pattern": "^(([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:))$"
        },
        {
         "type": "null"
@@ -56031,6 +56222,13 @@
      "expires_at": {
       "type": "string",
       "description": "ISO 8601 timestamp when the token stops working"
+     },
+     "turn_servers": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/VoiceTurnServer"
+      },
+      "description": "TURN servers of the instance, for the LiveKit configuration of the voice server"
      }
     },
     "required": [
@@ -56045,7 +56243,8 @@
      "webhook_url",
      "api_code_version",
      "release",
-     "expires_at"
+     "expires_at",
+     "turn_servers"
     ],
     "additionalProperties": false
    },
@@ -56100,6 +56299,12 @@
       "type": "string",
       "format": "ipv4",
       "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"
+     },
+     "public_ipv6": {
+      "description": "Public IPv6 address of the voice machine",
+      "type": "string",
+      "format": "ipv6",
+      "pattern": "^(([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:))$"
      }
     },
     "required": [
@@ -56130,6 +56335,13 @@
      "node_url": {
       "type": "string",
       "description": "URL of the node routes for this server"
+     },
+     "turn_servers": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/VoiceTurnServer"
+      },
+      "description": "TURN servers of the instance, for the LiveKit configuration of the voice server"
      }
     },
     "required": [
@@ -56137,7 +56349,8 @@
      "region_id",
      "endpoint",
      "webhook_url",
-     "node_url"
+     "node_url",
+     "turn_servers"
     ],
     "additionalProperties": false
    },
@@ -60440,7 +60653,7 @@
       "description": "Array of guild feature flags"
      },
      "badge_ids": {
-      "description": "IDs of the custom badges assigned to the community. Look them up in guild_badges of the instance discovery document and skip IDs that are not there",
+      "description": "IDs of the custom badges assigned to the community. Look them up in guild_badges of the instance discovery document. When guild_badges_partial is true, look up the IDs that are not there with GET /instance/badges?ids=...&version=custom_badges_version, and skip IDs that it does not return",
       "$ref": "#/components/schemas/CustomBadgeIdListResponse"
      },
      "verification_level": {
@@ -66321,6 +66534,86 @@
     ],
     "additionalProperties": false
    },
+   "CustomBadgeCursorType": {
+    "type": "string",
+    "pattern": "^[gu]-?[0-9]{1,19}$",
+    "description": "Opaque cursor from the next field of a previous page"
+   },
+   "InstanceBadgesResponse": {
+    "type": "object",
+    "properties": {
+     "version": {
+      "type": "string",
+      "maxLength": 64,
+      "description": "Version of the badge catalog. It changes whenever a badge is created, edited, deleted or moved"
+     },
+     "badges": {
+      "maxItems": 200,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "id": {
+         "description": "The ID of the badge, as listed in badge_ids of a community",
+         "$ref": "#/components/schemas/SnowflakeStringType"
+        },
+        "name": {
+         "type": "string",
+         "description": "The name of the badge"
+        },
+        "description": {
+         "description": "Text shown under the name when hovering over the badge, or null",
+         "type": [
+          "string",
+          "null"
+         ]
+        },
+        "asset_url": {
+         "type": "string",
+         "description": "URL of the badge image, served as WebP by the media proxy"
+        },
+        "href": {
+         "description": "URL opened when the badge is clicked, or null",
+         "type": [
+          "string",
+          "null"
+         ]
+        },
+        "position": {
+         "$ref": "#/components/schemas/CustomBadgePositionType"
+        }
+       },
+       "required": [
+        "id",
+        "name",
+        "description",
+        "asset_url",
+        "href",
+        "position"
+       ],
+       "additionalProperties": false
+      },
+      "description": "Community badges in display order. IDs that are unknown or deleted are left out"
+     },
+     "next": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/CustomBadgeCursorType"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Pass this as after to get the next page, or null on the last page and for a lookup by ids"
+     }
+    },
+    "required": [
+     "version",
+     "badges",
+     "next"
+    ],
+    "additionalProperties": false
+   },
    "HarvestArchiveResponse": {
     "type": "string",
     "format": "binary",
@@ -69994,6 +70287,10 @@
          "$ref": "#/components/schemas/GuildFeatureSchema"
         },
         "description": "The public badge features of the source community: VERIFIED, PARTNERED and DISCOVERABLE only"
+       },
+       "badge_ids": {
+        "description": "IDs of the custom badges assigned to the source community. Look them up in guild_badges of the instance discovery document. When guild_badges_partial is true, look up the IDs that are not there with GET /instance/badges?ids=...&version=custom_badges_version, and skip IDs that it does not return",
+        "$ref": "#/components/schemas/CustomBadgeIdListResponse"
        },
        "approximate_member_count": {
         "anyOf": [
@@ -73697,12 +73994,28 @@
       "$ref": "#/components/schemas/DomainMigrationDiscoveryResponse"
      },
      "guild_badges": {
-      "description": "Custom badges that communities on this instance can show next to their name, in display order",
+      "description": "The first 100 custom badges that communities on this instance can show next to their name, in display order. GET /instance/badges serves every badge",
       "maxItems": 100,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/InstanceGuildBadgeSchema"
       }
+     },
+     "guild_badges_partial": {
+      "description": "True when the instance has more community badges than guild_badges lists",
+      "type": "boolean"
+     },
+     "custom_badges_version": {
+      "type": "string",
+      "maxLength": 64,
+      "description": "Version of the badge catalog. It changes whenever a badge is created, edited, deleted or moved"
+     },
+     "built_in_guild_badge_images": {
+      "description": "Images this instance shows in place of the built-in verified, partnered and discoverable community badges",
+      "$ref": "#/components/schemas/InstanceBuiltInGuildBadgeImagesSchema"
+     },
+     "hidden_built_in_guild_badges": {
+      "$ref": "#/components/schemas/InstanceHiddenBuiltInGuildBadgesSchema"
      },
      "voice_origins": {
       "description": "Origins of every voice server endpoint, such as wss://voice.example.com, for content security policies",
@@ -73726,6 +74039,51 @@
      "limits",
      "push",
      "app_public"
+    ],
+    "additionalProperties": false
+   },
+   "InstanceHiddenBuiltInGuildBadgesSchema": {
+    "maxItems": 3,
+    "type": "array",
+    "items": {
+     "type": "string",
+     "enum": [
+      "verified",
+      "partnered",
+      "discoverable"
+     ]
+    },
+    "description": "Built-in community badges this instance does not show. The community keeps the feature, such as being listed in discovery"
+   },
+   "InstanceBuiltInGuildBadgeImagesSchema": {
+    "type": "object",
+    "properties": {
+     "verified": {
+      "description": "URL of the image this instance shows for the badge, or null to use the built-in artwork",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "partnered": {
+      "description": "URL of the image this instance shows for the badge, or null to use the built-in artwork",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "discoverable": {
+      "description": "URL of the image this instance shows for the badge, or null to use the built-in artwork",
+      "type": [
+       "string",
+       "null"
+      ]
+     }
+    },
+    "required": [
+     "verified",
+     "partnered",
+     "discoverable"
     ],
     "additionalProperties": false
    },
@@ -73757,6 +74115,9 @@
        "string",
        "null"
       ]
+     },
+     "position": {
+      "$ref": "#/components/schemas/CustomBadgePositionType"
      }
     },
     "required": [
@@ -74754,6 +75115,11 @@
      "restrict",
      "block"
     ]
+   },
+   "CustomBadgePositionType": {
+    "type": "string",
+    "pattern": "^-?[0-9]{1,19}$",
+    "description": "Display position of the badge. Badges are shown in ascending order of this value"
    },
    "SnowflakeStringType": {
     "type": "string",
@@ -76469,7 +76835,7 @@
         "description": "Array of guild feature flags"
        },
        "badge_ids": {
-        "description": "IDs of the custom badges assigned to the community. Look them up in guild_badges of the instance discovery document and skip IDs that are not there",
+        "description": "IDs of the custom badges assigned to the community. Look them up in guild_badges of the instance discovery document. When guild_badges_partial is true, look up the IDs that are not there with GET /instance/badges?ids=...&version=custom_badges_version, and skip IDs that it does not return",
         "$ref": "#/components/schemas/CustomBadgeIdListResponse"
        },
        "visits_enabled": {
@@ -76701,7 +77067,7 @@
       "description": "Array of guild feature flags"
      },
      "badge_ids": {
-      "description": "IDs of the custom badges assigned to the community. Look them up in guild_badges of the instance discovery document and skip IDs that are not there",
+      "description": "IDs of the custom badges assigned to the community. Look them up in guild_badges of the instance discovery document. When guild_badges_partial is true, look up the IDs that are not there with GET /instance/badges?ids=...&version=custom_badges_version, and skip IDs that it does not return",
       "$ref": "#/components/schemas/CustomBadgeIdListResponse"
      },
      "visits_enabled": {
@@ -76720,7 +77086,7 @@
     "additionalProperties": false
    },
    "CustomBadgeIdListResponse": {
-    "maxItems": 10,
+    "maxItems": 1000,
     "type": "array",
     "items": {
      "$ref": "#/components/schemas/SnowflakeStringType"
@@ -78838,6 +79204,10 @@
       },
       "description": "The public badge features of the source community: VERIFIED, PARTNERED and DISCOVERABLE only"
      },
+     "badge_ids": {
+      "description": "IDs of the custom badges assigned to the source community. Look them up in guild_badges of the instance discovery document. When guild_badges_partial is true, look up the IDs that are not there with GET /instance/badges?ids=...&version=custom_badges_version, and skip IDs that it does not return",
+      "$ref": "#/components/schemas/CustomBadgeIdListResponse"
+     },
      "approximate_member_count": {
       "anyOf": [
        {
@@ -78870,6 +79240,7 @@
      "name",
      "description",
      "features",
+     "badge_ids",
      "approximate_member_count",
      "approximate_presence_count",
      "discoverable"
@@ -85959,7 +86330,7 @@
     ]
    },
    "HiddenProfileBadgesType": {
-    "maxItems": 18,
+    "maxItems": 1008,
     "type": "array",
     "items": {
      "type": "string",
@@ -87489,6 +87860,54 @@
     ],
     "type": "string"
    },
+   "VoiceTurnServer": {
+    "type": "object",
+    "properties": {
+     "host": {
+      "type": "string",
+      "description": "Hostname or IPv4 address of the TURN server"
+     },
+     "port": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991,
+      "description": "Port of the TURN server"
+     },
+     "protocol": {
+      "type": "string",
+      "enum": [
+       "udp",
+       "tcp",
+       "tls"
+      ],
+      "description": "Transport clients use to connect to the TURN server"
+     },
+     "username": {
+      "description": "Fixed TURN username",
+      "type": "string"
+     },
+     "credential": {
+      "description": "Fixed TURN password",
+      "type": "string"
+     },
+     "secret": {
+      "description": "Shared secret LiveKit signs short-lived TURN credentials with",
+      "type": "string"
+     },
+     "ttl": {
+      "description": "Lifetime of the signed credentials in seconds",
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+     }
+    },
+    "required": [
+     "host",
+     "port",
+     "protocol"
+    ],
+    "additionalProperties": false
+   },
    "VoiceServerHealthResponse": {
     "type": "object",
     "properties": {
@@ -87522,6 +87941,18 @@
      "error"
     ],
     "additionalProperties": false
+   },
+   "VoicePublicIpv6Type": {
+    "type": "string",
+    "format": "ipv6",
+    "pattern": "^(([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:))$",
+    "description": "Public IPv6 address LiveKit gives to clients"
+   },
+   "VoicePublicIpv4Type": {
+    "type": "string",
+    "format": "ipv4",
+    "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$",
+    "description": "Public IPv4 address LiveKit gives to clients"
    },
    "Int64Type": {
     "anyOf": [
@@ -88078,7 +88509,7 @@
      "This IP address cannot be added to the blocklist.",
      "This network block belongs to an enforcement decision. End the decision to remove it.",
      "You've reached the maximum of {limit, plural, one {# application} other {# applications}}.",
-     "You've reached the maximum of {count, plural, one {# badge} other {# badges}} for this type.",
+     "The limit is {count, plural, one {# badge} other {# badges}}.",
      "You've reached the maximum of {count, plural, one {# bookmark} other {# bookmarks}}.",
      "This community has reached its active thread limit of {count}.",
      "You've reached the maximum of {count, plural, one {# category channel} other {# category channels}}.",
@@ -89549,12 +89980,18 @@
       ]
      },
      "counters": {
-      "description": "The counters being edited, each filled in as the next run would see it",
+      "description": "The counters being edited, each filled in as a run would read it",
       "maxItems": 5,
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/GuildCommandCounterInputSchema"
       }
+     },
+     "run": {
+      "description": "What the counters read: which run this preview stands for, from 1",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000000
      }
     },
     "required": [

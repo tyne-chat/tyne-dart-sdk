@@ -16,6 +16,7 @@ class GuildCommandPreviewRequestSchema {
   GuildCommandPreviewRequestSchema({
     required this.template,
     this.counters,
+    this.run,
     JsonNullable<String> input = const JsonNullable<String>.undefined(),
     JsonNullable<SnowflakeType> channelId =
         const JsonNullable<SnowflakeType>.undefined(),
@@ -31,6 +32,7 @@ class GuildCommandPreviewRequestSchema {
     this.inputValue,
     this.channelIdValue,
     this.counters,
+    this.run,
   }) : input = const JsonNullable<String>.undefined(),
        _inputPresent = false,
        channelId = const JsonNullable<SnowflakeType>.undefined(),
@@ -49,6 +51,7 @@ class GuildCommandPreviewRequestSchema {
           ? JsonNullable<SnowflakeType>.of(value.channelIdValue)
           : const JsonNullable<SnowflakeType>.undefined(),
       counters: value.counters,
+      run: value.run,
     );
   }
 
@@ -56,9 +59,13 @@ class GuildCommandPreviewRequestSchema {
   @JsonKey(defaultValue: '')
   final String template;
 
-  /// The counters being edited, each filled in as the next run would see it
+  /// The counters being edited, each filled in as a run would read it
   @JsonKey(includeIfNull: false)
   final List<GuildCommandCounterInputSchema>? counters;
+
+  /// What the counters read: which run this preview stands for, from 1
+  @JsonKey(includeIfNull: false)
+  final int? run;
   @JsonKey(includeFromJson: false, includeToJson: false)
   final JsonNullable<String> input;
   @JsonKey(includeIfNull: false, name: 'input')

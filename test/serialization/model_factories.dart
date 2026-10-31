@@ -447,7 +447,11 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'InstanceAppPublicSchemaLegal': InstanceAppPublicSchemaLegal.fromJson,
   'InstanceAppPublicSchemaRegistration':
       InstanceAppPublicSchemaRegistration.fromJson,
+  'InstanceBadgesResponse': InstanceBadgesResponse.fromJson,
+  'InstanceBadgesResponseBadges': InstanceBadgesResponseBadges.fromJson,
   'InstanceBrandingSchema': InstanceBrandingSchema.fromJson,
+  'InstanceBuiltInGuildBadgeImagesSchema':
+      InstanceBuiltInGuildBadgeImagesSchema.fromJson,
   'InstanceCaptchaSchema': InstanceCaptchaSchema.fromJson,
   'InstanceCommunitySchema': InstanceCommunitySchema.fromJson,
   'InstanceEndpointsSchema': InstanceEndpointsSchema.fromJson,
@@ -957,6 +961,7 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'VoiceP2pConnectionReportsRequestReports':
       VoiceP2pConnectionReportsRequestReports.fromJson,
   'VoiceServerHealthResponse': VoiceServerHealthResponse.fromJson,
+  'VoiceTurnServer': VoiceTurnServer.fromJson,
   'WebAuthnAuthenticateRequest': WebAuthnAuthenticateRequest.fromJson,
   'WebAuthnAuthenticationOptionsResponse':
       WebAuthnAuthenticationOptionsResponse.fromJson,

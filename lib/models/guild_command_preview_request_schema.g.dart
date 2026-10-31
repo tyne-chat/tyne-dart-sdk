@@ -25,6 +25,7 @@ GuildCommandPreviewRequestSchema _$GuildCommandPreviewRequestSchemaFromJson(
           )
           .toList(),
     ),
+    run: $checkedConvert('run', (v) => (v as num?)?.toInt()),
   );
   return val;
 }, fieldKeyMap: const {'inputValue': 'input', 'channelIdValue': 'channel_id'});
@@ -34,6 +35,7 @@ Map<String, dynamic> _$GuildCommandPreviewRequestSchemaToJson(
 ) => <String, dynamic>{
   'template': instance.template,
   'counters': ?instance.counters,
+  'run': ?instance.run,
   'input': ?instance.inputValue,
   'channel_id': ?instance.channelIdValue,
 };

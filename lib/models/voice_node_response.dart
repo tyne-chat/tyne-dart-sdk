@@ -5,6 +5,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'voice_server_health_response.dart';
+import 'voice_turn_server.dart';
 
 part 'voice_node_response.g.dart';
 
@@ -19,6 +20,10 @@ class VoiceNodeResponse {
     required this.isActive,
     required this.draining,
     required this.softConnectionLimit,
+    required this.publicIpv4,
+    required this.publicIpv6,
+    required this.turnServers,
+    required this.features,
     required this.health,
   });
 
@@ -56,6 +61,22 @@ class VoiceNodeResponse {
   /// Soft connection limit, or null
   @JsonKey(includeIfNull: true, name: 'soft_connection_limit')
   final num? softConnectionLimit;
+
+  /// Public IPv4 address the server last reported, or null
+  @JsonKey(includeIfNull: true, name: 'public_ipv4')
+  final String? publicIpv4;
+
+  /// Public IPv6 address the server last reported, or null
+  @JsonKey(includeIfNull: true, name: 'public_ipv6')
+  final String? publicIpv6;
+
+  /// TURN servers of the instance, for the LiveKit configuration of the voice server
+  @JsonKey(name: 'turn_servers', defaultValue: <VoiceTurnServer>[])
+  final List<VoiceTurnServer> turnServers;
+
+  /// What this API supports for voice servers. server_addresses means it accepts public_ipv4 and public_ipv6 in updates
+  @JsonKey(defaultValue: <String>[])
+  final List<String> features;
 
   /// Health of the server as this API node last saw it
   @JsonKey(defaultValue: _$missingVoiceServerHealthResponse)
