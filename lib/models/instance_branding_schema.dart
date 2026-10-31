@@ -19,6 +19,7 @@ class InstanceBrandingSchema {
     required this.faviconDarkUrl,
     required this.themeColor,
     required this.statusPageUrl,
+    required this.statusPageInstatus,
     required this.statusPageIncidentHistoryUrl,
     required this.premiumProductName,
     required this.premiumInfoUrl,
@@ -26,6 +27,7 @@ class InstanceBrandingSchema {
     required this.customCss,
     required this.uploadLimitMessage,
     required this.trustedDomains,
+    this.desktopAppPromptEnabled = true,
   });
 
   factory InstanceBrandingSchema.fromJson(Map<String, Object?> json) =>
@@ -67,6 +69,10 @@ class InstanceBrandingSchema {
   @JsonKey(includeIfNull: true, name: 'status_page_url')
   final String? statusPageUrl;
 
+  /// Whether the server detected that the status page is an Instatus page that clients can read current incidents from
+  @JsonKey(name: 'status_page_instatus', defaultValue: false)
+  final bool statusPageInstatus;
+
   /// Optional public status page incident history URL
   @JsonKey(includeIfNull: true, name: 'status_page_incident_history_url')
   final String? statusPageIncidentHistoryUrl;
@@ -94,6 +100,10 @@ class InstanceBrandingSchema {
   /// Extra domains a self-hosted instance trusts, so links to them open without a warning. Each entry is a hostname, or a hostname with a *. prefix that also covers its subdomains
   @JsonKey(name: 'trusted_domains', defaultValue: <String>[])
   final List<String> trustedDomains;
+
+  /// Whether the web app shows prompts to open deep links or download the desktop app
+  @JsonKey(name: 'desktop_app_prompt_enabled')
+  final bool desktopAppPromptEnabled;
 
   Map<String, Object?> toJson() => _$InstanceBrandingSchemaToJson(this);
 }

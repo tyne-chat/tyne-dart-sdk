@@ -22,6 +22,10 @@ InstanceBrandingSchema _$InstanceBrandingSchemaFromJson(
       faviconDarkUrl: $checkedConvert('favicon_dark_url', (v) => v as String?),
       themeColor: $checkedConvert('theme_color', (v) => v as String?),
       statusPageUrl: $checkedConvert('status_page_url', (v) => v as String?),
+      statusPageInstatus: $checkedConvert(
+        'status_page_instatus',
+        (v) => v as bool? ?? false,
+      ),
       statusPageIncidentHistoryUrl: $checkedConvert(
         'status_page_incident_history_url',
         (v) => v as String?,
@@ -44,6 +48,10 @@ InstanceBrandingSchema _$InstanceBrandingSchemaFromJson(
         'trusted_domains',
         (v) => (v as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
       ),
+      desktopAppPromptEnabled: $checkedConvert(
+        'desktop_app_prompt_enabled',
+        (v) => v as bool? ?? true,
+      ),
     );
     return val;
   },
@@ -57,6 +65,7 @@ InstanceBrandingSchema _$InstanceBrandingSchemaFromJson(
     'faviconDarkUrl': 'favicon_dark_url',
     'themeColor': 'theme_color',
     'statusPageUrl': 'status_page_url',
+    'statusPageInstatus': 'status_page_instatus',
     'statusPageIncidentHistoryUrl': 'status_page_incident_history_url',
     'premiumProductName': 'premium_product_name',
     'premiumInfoUrl': 'premium_info_url',
@@ -64,6 +73,7 @@ InstanceBrandingSchema _$InstanceBrandingSchemaFromJson(
     'customCss': 'custom_css',
     'uploadLimitMessage': 'upload_limit_message',
     'trustedDomains': 'trusted_domains',
+    'desktopAppPromptEnabled': 'desktop_app_prompt_enabled',
   },
 );
 
@@ -79,6 +89,7 @@ Map<String, dynamic> _$InstanceBrandingSchemaToJson(
   'favicon_dark_url': instance.faviconDarkUrl,
   'theme_color': instance.themeColor,
   'status_page_url': instance.statusPageUrl,
+  'status_page_instatus': instance.statusPageInstatus,
   'status_page_incident_history_url': instance.statusPageIncidentHistoryUrl,
   'premium_product_name': instance.premiumProductName,
   'premium_info_url': instance.premiumInfoUrl,
@@ -86,4 +97,5 @@ Map<String, dynamic> _$InstanceBrandingSchemaToJson(
   'custom_css': instance.customCss,
   'upload_limit_message': instance.uploadLimitMessage,
   'trusted_domains': instance.trustedDomains,
+  'desktop_app_prompt_enabled': instance.desktopAppPromptEnabled,
 };
