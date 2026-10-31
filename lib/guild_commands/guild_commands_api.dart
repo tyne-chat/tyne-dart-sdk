@@ -8,6 +8,8 @@ import 'package:retrofit/error_logger.dart';
 
 import '../models/guild_command_create_request_schema.dart';
 import '../models/guild_command_list_response_schema.dart';
+import '../models/guild_command_preview_request_schema.dart';
+import '../models/guild_command_preview_response_schema.dart';
 import '../models/guild_command_response_schema.dart';
 import '../models/guild_command_run_request_schema.dart';
 import '../models/guild_command_update_request_schema.dart';
@@ -57,6 +59,19 @@ abstract class GuildCommandsApi {
   Future<GuildCommandResponseSchema> createGuildCommand({
     @Path('guild_id') required SnowflakeType guildId,
     @Body() required GuildCommandCreateRequestSchema body,
+  });
+
+  /// Preview guild command.
+  ///
+  /// Fills in a template without posting anything. A template with a problem is reported in `issue`, with a 200. Requires Create Commands or Manage Commands.
+  ///
+  /// [guildId] - The ID of the guild.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/guilds/{guild_id}/commands/preview')
+  Future<GuildCommandPreviewResponseSchema> previewGuildCommand({
+    @Path('guild_id') required SnowflakeType guildId,
+    @Body() required GuildCommandPreviewRequestSchema body,
   });
 
   /// Update guild command.

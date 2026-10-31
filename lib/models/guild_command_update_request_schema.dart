@@ -15,23 +15,28 @@ part 'guild_command_update_request_schema.g.dart';
 class GuildCommandUpdateRequestSchema {
   GuildCommandUpdateRequestSchema({
     this.name,
-    this.description,
     this.template,
     this.inputMode,
     this.inputType,
+    JsonNullable<String> description = const JsonNullable<String>.undefined(),
     JsonNullable<String> inputHint = const JsonNullable<String>.undefined(),
-  }) : inputHint = inputHint,
+  }) : description = description,
+       descriptionValue = description.value,
+       _descriptionPresent = description.isPresent,
+       inputHint = inputHint,
        inputHintValue = inputHint.value,
        _inputHintPresent = inputHint.isPresent;
 
   const GuildCommandUpdateRequestSchema._({
     this.name,
-    this.description,
+    this.descriptionValue,
     this.template,
     this.inputMode,
     this.inputType,
     this.inputHintValue,
-  }) : inputHint = const JsonNullable<String>.undefined(),
+  }) : description = const JsonNullable<String>.undefined(),
+       _descriptionPresent = false,
+       inputHint = const JsonNullable<String>.undefined(),
        _inputHintPresent = false;
   factory GuildCommandUpdateRequestSchema.patch(Map<String, Object?> json) =>
       GuildCommandUpdateRequestSchema.fromJson(json);
@@ -40,7 +45,9 @@ class GuildCommandUpdateRequestSchema {
     final value = _$GuildCommandUpdateRequestSchemaFromJson(json);
     return GuildCommandUpdateRequestSchema(
       name: value.name,
-      description: value.description,
+      description: json.containsKey('description')
+          ? JsonNullable<String>.of(value.descriptionValue)
+          : const JsonNullable<String>.undefined(),
       template: value.template,
       inputMode: value.inputMode,
       inputType: value.inputType,
@@ -53,8 +60,6 @@ class GuildCommandUpdateRequestSchema {
   /// The name typed after the slash: lowercase letters, digits, - and _, at most 32 characters
   @JsonKey(includeIfNull: false)
   final String? name;
-  @JsonKey(includeIfNull: false)
-  final String? description;
 
   /// The Liquid template the server fills in when the command runs
   @JsonKey(includeIfNull: false)
@@ -64,6 +69,11 @@ class GuildCommandUpdateRequestSchema {
   @JsonKey(includeIfNull: false, name: 'input_type')
   final GuildCommandInputType? inputType;
   @JsonKey(includeFromJson: false, includeToJson: false)
+  final JsonNullable<String> description;
+  @JsonKey(includeIfNull: false, name: 'description')
+  final String? descriptionValue;
+  final bool _descriptionPresent;
+  @JsonKey(includeFromJson: false, includeToJson: false)
   final JsonNullable<String> inputHint;
   @JsonKey(includeIfNull: false, name: 'input_hint')
   final String? inputHintValue;
@@ -71,6 +81,9 @@ class GuildCommandUpdateRequestSchema {
 
   Map<String, Object?> toJson() {
     final json = _$GuildCommandUpdateRequestSchemaToJson(this);
+    if (_descriptionPresent) {
+      json.putIfAbsent('description', () => descriptionValue);
+    }
     if (_inputHintPresent) {
       json.putIfAbsent('input_hint', () => inputHintValue);
     }

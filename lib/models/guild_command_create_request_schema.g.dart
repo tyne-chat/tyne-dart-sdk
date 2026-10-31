@@ -21,21 +21,22 @@ GuildCommandCreateRequestSchema _$GuildCommandCreateRequestSchemaFromJson(
             ? GuildCommandInputMode.$unknown
             : GuildCommandInputMode.fromJson(v as String),
       ),
-      inputHintValue: $checkedConvert('input_hint', (v) => v as String?),
-      description: $checkedConvert('description', (v) => v as String? ?? ''),
       inputType: $checkedConvert(
         'input_type',
         (v) => v == null
             ? GuildCommandInputType.text
             : GuildCommandInputType.fromJson(v as String),
       ),
+      descriptionValue: $checkedConvert('description', (v) => v as String?),
+      inputHintValue: $checkedConvert('input_hint', (v) => v as String?),
     );
     return val;
   },
   fieldKeyMap: const {
     'inputMode': 'input_mode',
-    'inputHintValue': 'input_hint',
     'inputType': 'input_type',
+    'descriptionValue': 'description',
+    'inputHintValue': 'input_hint',
   },
 );
 
@@ -43,9 +44,9 @@ Map<String, dynamic> _$GuildCommandCreateRequestSchemaToJson(
   GuildCommandCreateRequestSchema instance,
 ) => <String, dynamic>{
   'name': instance.name,
-  'description': instance.description,
   'template': instance.template,
   'input_mode': instance.inputMode,
   'input_type': instance.inputType,
+  'description': ?instance.descriptionValue,
   'input_hint': ?instance.inputHintValue,
 };

@@ -332,8 +332,12 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'GuildCategoryChannelCreateRequestPermissionOverwrites':
       GuildCategoryChannelCreateRequestPermissionOverwrites.fromJson,
   'GuildCommandCreateRequestSchema': GuildCommandCreateRequestSchema.fromJson,
+  'GuildCommandPreviewRequestSchema': GuildCommandPreviewRequestSchema.fromJson,
+  'GuildCommandPreviewResponseSchema':
+      GuildCommandPreviewResponseSchema.fromJson,
   'GuildCommandResponseSchema': GuildCommandResponseSchema.fromJson,
   'GuildCommandRunRequestSchema': GuildCommandRunRequestSchema.fromJson,
+  'GuildCommandTemplateIssueSchema': GuildCommandTemplateIssueSchema.fromJson,
   'GuildCommandUpdateRequestSchema': GuildCommandUpdateRequestSchema.fromJson,
   'GuildCreateRequest': GuildCreateRequest.fromJson,
   'GuildDeleteRequest': GuildDeleteRequest.fromJson,
@@ -893,6 +897,7 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'UpdateFavoriteMemeBodySchema': UpdateFavoriteMemeBodySchema.fromJson,
   'UpdatePremiumPerksDisabledRequest':
       UpdatePremiumPerksDisabledRequest.fromJson,
+  'UpdateVoiceNodeRequest': UpdateVoiceNodeRequest.fromJson,
   'UrlResponse': UrlResponse.fromJson,
   'UserDsaReportFlowRequest': UserDsaReportFlowRequest.fromJson,
   'UserGuildSettingsResponse': UserGuildSettingsResponse.fromJson,
@@ -936,10 +941,17 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'VerifyEmailRequest': VerifyEmailRequest.fromJson,
   'VoiceActivitySharingUpdateRequest':
       VoiceActivitySharingUpdateRequest.fromJson,
+  'VoiceJoinPreviewRequest': VoiceJoinPreviewRequest.fromJson,
+  'VoiceJoinPreviewResponse': VoiceJoinPreviewResponse.fromJson,
+  'VoiceJoinPreviewResponseRegion': VoiceJoinPreviewResponseRegion.fromJson,
+  'VoiceJoinRequest': VoiceJoinRequest.fromJson,
+  'VoiceJoinResponse': VoiceJoinResponse.fromJson,
+  'VoiceNodeResponse': VoiceNodeResponse.fromJson,
   'VoiceP2pAssignmentResponse': VoiceP2pAssignmentResponse.fromJson,
   'VoiceP2pConnectionReportsRequest': VoiceP2pConnectionReportsRequest.fromJson,
   'VoiceP2pConnectionReportsRequestReports':
       VoiceP2pConnectionReportsRequestReports.fromJson,
+  'VoiceServerHealthResponse': VoiceServerHealthResponse.fromJson,
   'WebAuthnAuthenticateRequest': WebAuthnAuthenticateRequest.fromJson,
   'WebAuthnAuthenticationOptionsResponse':
       WebAuthnAuthenticationOptionsResponse.fromJson,

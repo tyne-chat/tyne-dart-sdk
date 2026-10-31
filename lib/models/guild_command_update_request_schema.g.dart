@@ -14,7 +14,7 @@ GuildCommandUpdateRequestSchema _$GuildCommandUpdateRequestSchemaFromJson(
   ($checkedConvert) {
     final val = GuildCommandUpdateRequestSchema._(
       name: $checkedConvert('name', (v) => v as String?),
-      description: $checkedConvert('description', (v) => v as String?),
+      descriptionValue: $checkedConvert('description', (v) => v as String?),
       template: $checkedConvert('template', (v) => v as String?),
       inputMode: $checkedConvert(
         'input_mode',
@@ -29,6 +29,7 @@ GuildCommandUpdateRequestSchema _$GuildCommandUpdateRequestSchemaFromJson(
     return val;
   },
   fieldKeyMap: const {
+    'descriptionValue': 'description',
     'inputMode': 'input_mode',
     'inputType': 'input_type',
     'inputHintValue': 'input_hint',
@@ -39,9 +40,9 @@ Map<String, dynamic> _$GuildCommandUpdateRequestSchemaToJson(
   GuildCommandUpdateRequestSchema instance,
 ) => <String, dynamic>{
   'name': ?instance.name,
-  'description': ?instance.description,
   'template': ?instance.template,
   'input_mode': ?instance.inputMode,
   'input_type': ?instance.inputType,
+  'description': ?instance.descriptionValue,
   'input_hint': ?instance.inputHintValue,
 };
