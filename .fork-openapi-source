@@ -2,4 +2,4 @@
 # lib/ was generated from .fork-openapi.json: the fork's OpenAPI spec,
 # overlaid on upstream fluxer's spec at upstream_spec_commit when the
 # fork was behind it.
-upstream_spec_commit=b80ae44b7d629cc2770a0cf27d622e6e0563760d
+upstream_spec_commit=7d544ad57d427641fd13239d1505ecee9d703491
