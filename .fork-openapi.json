@@ -75017,6 +75017,14 @@
        "string",
        "null"
       ]
+     },
+     "username": {
+      "description": "For sign-ups, the username for the new account. Ignored when signing in",
+      "$ref": "#/components/schemas/UsernameType"
+     },
+     "global_name": {
+      "description": "For sign-ups, the display name shown to other people. Ignored when signing in",
+      "type": "string"
      }
     },
     "required": [
@@ -75936,7 +75944,7 @@
       ]
      },
      "custom_css": {
-      "description": "Optional stylesheet a self-hosted instance applies to every page of its web and desktop app",
+      "description": "Optional stylesheet a self-hosted instance applies to its web and desktop app, except on sign-in pages",
       "type": [
        "string",
        "null"

@@ -7,12 +7,14 @@ import 'package:json_annotation/json_annotation.dart';
 import 'domain_migration_discovery_response.dart';
 import 'instance_age_policy_schema.dart';
 import 'instance_app_public_schema.dart';
+import 'instance_built_in_guild_badge_images_schema.dart';
 import 'instance_captcha_schema.dart';
 import 'instance_community_schema.dart';
 import 'instance_endpoints_schema.dart';
 import 'instance_features_schema.dart';
 import 'instance_gif_schema.dart';
 import 'instance_guild_badge_schema.dart';
+import 'instance_hidden_built_in_guild_badges_schema.dart';
 import 'instance_notice_schema.dart';
 import 'instance_push_schema.dart';
 import 'instance_registration_schema.dart';
@@ -42,6 +44,11 @@ class WellKnownFluxerResponse {
     this.notice,
     this.domainMigration,
     this.guildBadges,
+    this.guildBadgesPartial,
+    this.customBadgesVersion,
+    this.builtInGuildBadgeImages,
+    this.hiddenBuiltInGuildBadges,
+    this.voiceOrigins,
   });
 
   factory WellKnownFluxerResponse.fromJson(Map<String, Object?> json) =>
@@ -91,9 +98,27 @@ class WellKnownFluxerResponse {
   @JsonKey(includeIfNull: false, name: 'domain_migration')
   final DomainMigrationDiscoveryResponse? domainMigration;
 
-  /// Custom badges that communities on this instance can show next to their name, in display order
+  /// The first 100 custom badges that communities on this instance can show next to their name, in display order. GET /instance/badges serves every badge
   @JsonKey(includeIfNull: false, name: 'guild_badges')
   final List<InstanceGuildBadgeSchema>? guildBadges;
+
+  /// True when the instance has more community badges than guild_badges lists
+  @JsonKey(includeIfNull: false, name: 'guild_badges_partial')
+  final bool? guildBadgesPartial;
+
+  /// Version of the badge catalog. It changes whenever a badge is created, edited, deleted or moved
+  @JsonKey(includeIfNull: false, name: 'custom_badges_version')
+  final String? customBadgesVersion;
+
+  /// Images this instance shows in place of the built-in verified, partnered and discoverable community badges
+  @JsonKey(includeIfNull: false, name: 'built_in_guild_badge_images')
+  final InstanceBuiltInGuildBadgeImagesSchema? builtInGuildBadgeImages;
+  @JsonKey(includeIfNull: false, name: 'hidden_built_in_guild_badges')
+  final InstanceHiddenBuiltInGuildBadgesSchema? hiddenBuiltInGuildBadges;
+
+  /// Origins of every voice server endpoint, such as wss://voice.example.com, for content security policies
+  @JsonKey(includeIfNull: false, name: 'voice_origins')
+  final List<String>? voiceOrigins;
 
   Map<String, Object?> toJson() => _$WellKnownFluxerResponseToJson(this);
 }

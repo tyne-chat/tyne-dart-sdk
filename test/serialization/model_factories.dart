@@ -9,6 +9,8 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'AccountHandoffRequest': AccountHandoffRequest.fromJson,
   'AccountHandoffResponse': AccountHandoffResponse.fromJson,
   'ActiveThreadsResponse': ActiveThreadsResponse.fromJson,
+  'AddReactionBodySchema': AddReactionBodySchema.fromJson,
+  'AddReactionBodySchemaVariant1': AddReactionBodySchemaVariant1.fromJson,
   'AllowedMentionsRequest': AllowedMentionsRequest.fromJson,
   'AlreadyScheduledSwitchToListPriceResponse':
       AlreadyScheduledSwitchToListPriceResponse.fromJson,
@@ -73,6 +75,7 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'ChannelOverwriteResponse': ChannelOverwriteResponse.fromJson,
   'ChannelPartialResponse': ChannelPartialResponse.fromJson,
   'ChannelPartialResponseRecipients': ChannelPartialResponseRecipients.fromJson,
+  'ChannelPersonaMentionItemSchema': ChannelPersonaMentionItemSchema.fromJson,
   'ChannelPinResponse': ChannelPinResponse.fromJson,
   'ChannelPinResponseMessage': ChannelPinResponseMessage.fromJson,
   'ChannelPinResponseMessageCall': ChannelPinResponseMessageCall.fromJson,
@@ -81,6 +84,11 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'ChannelPinsResponse': ChannelPinsResponse.fromJson,
   'ChannelPositionUpdateRequestItem': ChannelPositionUpdateRequestItem.fromJson,
   'ChannelResponse': ChannelResponse.fromJson,
+  'ChannelSignalBarEnabledRequestSchema':
+      ChannelSignalBarEnabledRequestSchema.fromJson,
+  'ChannelSignalEntrySchema': ChannelSignalEntrySchema.fromJson,
+  'ChannelSignalToggleRequestSchema': ChannelSignalToggleRequestSchema.fromJson,
+  'ChannelSignalsResponseSchema': ChannelSignalsResponseSchema.fromJson,
   'ChannelSlowmodeStateResponse': ChannelSlowmodeStateResponse.fromJson,
   'ChannelThreadsAssignmentResponse': ChannelThreadsAssignmentResponse.fromJson,
   'ChannelUpdateForumRequestBody': ChannelUpdateForumRequestBody.fromJson,
@@ -323,6 +331,19 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
       GuildCategoryChannelCreateRequest.fromJson,
   'GuildCategoryChannelCreateRequestPermissionOverwrites':
       GuildCategoryChannelCreateRequestPermissionOverwrites.fromJson,
+  'GuildCommandCountSchema': GuildCommandCountSchema.fromJson,
+  'GuildCommandCountSetRequestSchema':
+      GuildCommandCountSetRequestSchema.fromJson,
+  'GuildCommandCounterInputSchema': GuildCommandCounterInputSchema.fromJson,
+  'GuildCommandCounterSchema': GuildCommandCounterSchema.fromJson,
+  'GuildCommandCreateRequestSchema': GuildCommandCreateRequestSchema.fromJson,
+  'GuildCommandPreviewRequestSchema': GuildCommandPreviewRequestSchema.fromJson,
+  'GuildCommandPreviewResponseSchema':
+      GuildCommandPreviewResponseSchema.fromJson,
+  'GuildCommandResponseSchema': GuildCommandResponseSchema.fromJson,
+  'GuildCommandRunRequestSchema': GuildCommandRunRequestSchema.fromJson,
+  'GuildCommandTemplateIssueSchema': GuildCommandTemplateIssueSchema.fromJson,
+  'GuildCommandUpdateRequestSchema': GuildCommandUpdateRequestSchema.fromJson,
   'GuildCreateRequest': GuildCreateRequest.fromJson,
   'GuildDeleteRequest': GuildDeleteRequest.fromJson,
   'GuildDsaReportFlowRequest': GuildDsaReportFlowRequest.fromJson,
@@ -365,6 +386,9 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'GuildRolePositionsRequestItem': GuildRolePositionsRequestItem.fromJson,
   'GuildRoleResponse': GuildRoleResponse.fromJson,
   'GuildRoleUpdateRequest': GuildRoleUpdateRequest.fromJson,
+  'GuildSignalBarSettingsSchema': GuildSignalBarSettingsSchema.fromJson,
+  'GuildSignalBarSettingsSchemaInput':
+      GuildSignalBarSettingsSchemaInput.fromJson,
   'GuildStickerBulkCreateRequest': GuildStickerBulkCreateRequest.fromJson,
   'GuildStickerBulkCreateResponse': GuildStickerBulkCreateResponse.fromJson,
   'GuildStickerBulkCreateResponseFailed':
@@ -411,6 +435,7 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'IdentifyRequest': IdentifyRequest.fromJson,
   'IdentifyResponse': IdentifyResponse.fromJson,
   'IdentifyResponseRegistration': IdentifyResponseRegistration.fromJson,
+  'IndicateTypingRequestSchema': IndicateTypingRequestSchema.fromJson,
   'IneligibleSwitchToListPriceResponse':
       IneligibleSwitchToListPriceResponse.fromJson,
   'InstanceAccountIdentityResponse': InstanceAccountIdentityResponse.fromJson,
@@ -422,7 +447,11 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'InstanceAppPublicSchemaLegal': InstanceAppPublicSchemaLegal.fromJson,
   'InstanceAppPublicSchemaRegistration':
       InstanceAppPublicSchemaRegistration.fromJson,
+  'InstanceBadgesResponse': InstanceBadgesResponse.fromJson,
+  'InstanceBadgesResponseBadges': InstanceBadgesResponseBadges.fromJson,
   'InstanceBrandingSchema': InstanceBrandingSchema.fromJson,
+  'InstanceBuiltInGuildBadgeImagesSchema':
+      InstanceBuiltInGuildBadgeImagesSchema.fromJson,
   'InstanceCaptchaSchema': InstanceCaptchaSchema.fromJson,
   'InstanceCommunitySchema': InstanceCommunitySchema.fromJson,
   'InstanceEndpointsSchema': InstanceEndpointsSchema.fromJson,
@@ -462,6 +491,8 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'InviteResponseSchemaGuildInviteResponse':
       InviteResponseSchemaGuildInviteResponse.fromJson,
   'IpAuthorizationPollResponse': IpAuthorizationPollResponse.fromJson,
+  'LegacyMessageSubprofileRequestSchema':
+      LegacyMessageSubprofileRequestSchema.fromJson,
   'LibredeskWebhook': LibredeskWebhook.fromJson,
   'LibredeskWebhookPayload': LibredeskWebhookPayload.fromJson,
   'LibredeskWebhookPayloadAttachments':
@@ -482,7 +513,10 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'MessageDsaReportFlowRequest': MessageDsaReportFlowRequest.fromJson,
   'MessageEmbedChildResponse': MessageEmbedChildResponse.fromJson,
   'MessageEmbedResponse': MessageEmbedResponse.fromJson,
+  'MessageGuildCommandResponseSchema':
+      MessageGuildCommandResponseSchema.fromJson,
   'MessagePurgeResponse': MessagePurgeResponse.fromJson,
+  'MessageReactionPersonaEntry': MessageReactionPersonaEntry.fromJson,
   'MessageReactionResponse': MessageReactionResponse.fromJson,
   'MessageReactionResponseEmoji': MessageReactionResponseEmoji.fromJson,
   'MessageReferenceRequest': MessageReferenceRequest.fromJson,
@@ -509,6 +543,7 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
       MessageSearchResultsResponseMessagesMessageReference.fromJson,
   'MessageSnapshotResponse': MessageSnapshotResponse.fromJson,
   'MessageStickerResponse': MessageStickerResponse.fromJson,
+  'MessageSubprofileResponseSchema': MessageSubprofileResponseSchema.fromJson,
   'MfaBackupCodesChallengeRegenerateRequest':
       MfaBackupCodesChallengeRegenerateRequest.fromJson,
   'MfaBackupCodesChallengeResendRequest':
@@ -644,6 +679,38 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'PendingSubscriptionChangeResponseVariant1':
       PendingSubscriptionChangeResponseVariant1.fromJson,
   'PermissionOverwriteCreateRequest': PermissionOverwriteCreateRequest.fromJson,
+  'PersonaAvatarImportRequest': PersonaAvatarImportRequest.fromJson,
+  'PersonaAvatarImportResponse': PersonaAvatarImportResponse.fromJson,
+  'PersonaAvatarUploadRequest': PersonaAvatarUploadRequest.fromJson,
+  'PersonaAvatarUploadResponse': PersonaAvatarUploadResponse.fromJson,
+  'PersonaBannerUploadRequest': PersonaBannerUploadRequest.fromJson,
+  'PersonaBannerUploadResponse': PersonaBannerUploadResponse.fromJson,
+  'PersonaBatchAvatarImportRequest': PersonaBatchAvatarImportRequest.fromJson,
+  'PersonaChannelStateSchema': PersonaChannelStateSchema.fromJson,
+  'PersonaChannelStateUpdateRequestSchema':
+      PersonaChannelStateUpdateRequestSchema.fromJson,
+  'PersonaChannelStatesResponseSchema':
+      PersonaChannelStatesResponseSchema.fromJson,
+  'PersonaCreateRequestSchema': PersonaCreateRequestSchema.fromJson,
+  'PersonaImportImageRequest': PersonaImportImageRequest.fromJson,
+  'PersonaImportImageResponse': PersonaImportImageResponse.fromJson,
+  'PersonaImportImageSourcesSchema': PersonaImportImageSourcesSchema.fromJson,
+  'PersonaImportImageSourcesSchemaAvatar':
+      PersonaImportImageSourcesSchemaAvatar.fromJson,
+  'PersonaImportImageSourcesSchemaBanner':
+      PersonaImportImageSourcesSchemaBanner.fromJson,
+  'PersonaImportItemSchema': PersonaImportItemSchema.fromJson,
+  'PersonaLookupItemSchema': PersonaLookupItemSchema.fromJson,
+  'PersonaLookupRequestSchema': PersonaLookupRequestSchema.fromJson,
+  'PersonaLookupRequestSchemaPersonas':
+      PersonaLookupRequestSchemaPersonas.fromJson,
+  'PersonaResponseSchema': PersonaResponseSchema.fromJson,
+  'PersonaSettingsResponseSchema': PersonaSettingsResponseSchema.fromJson,
+  'PersonaSettingsUpdateRequestSchema':
+      PersonaSettingsUpdateRequestSchema.fromJson,
+  'PersonaTagSchema': PersonaTagSchema.fromJson,
+  'PersonaTagSchemaInput': PersonaTagSchemaInput.fromJson,
+  'PersonaUpdateRequestSchema': PersonaUpdateRequestSchema.fromJson,
   'PlutoniumPageAssignmentResponse': PlutoniumPageAssignmentResponse.fromJson,
   'PreloadMessagesRequest': PreloadMessagesRequest.fromJson,
   'PremiumBillingInvoiceResponse': PremiumBillingInvoiceResponse.fromJson,
@@ -675,6 +742,7 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'ProfileBadgePreviewResponse': ProfileBadgePreviewResponse.fromJson,
   'ProfileBadgeResponse': ProfileBadgeResponse.fromJson,
   'ProfileBadgeResponseDetails': ProfileBadgeResponseDetails.fromJson,
+  'PublicPersonaResponseSchema': PublicPersonaResponseSchema.fromJson,
   'PushRotateRequest': PushRotateRequest.fromJson,
   'PushRotateRequestKeys': PushRotateRequestKeys.fromJson,
   'PushSubscribeRequest': PushSubscribeRequest.fromJson,
@@ -683,6 +751,7 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'PushSubscriptionsListResponse': PushSubscriptionsListResponse.fromJson,
   'PushSubscriptionsListResponseSubscriptions':
       PushSubscriptionsListResponseSubscriptions.fromJson,
+  'ReactionUserItemResponse': ReactionUserItemResponse.fromJson,
   'ReactionUsersPageResponse': ReactionUsersPageResponse.fromJson,
   'ReadStateAckBulkRequest': ReadStateAckBulkRequest.fromJson,
   'ReadStateAckBulkRequestReadStates':
@@ -742,7 +811,15 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'SelfServeRefundEligibilityResponse':
       SelfServeRefundEligibilityResponse.fromJson,
   'SelfServeRefundResponse': SelfServeRefundResponse.fromJson,
+  'ServerListButtonsSchema': ServerListButtonsSchema.fromJson,
   'SignInLinkRequest': SignInLinkRequest.fromJson,
+  'SignalBarResponseSchema': SignalBarResponseSchema.fromJson,
+  'SignalBarSignalSchema': SignalBarSignalSchema.fromJson,
+  'SignalBarUpdateRequestSchema': SignalBarUpdateRequestSchema.fromJson,
+  'SignalBarUpdateRequestSchemaSignals':
+      SignalBarUpdateRequestSchemaSignals.fromJson,
+  'SignatureEmojiSchema': SignatureEmojiSchema.fromJson,
+  'SignatureEmojiSchemaInput': SignatureEmojiSchemaInput.fromJson,
   'SinglepartPresignedAttachmentUploadResponseItem':
       SinglepartPresignedAttachmentUploadResponseItem.fromJson,
   'SlackWebhookRequest': SlackWebhookRequest.fromJson,
@@ -829,6 +906,7 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'UpdateFavoriteMemeBodySchema': UpdateFavoriteMemeBodySchema.fromJson,
   'UpdatePremiumPerksDisabledRequest':
       UpdatePremiumPerksDisabledRequest.fromJson,
+  'UpdateVoiceNodeRequest': UpdateVoiceNodeRequest.fromJson,
   'UrlResponse': UrlResponse.fromJson,
   'UserDsaReportFlowRequest': UserDsaReportFlowRequest.fromJson,
   'UserGuildSettingsResponse': UserGuildSettingsResponse.fromJson,
@@ -872,10 +950,18 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'VerifyEmailRequest': VerifyEmailRequest.fromJson,
   'VoiceActivitySharingUpdateRequest':
       VoiceActivitySharingUpdateRequest.fromJson,
+  'VoiceJoinPreviewRequest': VoiceJoinPreviewRequest.fromJson,
+  'VoiceJoinPreviewResponse': VoiceJoinPreviewResponse.fromJson,
+  'VoiceJoinPreviewResponseRegion': VoiceJoinPreviewResponseRegion.fromJson,
+  'VoiceJoinRequest': VoiceJoinRequest.fromJson,
+  'VoiceJoinResponse': VoiceJoinResponse.fromJson,
+  'VoiceNodeResponse': VoiceNodeResponse.fromJson,
   'VoiceP2pAssignmentResponse': VoiceP2pAssignmentResponse.fromJson,
   'VoiceP2pConnectionReportsRequest': VoiceP2pConnectionReportsRequest.fromJson,
   'VoiceP2pConnectionReportsRequestReports':
       VoiceP2pConnectionReportsRequestReports.fromJson,
+  'VoiceServerHealthResponse': VoiceServerHealthResponse.fromJson,
+  'VoiceTurnServer': VoiceTurnServer.fromJson,
   'WebAuthnAuthenticateRequest': WebAuthnAuthenticateRequest.fromJson,
   'WebAuthnAuthenticationOptionsResponse':
       WebAuthnAuthenticationOptionsResponse.fromJson,
