@@ -58,4 +58,9 @@ no longer the same API as today's (the API changed: regenerate and commit).
 - Tests for a new or changed model go in `test/serialization/fork_model_roundtrip_test.dart` and
   assert only fields the generated model declares. Upstream's `model_roundtrip_test.dart` stays as
   upstream has it, so it cannot conflict on rebase.
+- `test/serialization/fork_spec_contract_test.dart` builds a sample of every model from `.fork-openapi.json`, with
+  every optional field filled in, and parses it. The generator can write valid Dart with a wrong type
+  (tyne-chat/tyne#454), and the roundtrip tests cannot see that, because their JSON is written by hand. If it
+  fails after a regeneration, keep the last good SDK and open an issue. `knownMismatches` is only for models
+  the app cannot meet, each with its reason; an entry that starts to parse fails the test.
 - Before committing: `dart analyze && dart test` (the nightly rebase gate runs the same).
