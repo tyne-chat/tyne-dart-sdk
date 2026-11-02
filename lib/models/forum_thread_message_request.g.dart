@@ -41,12 +41,22 @@ ForumThreadMessageRequest _$ForumThreadMessageRequestFromJson(
         'sticker_ids',
         (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
+      personaId: $checkedConvert('persona_id', (v) => v as SnowflakeType?),
+      subprofile: $checkedConvert(
+        'subprofile',
+        (v) => v == null
+            ? null
+            : LegacyMessageSubprofileRequestSchema.fromJson(
+                v as Map<String, dynamic>,
+              ),
+      ),
     );
     return val;
   },
   fieldKeyMap: const {
     'allowedMentions': 'allowed_mentions',
     'stickerIds': 'sticker_ids',
+    'personaId': 'persona_id',
   },
 );
 
@@ -59,4 +69,6 @@ Map<String, dynamic> _$ForumThreadMessageRequestToJson(
   'allowed_mentions': ?instance.allowedMentions,
   'flags': instance.flags,
   'sticker_ids': ?instance.stickerIds,
+  'persona_id': ?instance.personaId,
+  'subprofile': ?instance.subprofile,
 };
