@@ -16,9 +16,6 @@ import 'model_factories.dart';
 // meet the failure, and say why. An entry that starts to parse fails the test.
 
 const Map<String, String> knownMismatches = <String, String>{
-  // `hidden_built_in_guild_badges` is a list in the spec and one enum value in
-  // the SDK. The app ignores the field, and the server leaves an empty list out.
-  'WellKnownFluxerResponse': 'tyne-chat/tyne#454',
   // A list or an object in the spec; the SDK reads only an object. The app
   // never calls this route.
   'OAuth2ApplicationsMeResponse': 'not called by the app',
