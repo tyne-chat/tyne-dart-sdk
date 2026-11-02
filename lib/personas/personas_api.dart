@@ -85,12 +85,15 @@ abstract class PersonasApi {
 
   /// Bulk import personas.
   ///
-  /// Imports or synchronizes personas in bulk (e.g. from PluralKit or Tupperbox).
+  /// Imports or synchronizes personas in bulk (e.g. from PluralKit or Tupperbox). The whole request is checked first and written at once: if it is refused, nothing changes.
+  ///
+  /// [replace] - Delete every live persona of the account and keep only the imported ones. The deletion and the import are written together, so if the import is refused the personas stay as they were.
   ///
   /// [body] - Name not received - field will be skipped.
   @POST('/users/@me/personas/import')
   Future<PersonaListResponseSchema> importPersonas({
     @Body() required PersonaBulkImportRequestSchema body,
+    @Query('replace') String? replace = 'false',
   });
 
   /// Store an image from a persona export being imported.

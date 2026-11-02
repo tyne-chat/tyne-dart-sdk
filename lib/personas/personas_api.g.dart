@@ -206,9 +206,11 @@ class _PersonasApi implements PersonasApi {
   @override
   Future<List<PersonaResponseSchema>> importPersonas({
     required List<PersonaImportItemSchema> body,
+    String? replace = 'false',
   }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'replace': replace};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = body.map((e) => e.toJson()).toList();
     final _options = _setStreamType<List<PersonaResponseSchema>>(
