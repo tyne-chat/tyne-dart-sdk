@@ -30812,6 +30812,15 @@
        "type": "string"
       },
       "description": "Two-letter country code for regional pricing. Only used when the server cannot geolocate the request; otherwise the request GeoIP country wins."
+     },
+     {
+      "name": "distribution",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DistributionQueryParam"
+      },
+      "description": "Distribution the client build was sold through. Unknown or inactive values fall back to the standard price"
      }
     ]
    }
@@ -31229,6 +31238,15 @@
        "type": "string"
       },
       "description": "Two-letter country code for regional pricing. Only used when the server cannot geolocate the request; otherwise the request GeoIP country wins."
+     },
+     {
+      "name": "distribution",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DistributionQueryParam"
+      },
+      "description": "Distribution the client build was sold through. Unknown or inactive values fall back to the standard price"
      }
     ]
    }
@@ -63929,6 +63947,12 @@
      },
      "cnpj": {
       "$ref": "#/components/schemas/CnpjSchema"
+     },
+     "distribution": {
+      "$ref": "#/components/schemas/DistributionQueryParam"
+     },
+     "distribution_token": {
+      "$ref": "#/components/schemas/DistributionTokenParam"
      }
     },
     "required": [
@@ -65160,6 +65184,11 @@
     ],
     "additionalProperties": false
    },
+   "DistributionQueryParam": {
+    "description": "Distribution the client build was sold through. Unknown or inactive values fall back to the standard price",
+    "type": "string",
+    "maxLength": 64
+   },
    "PremiumStateResponse": {
     "type": "object",
     "properties": {
@@ -65656,11 +65685,23 @@
        }
       ],
       "description": "Currency for gift prices, null when no gift prices are configured"
+     },
+     "distribution": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PriceDistributionResponse"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Distribution whose channel price the amounts include, or null for the standard price"
      }
     },
     "required": [
      "currency",
-     "gift_currency"
+     "gift_currency",
+     "distribution"
     ],
     "additionalProperties": false
    },
@@ -75820,6 +75861,41 @@
        "null"
       ]
      },
+     "premium_page_color": {
+      "description": "Optional hex color a self-hosted instance uses to recolor its premium page",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "premium_showcase_expressions_url": {
+      "description": "Optional image a self-hosted instance shows next to the \"Your emojis, everywhere\" card on its premium page",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "premium_showcase_profile_url": {
+      "description": "Optional image a self-hosted instance shows next to the \"A profile that stands out\" card on its premium page",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "premium_showcase_stream_url": {
+      "description": "Optional image a self-hosted instance shows next to the \"Stream in 4K at 60 FPS\" card on its premium page",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "premium_showcase_upload_url": {
+      "description": "Optional image a self-hosted instance shows next to the card about file size limits on its premium page",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
      "custom_css": {
       "description": "Optional stylesheet a self-hosted instance applies to its web and desktop app, except on sign-in pages",
       "type": [
@@ -75858,6 +75934,11 @@
      "premium_product_name",
      "premium_info_url",
      "sign_in_backdrop_url",
+     "premium_page_color",
+     "premium_showcase_expressions_url",
+     "premium_showcase_profile_url",
+     "premium_showcase_stream_url",
+     "premium_showcase_upload_url",
      "custom_css",
      "upload_limit_message",
      "trusted_domains"
@@ -85394,6 +85475,31 @@
     "type": "string",
     "pattern": "^[A-Z]{3}$"
    },
+   "PriceDistributionResponse": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]{1,32}$"
+     },
+     "rate_bps": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3000
+     },
+     "rule_version": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    "required": [
+     "id",
+     "rate_bps",
+     "rule_version"
+    ],
+    "additionalProperties": false
+   },
    "SelfServeRefundProvider": {
     "type": "string",
     "enum": [
@@ -87595,6 +87701,11 @@
      "webhook"
     ],
     "type": "string"
+   },
+   "DistributionTokenParam": {
+    "description": "Opaque purchase token from the distribution, kept for reporting",
+    "type": "string",
+    "maxLength": 4096
    },
    "CheckoutPaymentMethodEnum": {
     "type": "string",
