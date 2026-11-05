@@ -1983,6 +1983,26 @@
      }
     },
     "description": "Retrieve WebAuthn challenge and options for multi-factor authentication. Requires the MFA ticket from initial login.",
+    "parameters": [
+     {
+      "name": "rp_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "description": "Relying party ID to use instead of the one picked from the Origin header. Only the instance relying party and the migration relying party are honoured, and only on the official instance. Any other value is ignored",
+       "anyOf": [
+        {
+         "type": "string",
+         "maxLength": 253
+        },
+        {
+         "type": "null"
+        }
+       ]
+      },
+      "description": "Relying party ID to use instead of the one picked from the Origin header. Only the instance relying party and the migration relying party are honoured, and only on the official instance. Any other value is ignored"
+     }
+    ],
     "requestBody": {
      "required": true,
      "content": {
@@ -4444,7 +4464,27 @@
       }
      }
     },
-    "description": "Retrieve WebAuthn authentication challenge and options for passwordless login with biometrics or security keys."
+    "description": "Retrieve WebAuthn authentication challenge and options for passwordless login with biometrics or security keys.",
+    "parameters": [
+     {
+      "name": "rp_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "description": "Relying party ID to use instead of the one picked from the Origin header. Only the instance relying party and the migration relying party are honoured, and only on the official instance. Any other value is ignored",
+       "anyOf": [
+        {
+         "type": "string",
+         "maxLength": 253
+        },
+        {
+         "type": "null"
+        }
+       ]
+      },
+      "description": "Relying party ID to use instead of the one picked from the Origin header. Only the instance relying party and the migration relying party are honoured, and only on the official instance. Any other value is ignored"
+     }
+    ]
    }
   },
   "/channels/messages/bulk": {
@@ -27709,6 +27749,119 @@
     }
    }
   },
+  "/operator-pass/labs-operators": {
+   "put": {
+    "operationId": "update_operator_pass_labs_operators",
+    "summary": "Show or hide #operators",
+    "tags": [
+     "Operator Pass"
+    ],
+    "responses": {
+     "200": {
+      "description": "Success",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/OperatorPassPassesResponse"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request - The request was malformed or contained invalid data",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized - Authentication is required or the token is invalid",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden - You do not have permission to perform this action",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Too Many Requests - You are being rate limited",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ThrottledError"
+        }
+       }
+      },
+      "headers": {
+       "Retry-After": {
+        "description": "Number of seconds to wait before retrying (only on 429)",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Limit": {
+        "description": "The number of requests that can be made in the current window",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Remaining": {
+        "description": "The number of remaining requests that can be made",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Reset": {
+        "description": "Unix timestamp when the rate limit resets",
+        "schema": {
+         "type": "integer"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Internal Server Error - An unexpected error occurred",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     }
+    },
+    "description": "Turns the Fluxer Labs roles that open #operators on or off for the current account. These are the Operator role, the Visionary role and the access role. Turning it off removes them at once, and no later role update adds them back. Turning it on gives back the roles the account is entitled to at once. It does not change passes, badges, the Operators wall, Fluxer Labs membership or other roles.",
+    "security": [
+     {
+      "sessionToken": []
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/OperatorPassLabsOperatorsRequest"
+       }
+      }
+     }
+    }
+   }
+  },
   "/operator-pass/labs/join": {
    "post": {
     "operationId": "join_operator_pass_labs",
@@ -27804,7 +27957,7 @@
       }
      }
     },
-    "description": "Adds the current account to Fluxer Labs with the Operator role, the same way a delivered pass does, and returns the IDs of the community and #operators. Needs at least one pass. An account that is already in Fluxer Labs gets the Operator role if it is missing. An account that left Fluxer Labs or was removed from it is never added again and gets status left, so it can join with the invite. A banned account gets status banned.",
+    "description": "Adds the current account to Fluxer Labs with the Operator role, the same way a delivered pass does, and returns the IDs of the community and #operators. Needs at least one pass. An account that is already in Fluxer Labs gets the Operator role if it is missing, unless it turned off #operators. An account that left Fluxer Labs or was removed from it is never added again and gets status left, so it can join with the invite. A banned account gets status banned.",
     "security": [
      {
       "sessionToken": []
@@ -27907,7 +28060,7 @@
       }
      }
     },
-    "description": "Returns what the Operators' wall shows for the current account right now, the name it submitted, the review state, why staff declined a name or avatar, and how many passes the account holds. The review state and the reason are only for the holder, the public wall never shows them.",
+    "description": "Returns what the Operators' wall shows for the current account right now, the name it chose and how many passes the account holds.",
     "security": [
      {
       "sessionToken": []
@@ -28008,7 +28161,7 @@
       }
      }
     },
-    "description": "Submits a new name for the Operators' wall, takes the listing off the wall, or sets keep_as_is or release_list_opt_in. A new name, together with the current profile avatar, waits for review and the wall keeps showing the last approved version, or the fallback, until staff approve it. A declined name can be replaced at any time. An already listed holder can send only keep_as_is or release_list_opt_in.",
+    "description": "Submits a new name for the Operators' wall, takes the listing off the wall, or sets keep_as_is, release_list_opt_in or wall_quote. A new name or quote goes on the wall at once, the name together with the current profile avatar. An already listed holder can leave out wall_name and send only keep_as_is, release_list_opt_in or wall_quote.",
     "security": [
      {
       "sessionToken": []
@@ -28353,7 +28506,7 @@
       }
      }
     },
-    "description": "Accepts an offer to the current account with the Operator Pass terms and a choice for the Operators' wall. The pass moves at arrives_at, at once when the transfer lock has already ended. Once it moves, the account is added to Fluxer Labs unless it left or was removed from Labs before, and is welcomed in #operators when labs_greeting allows. A received pass cannot be passed on again, and it ends if the payment for it is reversed.",
+    "description": "Accepts an offer to the current account with the Operator Pass terms and a choice for the Operators' wall. The pass moves at once. Once it moves, the account is added to Fluxer Labs unless it left or was removed from Labs before, and is welcomed in #operators when labs_greeting allows. A received pass cannot be passed on again, and it ends if the payment for it is reversed.",
     "security": [
      {
       "sessionToken": []
@@ -28817,7 +28970,7 @@
       }
      }
     },
-    "description": "Offers a pass the current account bought to another user. The offer stays pending until the recipient accepts or declines, and the sender can withdraw it until then. Once accepted, the pass moves when the transfer lock ends, and only while the payment has no early fraud warning, open dispute or refund. Passing on the last pass needs confirm_last_pass, because it removes the badge, the wall listing and #operators from the account.",
+    "description": "Offers a pass the current account bought to another user. The offer stays pending until the recipient accepts or declines, and the sender can withdraw it until then. The pass moves as soon as the recipient accepts, and only while the payment has no early fraud warning, open dispute or refund. Passing on the last pass needs confirm_last_pass, because it removes the badge, the wall listing and #operators from the account.",
     "security": [
      {
       "sessionToken": []
@@ -29373,7 +29526,7 @@
       }
      }
     },
-    "description": "Returns the sale phase, the price of one pass in the buyer currency, the most passes one checkout can buy, the withdrawal rule of the buyer country and a signed quote. Signed-in callers also get their holder status with the number of passes they hold, and why they cannot buy passes.",
+    "description": "Returns whether the early bird or the standard price applies, the price of one pass in the buyer currency, the most passes one checkout can buy, the withdrawal rule of the buyer country and a signed quote. Signed-in callers also get their holder status with the number of passes they hold, and why they cannot buy passes.",
     "parameters": [
      {
       "name": "country_code",
@@ -29501,341 +29654,6 @@
     }
    }
   },
-  "/operator-pass/waitlist": {
-   "post": {
-    "operationId": "join_operator_pass_waitlist",
-    "summary": "Join Operator Pass waitlist",
-    "tags": [
-     "Operator Pass"
-    ],
-    "responses": {
-     "202": {
-      "description": "Success",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/OperatorPassWaitlistResponse"
-        }
-       }
-      }
-     },
-     "400": {
-      "description": "Bad Request - The request was malformed or contained invalid data",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "429": {
-      "description": "Too Many Requests - You are being rate limited",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/ThrottledError"
-        }
-       }
-      },
-      "headers": {
-       "Retry-After": {
-        "description": "Number of seconds to wait before retrying (only on 429)",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Limit": {
-        "description": "The number of requests that can be made in the current window",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Remaining": {
-        "description": "The number of remaining requests that can be made",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Reset": {
-        "description": "Unix timestamp when the rate limit resets",
-        "schema": {
-         "type": "integer"
-        }
-       }
-      }
-     },
-     "500": {
-      "description": "Internal Server Error - An unexpected error occurred",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     }
-    },
-    "description": "Sends a confirmation email to the address and stores how the visitor feels about the early bird price they were shown, if the page asked. The response is the same whether or not the address is already on the waitlist, and always carries a followup_token for the follow-up question. Addresses are matched without plus tags, and Gmail addresses without dots. A later signup by the same pending address replaces the stored answer, a confirmed address keeps its first answer, a bounced address gets no email and an unsubscribed address gets at most one new confirmation email every 30 days. Requires a solved captcha challenge (X-Captcha-Token).",
-    "requestBody": {
-     "required": true,
-     "content": {
-      "application/json": {
-       "schema": {
-        "$ref": "#/components/schemas/OperatorPassWaitlistRequest"
-       }
-      }
-     }
-    }
-   }
-  },
-  "/operator-pass/waitlist/challenge": {
-   "get": {
-    "operationId": "get_operator_pass_waitlist_challenge",
-    "summary": "Get Operator Pass waitlist captcha challenge",
-    "tags": [
-     "Operator Pass"
-    ],
-    "responses": {
-     "200": {
-      "description": "Success",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/OperatorPassWaitlistChallengeResponse"
-        }
-       }
-      }
-     },
-     "400": {
-      "description": "Bad Request - The request was malformed or contained invalid data",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "429": {
-      "description": "Too Many Requests - You are being rate limited",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/ThrottledError"
-        }
-       }
-      },
-      "headers": {
-       "Retry-After": {
-        "description": "Number of seconds to wait before retrying (only on 429)",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Limit": {
-        "description": "The number of requests that can be made in the current window",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Remaining": {
-        "description": "The number of remaining requests that can be made",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Reset": {
-        "description": "Unix timestamp when the rate limit resets",
-        "schema": {
-         "type": "integer"
-        }
-       }
-      }
-     },
-     "500": {
-      "description": "Internal Server Error - An unexpected error occurred",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     }
-    },
-    "description": "Returns the captcha challenge to solve before joining the Operator Pass waitlist."
-   }
-  },
-  "/operator-pass/waitlist/confirm": {
-   "post": {
-    "operationId": "confirm_operator_pass_waitlist",
-    "summary": "Confirm Operator Pass waitlist email",
-    "tags": [
-     "Operator Pass"
-    ],
-    "responses": {
-     "200": {
-      "description": "Success",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/OperatorPassWaitlistConfirmResponse"
-        }
-       }
-      }
-     },
-     "400": {
-      "description": "Bad Request - The request was malformed or contained invalid data",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "429": {
-      "description": "Too Many Requests - You are being rate limited",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/ThrottledError"
-        }
-       }
-      },
-      "headers": {
-       "Retry-After": {
-        "description": "Number of seconds to wait before retrying (only on 429)",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Limit": {
-        "description": "The number of requests that can be made in the current window",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Remaining": {
-        "description": "The number of remaining requests that can be made",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Reset": {
-        "description": "Unix timestamp when the rate limit resets",
-        "schema": {
-         "type": "integer"
-        }
-       }
-      }
-     },
-     "500": {
-      "description": "Internal Server Error - An unexpected error occurred",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     }
-    },
-    "description": "Confirms a waitlist email address with the token from the confirmation email.",
-    "requestBody": {
-     "required": true,
-     "content": {
-      "application/json": {
-       "schema": {
-        "$ref": "#/components/schemas/OperatorPassWaitlistConfirmRequest"
-       }
-      }
-     }
-    }
-   }
-  },
-  "/operator-pass/waitlist/followup": {
-   "post": {
-    "operationId": "answer_operator_pass_waitlist_followup",
-    "summary": "Answer Operator Pass waitlist follow-up question",
-    "tags": [
-     "Operator Pass"
-    ],
-    "responses": {
-     "204": {
-      "description": "No Content"
-     },
-     "400": {
-      "description": "Bad Request - The request was malformed or contained invalid data",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     },
-     "429": {
-      "description": "Too Many Requests - You are being rate limited",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/ThrottledError"
-        }
-       }
-      },
-      "headers": {
-       "Retry-After": {
-        "description": "Number of seconds to wait before retrying (only on 429)",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Limit": {
-        "description": "The number of requests that can be made in the current window",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Remaining": {
-        "description": "The number of remaining requests that can be made",
-        "schema": {
-         "type": "integer"
-        }
-       },
-       "X-RateLimit-Reset": {
-        "description": "Unix timestamp when the rate limit resets",
-        "schema": {
-         "type": "integer"
-        }
-       }
-      }
-     },
-     "500": {
-      "description": "Internal Server Error - An unexpected error occurred",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/Error"
-        }
-       }
-      }
-     }
-    },
-    "description": "Stores what is most important to the visitor about the Operator Pass and which descriptions fit them, with the followup_token from the waitlist signup response. A new answer replaces the stored one while the token is valid, for 30 minutes after the signup. An answer without about keeps the descriptions stored before. A token from a signup whose address was already on the waitlist is accepted and stores nothing, so the response never shows whether an address is on the waitlist. other_text is plain text and only goes with other in picks.",
-    "requestBody": {
-     "required": true,
-     "content": {
-      "application/json": {
-       "schema": {
-        "$ref": "#/components/schemas/OperatorPassWaitlistFollowupRequest"
-       }
-      }
-     }
-    }
-   }
-  },
   "/operator-pass/waitlist/unsubscribe": {
    "get": {
     "operationId": "open_operator_pass_waitlist_unsubscribe",
@@ -29904,21 +29722,7 @@
       }
      }
     },
-    "description": "Redirects a mail client that opens the unsubscribe link to the page where the address can leave the waitlist. Nothing changes until that page is submitted.",
-    "parameters": [
-     {
-      "name": "token",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "description": "Unsubscribe token from the email",
-       "type": "string",
-       "minLength": 1,
-       "maxLength": 256
-      },
-      "description": "Unsubscribe token from the email"
-     }
-    ]
+    "description": "Redirects a mail client that opens the unsubscribe link of the Operator Pass launch email to the unsubscribe page. Nothing changes until a mail client sends the one-click POST."
    },
    "post": {
     "operationId": "unsubscribe_operator_pass_waitlist",
@@ -29994,7 +29798,7 @@
       }
      }
     },
-    "description": "Removes an address from the waitlist with the token from a waitlist email. Supports one-click unsubscribe from mail clients.",
+    "description": "Deletes the waitlist entry that the token from the Operator Pass launch email belongs to. Supports one-click unsubscribe from mail clients.",
     "parameters": [
      {
       "name": "token",
@@ -30086,7 +29890,7 @@
       }
      }
     },
-    "description": "Lists every Operator on the Operators' wall with the name and avatar the wall shows, the time the listing went up, the time of the first pass, how many passes the Operator holds and the size tier, with the highest tier first and the earliest first pass first within a tier. A declined name or avatar shows as the last accepted version, or as Operator with the default avatar. Review states and reasons are never included. Holders who chose not to be listed and paused or removed passes are left out. The response is cached for up to a minute."
+    "description": "Lists every Operator on the Operators' wall with the name and avatar the wall shows, the time the listing went up, the time of the first pass, how many passes the Operator holds and the size tier, with the highest tier first and the earliest first pass first within a tier. A listing whose name or avatar staff took off shows the holder's earlier name and avatar, or Operator with the default avatar. Holders who chose not to be listed and paused or removed passes are left out. The response is cached for up to a minute."
    }
   },
   "/personas/lookup": {
@@ -32901,6 +32705,119 @@
     }
    }
   },
+  "/reports/flows/guild/submissions": {
+   "post": {
+    "operationId": "submit_guild_report_flow",
+    "summary": "Submit community report flow",
+    "tags": [
+     "Reports"
+    ],
+    "responses": {
+     "200": {
+      "description": "Success",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ReportResponse"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request - The request was malformed or contained invalid data",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized - Authentication is required or the token is invalid",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden - You do not have permission to perform this action",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Too Many Requests - You are being rate limited",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ThrottledError"
+        }
+       }
+      },
+      "headers": {
+       "Retry-After": {
+        "description": "Number of seconds to wait before retrying (only on 429)",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Limit": {
+        "description": "The number of requests that can be made in the current window",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Remaining": {
+        "description": "The number of remaining requests that can be made",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Reset": {
+        "description": "Unix timestamp when the rate limit resets",
+        "schema": {
+         "type": "integer"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Internal Server Error - An unexpected error occurred",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     }
+    },
+    "description": "Files a report about a community from the answers given in the in-app community report flow. The reporter must be a member, the community must be discoverable, or the request must include an invite code.",
+    "security": [
+     {
+      "sessionToken": []
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReportFlowGuildSubmissionRequest"
+       }
+      }
+     }
+    }
+   }
+  },
   "/reports/flows/message/submissions": {
    "post": {
     "operationId": "submit_message_report_flow",
@@ -33202,7 +33119,7 @@
       }
      }
     },
-    "description": "Returns every screen of the report flow for a target type, rendered in the requested locale. Message and user flows are available in app and on the DSA form, the guild flow only on the DSA form.",
+    "description": "Returns every screen of the report flow for a target type, rendered in the requested locale. Message, user and community flows are available in the app and on the DSA form.",
     "parameters": [
      {
       "name": "target_type",
@@ -37540,8 +37457,15 @@
      "Users"
     ],
     "responses": {
-     "204": {
-      "description": "No Content"
+     "200": {
+      "description": "Success",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/UserAccountDeleteResponse"
+        }
+       }
+      }
      },
      "400": {
       "description": "Bad Request - The request was malformed or contained invalid data",
@@ -37620,7 +37544,7 @@
       }
      }
     },
-    "description": "Permanently deletes the current user's account and all associated data. Requires sudo mode verification. This action is irreversible and will remove all user data, messages, and connections.",
+    "description": "Schedules the deletion of the current user's account and personal data after the instance's grace period, or right away when immediate is true. Signing in before the deletion runs cancels it. Messages the account sent are anonymized unless delete_messages is true, in which case they are deleted with the account. Requires sudo mode verification. The response has the time the deletion runs.",
     "security": [
      {
       "sessionToken": []
@@ -37631,7 +37555,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "$ref": "#/components/schemas/SudoVerificationSchema"
+        "$ref": "#/components/schemas/UserAccountDeleteRequest"
        }
       }
      }
@@ -43785,6 +43709,26 @@
     "security": [
      {
       "sessionToken": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "rp_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "description": "Relying party ID to use instead of the one picked from the Origin header. Only the instance relying party and the migration relying party are honoured, and only on the official instance. Any other value is ignored",
+       "anyOf": [
+        {
+         "type": "string",
+         "maxLength": 253
+        },
+        {
+         "type": "null"
+        }
+       ]
+      },
+      "description": "Relying party ID to use instead of the one picked from the Origin header. Only the instance relying party and the migration relying party are honoured, and only on the official instance. Any other value is ignored"
      }
     ],
     "requestBody": {
@@ -50753,6 +50697,26 @@
     "security": [
      {
       "sessionToken": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "rp_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "description": "Relying party ID to use instead of the one picked from the Origin header. Only the instance relying party and the migration relying party are honoured, and only on the official instance. Any other value is ignored",
+       "anyOf": [
+        {
+         "type": "string",
+         "maxLength": 253
+        },
+        {
+         "type": "null"
+        }
+       ]
+      },
+      "description": "Relying party ID to use instead of the one picked from the Origin header. Only the instance relying party and the migration relying party are honoured, and only on the official instance. Any other value is ignored"
      }
     ]
    }
@@ -58665,6 +58629,10 @@
      "sensitive_content_guild_filter": {
       "$ref": "#/components/schemas/SensitiveMediaGuildFilterLevelInput"
      },
+     "allow_mature_content_on_ios": {
+      "type": "boolean",
+      "description": "Whether 18+ communities, channels and the \"Show\" sensitive media option are allowed in the iOS app. Only adults can turn this on. The iOS app never offers this setting."
+     },
      "suppress_unprivileged_self_mentions": {
       "type": "boolean",
       "description": "Suppress direct mentions and reply mentions from unprivileged users"
@@ -58938,6 +58906,10 @@
      "sensitive_content_guild_filter": {
       "$ref": "#/components/schemas/SensitiveMediaGuildFilterLevel"
      },
+     "allow_mature_content_on_ios": {
+      "type": "boolean",
+      "description": "Whether 18+ communities, channels and the \"Show\" sensitive media option are allowed in the iOS app. Only adults can turn this on. The iOS app never offers this setting."
+     },
      "suppress_unprivileged_self_mentions": {
       "type": "boolean",
       "description": "Whether direct mentions and reply mentions from unprivileged users are suppressed"
@@ -59018,6 +58990,7 @@
      "sensitive_content_friend_dm_filter",
      "sensitive_content_non_friend_dm_filter",
      "sensitive_content_guild_filter",
+     "allow_mature_content_on_ios",
      "suppress_unprivileged_self_mentions",
      "suppress_unprivileged_self_mentions_bypass_user_ids",
      "staff_dm_access_user_ids",
@@ -60832,6 +60805,11 @@
        "string",
        "null"
       ]
+     },
+     "nsfw": {
+      "default": false,
+      "description": "Whether the media is flagged as explicit. Clients apply the same sensitive media rules as for chat media.",
+      "type": "boolean"
      }
     },
     "required": [
@@ -60844,7 +60822,8 @@
      "content_type",
      "size",
      "url",
-     "is_gifv"
+     "is_gifv",
+     "nsfw"
     ],
     "additionalProperties": false
    },
@@ -62416,6 +62395,75 @@
     "required": [
      "email_token"
     ]
+   },
+   "UserAccountDeleteRequest": {
+    "type": "object",
+    "properties": {
+     "password": {
+      "description": "Account password for sudo verification",
+      "$ref": "#/components/schemas/PasswordType"
+     },
+     "mfa_method": {
+      "description": "MFA method to use for verification",
+      "x-enumNames": [
+       "TOTP",
+       "WebAuthn",
+       "Email code"
+      ],
+      "x-enumDescriptions": [
+       "Time-based one-time password authentication via authenticator app",
+       "Security key or biometric authentication",
+       "A 6-digit code sent to the account email address"
+      ],
+      "enum": [
+       "totp",
+       "webauthn",
+       "email_code"
+      ],
+      "type": "string"
+     },
+     "mfa_code": {
+      "description": "MFA verification code from an authenticator app",
+      "type": "string"
+     },
+     "email_code_ticket": {
+      "description": "Ticket from POST /users/@me/sudo/email-code, sent with mfa_method email_code",
+      "type": "string"
+     },
+     "email_code": {
+      "description": "The 6-digit code from the email, sent with mfa_method email_code",
+      "type": "string"
+     },
+     "webauthn_response": {
+      "description": "WebAuthn authentication response",
+      "$ref": "#/components/schemas/WebAuthnAuthenticationResponse"
+     },
+     "webauthn_challenge": {
+      "description": "WebAuthn challenge string",
+      "type": "string"
+     },
+     "immediate": {
+      "description": "Delete the account now instead of after the grace period",
+      "type": "boolean"
+     },
+     "delete_messages": {
+      "description": "Also delete every message the account sent",
+      "type": "boolean"
+     }
+    }
+   },
+   "UserAccountDeleteResponse": {
+    "type": "object",
+    "properties": {
+     "pending_deletion_at": {
+      "type": "string",
+      "description": "ISO8601 timestamp of when the account is deleted"
+     }
+    },
+    "required": [
+     "pending_deletion_at"
+    ],
+    "additionalProperties": false
    },
    "DateOfBirthUpdateRequest": {
     "type": "object",
@@ -64559,6 +64607,38 @@
      "message_id"
     ]
    },
+   "ReportFlowGuildSubmissionRequest": {
+    "type": "object",
+    "properties": {
+     "revision_hash": {
+      "type": "string"
+     },
+     "steps": {
+      "minItems": 1,
+      "maxItems": 16,
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ReportFlowStep"
+      }
+     },
+     "locale": {
+      "description": "Language tag the reporter saw the flow in",
+      "type": "string"
+     },
+     "guild_id": {
+      "$ref": "#/components/schemas/SnowflakeType"
+     },
+     "invite_code": {
+      "description": "Invite code used to access the guild",
+      "type": "string"
+     }
+    },
+    "required": [
+     "revision_hash",
+     "steps",
+     "guild_id"
+    ]
+   },
    "DsaReportEmailVerifyRequest": {
     "type": "object",
     "properties": {
@@ -65724,143 +65804,6 @@
     ],
     "additionalProperties": false
    },
-   "OperatorPassWaitlistFollowupRequest": {
-    "type": "object",
-    "properties": {
-     "token": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 256,
-      "description": "followup_token from the waitlist signup response"
-     },
-     "picks": {
-      "maxItems": 32,
-      "type": "array",
-      "items": {
-       "type": "string",
-       "maxLength": 64
-      },
-      "description": "What is most important, 0 to 7 unique keys out of wall_spot, badge, operators_channel, early_testing, yearly_list, instance_mark, other. An unknown or repeated key returns OPERATOR_PASS_WAITLIST_FOLLOWUP_INVALID"
-     },
-     "about": {
-      "description": "Which descriptions fit the visitor, 0 to 6 unique keys out of self_hosting_new, self_hosting_experienced, bots_new, bots_experienced, support_fluxer, community_owner. When omitted, the descriptions stored before stay as they are, and an empty array clears them. An unknown or repeated key returns OPERATOR_PASS_WAITLIST_FOLLOWUP_INVALID",
-      "maxItems": 32,
-      "type": "array",
-      "items": {
-       "type": "string",
-       "maxLength": 64
-      }
-     },
-     "other_text": {
-      "description": "Plain text answer for other, only with other in picks. Trimmed, then 1 to 500 characters, without control characters other than line breaks and tabs",
-      "anyOf": [
-       {
-        "type": "string",
-        "maxLength": 4000
-       },
-       {
-        "type": "null"
-       }
-      ]
-     }
-    },
-    "required": [
-     "token",
-     "picks"
-    ],
-    "additionalProperties": false
-   },
-   "OperatorPassWaitlistConfirmRequest": {
-    "type": "object",
-    "properties": {
-     "token": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 256,
-      "description": "Token from the confirmation email"
-     }
-    },
-    "required": [
-     "token"
-    ]
-   },
-   "OperatorPassWaitlistConfirmResponse": {
-    "type": "object",
-    "properties": {
-     "status": {
-      "type": "string",
-      "const": "confirmed"
-     }
-    },
-    "required": [
-     "status"
-    ],
-    "additionalProperties": false
-   },
-   "OperatorPassWaitlistChallengeResponse": {
-    "type": "object",
-    "properties": {
-     "captcha_provider": {
-      "description": "Captcha provider the waitlist expects",
-      "$ref": "#/components/schemas/CaptchaProviderSchema"
-     },
-     "altcha_challenge": {
-      "description": "ALTCHA challenge to solve when the provider is altcha",
-      "$ref": "#/components/schemas/OperatorPassAltchaChallenge"
-     }
-    },
-    "required": [
-     "captcha_provider"
-    ],
-    "additionalProperties": false
-   },
-   "OperatorPassWaitlistRequest": {
-    "type": "object",
-    "properties": {
-     "email": {
-      "type": "string",
-      "maxLength": 254,
-      "format": "email",
-      "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
-      "description": "Email address to put on the waitlist"
-     },
-     "country_code": {
-      "description": "Two-letter country code used to pick the price currency. The request GeoIP country is used when omitted.",
-      "type": "string"
-     },
-     "price_feedback": {
-      "description": "How the visitor feels about the early bird price. Left out where the pass is not on sale yet",
-      "$ref": "#/components/schemas/OperatorPassPriceFeedbackSchema"
-     },
-     "currency": {
-      "description": "Currency of the early bird price the visitor was shown. Left out with price_feedback",
-      "$ref": "#/components/schemas/OperatorPassCurrencySchema"
-     }
-    },
-    "required": [
-     "email"
-    ],
-    "additionalProperties": false
-   },
-   "OperatorPassWaitlistResponse": {
-    "type": "object",
-    "properties": {
-     "status": {
-      "type": "string",
-      "const": "pending",
-      "description": "A confirmation email is on its way when the address can join"
-     },
-     "followup_token": {
-      "type": "string",
-      "description": "Signed token for the follow-up question, valid for 30 minutes. Every signup gets one of the same shape, and only one issued for a new waitlist entry stores an answer"
-     }
-    },
-    "required": [
-     "status",
-     "followup_token"
-    ],
-    "additionalProperties": false
-   },
    "OperatorPassVisionaryTurnOnRequest": {
     "type": "object",
     "properties": {
@@ -66014,19 +65957,6 @@
       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
       "description": "The server time the state was computed at"
      },
-     "sale_opens_at": {
-      "anyOf": [
-       {
-        "type": "string",
-        "format": "date-time",
-        "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "description": "When sales open, null while no sale date is set"
-     },
      "price_rises_at": {
       "anyOf": [
        {
@@ -66109,7 +66039,6 @@
     "required": [
      "phase",
      "now",
-     "sale_opens_at",
      "price_rises_at",
      "currency",
      "price_minor",
@@ -66442,12 +66371,6 @@
       ],
       "description": "When the recipient accepted"
      },
-     "arrives_at": {
-      "type": "string",
-      "format": "date-time",
-      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
-      "description": "The earliest time the pass can move to the recipient once accepted, when the transfer lock ends"
-     },
      "ended_at": {
       "anyOf": [
        {
@@ -66470,7 +66393,6 @@
      "recipient",
      "created_at",
      "accepted_at",
-     "arrives_at",
      "ended_at"
     ],
     "additionalProperties": false
@@ -66537,6 +66459,18 @@
       "type": "boolean",
       "description": "Whether to stay off the Operators' wall"
      },
+     "wall_quote": {
+      "description": "A short quote for the wall listing, up to 80 characters on one line with no links or contact handles. A character is a grapheme cluster, counted after Unicode NFC normalization. Null or an empty string clears it, and so does leaving the wall with wall_opt_out true. Unchanged when omitted",
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 2048
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
      "keep_as_is": {
       "description": "Whether profile name and avatar changes stay off the wall, unchanged when omitted",
       "type": "boolean"
@@ -66554,7 +66488,14 @@
     "type": "object",
     "properties": {
      "wall_name": {
-      "description": "The latest name the holder submitted, null when not listed",
+      "description": "The name the holder chose for the wall, null when not listed",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "wall_quote": {
+      "description": "The quote the holder set for their wall listing, null when there is none or the holder is not listed",
       "type": [
        "string",
        "null"
@@ -66566,7 +66507,7 @@
      },
      "keep_as_is": {
       "type": "boolean",
-      "description": "Whether profile name and avatar changes stay off the wall instead of becoming new pending changes"
+      "description": "Whether profile name and avatar changes stay off the wall"
      },
      "release_list_opt_in": {
       "type": "boolean",
@@ -66586,17 +66527,6 @@
       ],
       "description": "What the wall shows, null when not listed"
      },
-     "review_state": {
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/OperatorPassWallReviewStateSchema"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "description": "Review state, null before anything was submitted"
-     },
      "shown_name": {
       "description": "The name the wall shows right now, null when not listed",
       "type": [
@@ -66615,64 +66545,6 @@
        }
       ],
       "description": "The avatar the wall shows right now, null for the default avatar"
-     },
-     "pending_name": {
-      "description": "The name waiting for review, null when nothing is pending",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "pending_since": {
-      "anyOf": [
-       {
-        "type": "string",
-        "format": "date-time",
-        "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "description": "When the pending change was submitted"
-     },
-     "review_due_at": {
-      "anyOf": [
-       {
-        "type": "string",
-        "format": "date-time",
-        "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "description": "When the review is due, 72 hours after submission"
-     },
-     "decline_reason": {
-      "anyOf": [
-       {
-        "$ref": "#/components/schemas/OperatorPassWallDeclineReasonSchema"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "description": "Why staff declined the latest change, null otherwise"
-     },
-     "decline_note": {
-      "description": "The facts staff gave for the decline, null otherwise",
-      "type": [
-       "string",
-       "null"
-      ]
-     },
-     "declined_name": {
-      "description": "The declined name, null when none is",
-      "type": [
-       "string",
-       "null"
-      ]
      },
      "listed_at": {
       "anyOf": [
@@ -66713,20 +66585,14 @@
     },
     "required": [
      "wall_name",
+     "wall_quote",
      "wall_opt_out",
      "keep_as_is",
      "release_list_opt_in",
      "status",
      "display_state",
-     "review_state",
      "shown_name",
      "shown_avatar_url",
-     "pending_name",
-     "pending_since",
-     "review_due_at",
-     "decline_reason",
-     "decline_note",
-     "declined_name",
      "listed_at",
      "release_year",
      "has_wall",
@@ -66776,6 +66642,18 @@
      "operators_channel_id"
     ],
     "additionalProperties": false
+   },
+   "OperatorPassLabsOperatorsRequest": {
+    "type": "object",
+    "properties": {
+     "show_operators": {
+      "type": "boolean",
+      "description": "Whether the account gets the Fluxer Labs roles that open #operators"
+     }
+    },
+    "required": [
+     "show_operators"
+    ]
    },
    "OperatorPassLabsGreetingRequest": {
     "type": "object",
@@ -75508,6 +75386,14 @@
      "hidden_built_in_guild_badges": {
       "$ref": "#/components/schemas/InstanceHiddenBuiltInGuildBadgesSchema"
      },
+     "hidden_role_ids": {
+      "description": "IDs of roles that clients leave out wherever a member's roles are shown to other people. The roles still count for permissions and stay in role settings",
+      "maxItems": 16,
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/SnowflakeStringType"
+      }
+     },
      "voice_origins": {
       "description": "Origins of every voice server endpoint, such as wss://voice.example.com, for content security policies. Voice servers that share a domain are listed once as a wildcard, such as wss://*.example.com",
       "maxItems": 1000,
@@ -75533,6 +75419,11 @@
      "age_policy"
     ],
     "additionalProperties": false
+   },
+   "SnowflakeStringType": {
+    "type": "string",
+    "pattern": "^(0|[1-9][0-9]*)$",
+    "format": "snowflake"
    },
    "InstanceHiddenBuiltInGuildBadgesSchema": {
     "maxItems": 3,
@@ -75835,6 +75726,11 @@
    "InstanceBrandingSchema": {
     "type": "object",
     "properties": {
+     "desktop_app_prompt_enabled": {
+      "default": true,
+      "description": "Whether the web app shows prompts to open deep links or download the desktop app",
+      "type": "boolean"
+     },
      "product_name": {
       "type": "string",
       "description": "Public product name shown by client applications"
@@ -75944,14 +75840,10 @@
        "type": "string"
       },
       "description": "Extra domains a self-hosted instance trusts, so links to them open without a warning. Each entry is a hostname, or a hostname with a *. prefix that also covers its subdomains"
-     },
-     "desktop_app_prompt_enabled": {
-      "default": true,
-      "description": "Whether the web app shows prompts to open deep links or download the desktop app",
-      "type": "boolean"
      }
     },
     "required": [
+     "desktop_app_prompt_enabled",
      "product_name",
      "icon_url",
      "symbol_url",
@@ -75968,8 +75860,7 @@
      "sign_in_backdrop_url",
      "custom_css",
      "upload_limit_message",
-     "trusted_domains",
-     "desktop_app_prompt_enabled"
+     "trusted_domains"
     ],
     "additionalProperties": false,
     "description": "Branding values safe to expose to clients"
@@ -76047,6 +75938,9 @@
    "InstanceCommunitySchema": {
     "type": "object",
     "properties": {
+     "server_list_buttons": {
+      "$ref": "#/components/schemas/ServerListButtonsSchema"
+     },
      "single_community": {
       "type": "boolean",
       "description": "Whether this instance runs as a single community that every user automatically joins"
@@ -76080,9 +75974,6 @@
      "guild_create_access": {
       "type": "boolean",
       "description": "Whether every account can create communities. When false, only admins and accounts granted the feature_guild_create limit can"
-     },
-     "server_list_buttons": {
-      "$ref": "#/components/schemas/ServerListButtonsSchema"
      }
     },
     "required": [
@@ -76322,6 +76213,10 @@
       "type": "string",
       "description": "Base URL for public API requests"
      },
+     "api_transport": {
+      "description": "Base URL that official desktop clients send API requests to instead of api_client",
+      "type": "string"
+     },
      "gateway": {
       "type": "string",
       "description": "WebSocket URL for the gateway"
@@ -76475,21 +76370,24 @@
      "DISABLED",
      "CAPTCHA_OFF",
      "REGISTRATION_CLOSED",
-     "APPROVAL_REQUIRED"
+     "APPROVAL_REQUIRED",
+     "EMAIL_DOMAINS_RESTRICTED"
     ],
     "x-enumDescriptions": [
      "Accounts can be created from a display name",
      "Instant accounts are turned off",
      "Instant accounts need the captcha, which is off",
      "Public registration is closed",
-     "New accounts need approval, so they need credentials to sign in once approved"
+     "New accounts need approval, so they need credentials to sign in once approved",
+     "Public sign-ups must use an email address on an allowed domain"
     ],
     "enum": [
      "available",
      "disabled",
      "captcha_off",
      "registration_closed",
-     "approval_required"
+     "approval_required",
+     "email_domains_restricted"
     ],
     "type": "string"
    },
@@ -76612,11 +76510,6 @@
     "type": "string",
     "pattern": "^-?[0-9]{1,19}$",
     "description": "Display position of the badge. Badges are shown in ascending order of this value"
-   },
-   "SnowflakeStringType": {
-    "type": "string",
-    "pattern": "^(0|[1-9][0-9]*)$",
-    "format": "snowflake"
    },
    "BotFlags": {
     "type": "integer",
@@ -79093,7 +78986,7 @@
          "type": "object",
          "properties": {
           "name": {
-           "description": "Name of the field",
+           "description": "Name of the field (0-256 characters)",
            "type": "string"
           },
           "value": {
@@ -84823,47 +84716,6 @@
     "pattern": "^[^\\r\\n]*$",
     "description": "Name printed on one page of the Operator certificate, 1 to 48 characters without line breaks. A character is a grapheme cluster, counted after Unicode NFC normalization"
    },
-   "OperatorPassWallDeclineReasonSchema": {
-    "description": "Why staff declined a name or avatar on the Operators' wall, under section 3.1 of the Operator Pass terms",
-    "x-enumNames": [
-     "GUIDELINES",
-     "IMPERSONATION",
-     "RIGHTS",
-     "AGE_SUITABILITY"
-    ],
-    "x-enumDescriptions": [
-     "It breaks the community guidelines",
-     "It pretends to be someone else",
-     "It uses a name or image the holder has no right to use",
-     "It is not suitable for the youngest people allowed to use Fluxer"
-    ],
-    "enum": [
-     "guidelines",
-     "impersonation",
-     "rights",
-     "age_suitability"
-    ],
-    "type": "string"
-   },
-   "OperatorPassWallReviewStateSchema": {
-    "description": "Review state of the latest name and avatar",
-    "x-enumNames": [
-     "PENDING",
-     "APPROVED",
-     "DECLINED"
-    ],
-    "x-enumDescriptions": [
-     "A new name or avatar waits for review, the wall keeps the last approved version",
-     "The latest name and avatar are approved",
-     "Staff declined the latest name or avatar, see decline_reason"
-    ],
-    "enum": [
-     "pending",
-     "approved",
-     "declined"
-    ],
-    "type": "string"
-   },
    "OperatorPassWallDisplayStateSchema": {
     "description": "What the Operators' wall shows for the listing",
     "x-enumNames": [
@@ -84873,8 +84725,8 @@
      "REMOVED"
     ],
     "x-enumDescriptions": [
-     "The wall shows the approved name and avatar",
-     "The wall shows Operator with the default avatar until a name is approved",
+     "The wall shows the name and avatar the holder chose",
+     "The wall shows Operator with the default avatar after staff took the name or avatar off",
      "Staff hid the listing for now",
      "The listing is off the wall under section 8 of the Operator Pass terms"
     ],
@@ -84948,7 +84800,7 @@
     ],
     "x-enumDescriptions": [
      "Waiting for the recipient to accept or decline",
-     "The recipient accepted, the pass moves at arrives_at",
+     "The recipient accepted and the pass is about to move",
      "The pass moved to the recipient",
      "The recipient declined",
      "The sender withdrew the offer",
@@ -85048,7 +84900,6 @@
    "OperatorPassPurchaseBlockedReasonSchema": {
     "description": "Why the current account cannot buy passes",
     "x-enumNames": [
-     "NOT_ON_SALE",
      "EMAIL_UNVERIFIED",
      "UNCLAIMED",
      "PURCHASE_DISABLED",
@@ -85057,7 +84908,6 @@
      "REMOVED"
     ],
     "x-enumDescriptions": [
-     "Sales have not opened yet",
      "The account email is not verified",
      "The account is not claimed",
      "Purchases are disabled for the account",
@@ -85066,7 +84916,6 @@
      "The pass was removed from the account permanently under the Operator Pass terms"
     ],
     "enum": [
-     "not_on_sale",
      "email_unverified",
      "unclaimed",
      "purchase_disabled",
@@ -85136,17 +84985,14 @@
    "OperatorPassPhaseSchema": {
     "description": "Operator Pass sale phase",
     "x-enumNames": [
-     "WAITLIST",
      "EARLY_BIRD",
      "STANDARD"
     ],
     "x-enumDescriptions": [
-     "Sales have not opened yet, the waitlist is open",
      "Sales are open at the early bird price",
      "Sales are open at the standard price"
     ],
     "enum": [
-     "waitlist",
      "early_bird",
      "standard"
     ],
@@ -85180,6 +85026,10 @@
      "greeting": {
       "type": "boolean",
       "description": "Whether the system user welcomes the account by name in #operators in Fluxer Labs when a pass is delivered. On unless the account turned it off"
+     },
+     "show_operators": {
+      "type": "boolean",
+      "description": "Whether the account gets the Fluxer Labs roles that open #operators. On unless the account turned it off. When off, no role update adds them back"
      },
      "greeted": {
       "type": "boolean",
@@ -85218,6 +85068,7 @@
     },
     "required": [
      "greeting",
+     "show_operators",
      "greeted",
      "left",
      "member",
@@ -85351,19 +85202,6 @@
       "type": "boolean",
       "description": "Whether the pass can be passed on. Received and staff granted passes cannot"
      },
-     "transfer_lock_ends_at": {
-      "anyOf": [
-       {
-        "type": "string",
-        "format": "date-time",
-        "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "description": "The earliest time a passed on pass can move to the recipient, null when it cannot be passed on"
-     },
      "can_withdraw": {
       "type": "boolean",
       "description": "Whether the withdraw button for this pass is available now"
@@ -85415,6 +85253,19 @@
         "type": "null"
        }
       ]
+     },
+     "certificate_number": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Number of the certificate page of this pass, null when the pass has no page"
      }
     },
     "required": [
@@ -85425,10 +85276,10 @@
      "delivered_at",
      "paused",
      "can_pass_on",
-     "transfer_lock_ends_at",
      "can_withdraw",
      "withdrawal_ends_at",
-     "offer"
+     "offer",
+     "certificate_number"
     ],
     "additionalProperties": false
    },
@@ -85452,20 +85303,9 @@
     "type": "string"
    },
    "OperatorPassVisionaryUnavailableReasonSchema": {
-    "description": "Why the account cannot turn on the Operator Pass that comes with Visionary",
-    "x-enumNames": [
-     "REMOVED",
-     "NOT_OPEN"
-    ],
-    "x-enumDescriptions": [
-     "The pass was removed from the account permanently under section 8 of the Operator Pass terms",
-     "Turning the pass on opens when Operator Pass sales open"
-    ],
-    "enum": [
-     "removed",
-     "not_open"
-    ],
-    "type": "string"
+    "type": "string",
+    "const": "removed",
+    "description": "Why the account cannot turn on the Operator Pass that comes with Visionary. removed means the pass was removed from the account permanently under section 8 of the Operator Pass terms"
    },
    "OperatorPassVisionaryStateSchema": {
     "description": "State of the Operator Pass that comes with Visionary",
@@ -85489,84 +85329,6 @@
     ],
     "type": "string"
    },
-   "OperatorPassPriceFeedbackSchema": {
-    "description": "How the visitor feels about the early bird price they were shown",
-    "x-enumNames": [
-     "TOO_HIGH",
-     "ABOUT_RIGHT",
-     "COULD_PAY_MORE"
-    ],
-    "x-enumDescriptions": [
-     "The early bird price feels too high",
-     "The early bird price feels about right",
-     "The visitor would pay more than the early bird price"
-    ],
-    "enum": [
-     "too_high",
-     "about_right",
-     "could_pay_more"
-    ],
-    "type": "string"
-   },
-   "OperatorPassAltchaChallenge": {
-    "type": "object",
-    "properties": {
-     "parameters": {
-      "type": "object",
-      "properties": {
-       "algorithm": {
-        "type": "string"
-       },
-       "nonce": {
-        "type": "string"
-       },
-       "salt": {
-        "type": "string"
-       },
-       "cost": {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       "keyLength": {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       "keyPrefix": {
-        "type": "string"
-       },
-       "keySignature": {
-        "type": "string"
-       },
-       "expiresAt": {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       }
-      },
-      "required": [
-       "algorithm",
-       "nonce",
-       "salt",
-       "cost",
-       "keyLength",
-       "keyPrefix",
-       "keySignature",
-       "expiresAt"
-      ],
-      "additionalProperties": {}
-     },
-     "signature": {
-      "type": "string"
-     }
-    },
-    "required": [
-     "parameters",
-     "signature"
-    ],
-    "additionalProperties": false
-   },
    "OperatorPassWallOperatorResponse": {
     "type": "object",
     "properties": {
@@ -85576,10 +85338,10 @@
      },
      "name": {
       "type": "string",
-      "description": "The name shown: the approved name, or Operator as fallback"
+      "description": "The name shown: the name the holder chose, or Operator as fallback"
      },
      "avatar": {
-      "description": "SHA-256 of the approved avatar snapshot, null for the default avatar",
+      "description": "SHA-256 of the avatar snapshot, null for the default avatar",
       "type": [
        "string",
        "null"
@@ -85595,7 +85357,7 @@
         "type": "null"
        }
       ],
-      "description": "The approved avatar snapshot at the largest size, null for the default avatar"
+      "description": "The avatar snapshot at the largest size, null for the default avatar"
      },
      "count": {
       "description": "How many passes the Operator holds now. Left out when the Operator hides the number",
@@ -85613,6 +85375,10 @@
       "description": "Present on a business listing, which shows a company name and logo at one fixed size after every listing of a person, ordered by first pass date",
       "type": "boolean",
       "const": true
+     },
+     "quote": {
+      "description": "The quote the Operator set for their listing, plain text to show in straight double quotes and never parse as markup. Left out when there is none",
+      "type": "string"
      }
     },
     "required": [
@@ -88783,6 +88549,13 @@
        }
       ]
      },
+     "quote": {
+      "description": "The quote from the holder's Operators' wall listing, plain text to show in straight double quotes after the other tooltip lines and never parse as markup. Absent while the wall does not show it",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
      "hidden": {
       "type": "boolean",
       "description": "True when the badge key is in your hidden_profile_badges, so other people do not see it"
@@ -88918,6 +88691,13 @@
        {
         "type": "null"
        }
+      ]
+     },
+     "quote": {
+      "description": "The quote from the holder's Operators' wall listing, plain text to show in straight double quotes after the other tooltip lines and never parse as markup. Absent while the wall does not show it",
+      "type": [
+       "string",
+       "null"
       ]
      }
     },
@@ -89951,17 +89731,14 @@
      "UNKNOWN_OPERATOR_PASS_UNIT",
      "OPERATOR_PASS_WALL_NAME_REQUIRED",
      "OPERATOR_PASS_WALL_NAME_REJECTED",
+     "OPERATOR_PASS_WALL_QUOTE_INVALID",
+     "OPERATOR_PASS_WALL_QUOTE_REJECTED",
      "OPERATOR_PASS_NOT_HELD",
      "UNKNOWN_OPERATOR_PASS_WALL_ENTRY",
      "OPERATOR_PASS_RELEASE_ALREADY_PUBLISHED",
      "OPERATOR_PASS_RELEASE_NOT_READY",
      "UNKNOWN_OPERATOR_PASS_RELEASE_ENTRY",
-     "OPERATOR_PASS_NOT_ON_SALE",
      "OPERATOR_PASS_PRICE_CHANGED",
-     "OPERATOR_PASS_WAITLIST_CLOSED",
-     "OPERATOR_PASS_WAITLIST_FOLLOWUP_INVALID",
-     "OPERATOR_PASS_WAITLIST_FOLLOWUP_TOKEN_INVALID",
-     "OPERATOR_PASS_WAITLIST_TOKEN_EXPIRED",
      "OPERATOR_PASS_WAITLIST_TOKEN_INVALID",
      "OPERATOR_PASS_REMOVAL_LIMITED_FIRST",
      "OPERATOR_PASS_REMOVAL_NOTICE_REQUIRED",
@@ -90014,6 +89791,18 @@
      "UNKNOWN_ORIGIN_HANDOFF",
      "UNKNOWN_PASSKEY_BRIDGE",
      "UNKNOWN_PASSKEY_MIGRATION",
+     "UNKNOWN_PERSONA",
+     "PRIVATE_PERSONA",
+     "PERSONA_LIMIT_REACHED",
+     "DUPLICATE_PERSONA_TAG",
+     "PERSONA_TAG_LIMIT_REACHED",
+     "DUPLICATE_SIGNATURE_EMOJI",
+     "SIGNATURE_EMOJI_LIMIT_REACHED",
+     "UNKNOWN_GUILD_COMMAND",
+     "GUILD_COMMAND_NAME_TAKEN",
+     "GUILD_COMMAND_LIMIT_REACHED",
+     "GUILD_COMMAND_TEMPLATE_INVALID",
+     "GUILD_COMMAND_INPUT_INVALID",
      "UNKNOWN_REPORT",
      "UNKNOWN_ROLE",
      "UNKNOWN_STICKER",
@@ -90069,19 +89858,7 @@
      "PASSWORD_REQUIRED_TO_CLAIM",
      "GUILD_VISITS_DISABLED",
      "GUILD_VISIT_AGE_RESTRICTED",
-     "GUILD_VISIT_NOT_FOUND",
-     "UNKNOWN_PERSONA",
-     "PRIVATE_PERSONA",
-     "PERSONA_LIMIT_REACHED",
-     "DUPLICATE_PERSONA_TAG",
-     "PERSONA_TAG_LIMIT_REACHED",
-     "DUPLICATE_SIGNATURE_EMOJI",
-     "SIGNATURE_EMOJI_LIMIT_REACHED",
-     "UNKNOWN_GUILD_COMMAND",
-     "GUILD_COMMAND_NAME_TAKEN",
-     "GUILD_COMMAND_LIMIT_REACHED",
-     "GUILD_COMMAND_TEMPLATE_INVALID",
-     "GUILD_COMMAND_INPUT_INVALID"
+     "GUILD_VISIT_NOT_FOUND"
     ],
     "description": "Known error codes returned by API operations",
     "x-enumDescriptions": [
@@ -90342,17 +90119,14 @@
      "Unknown Operator Pass.",
      "Enter a name for the Operators' wall, or choose not to be listed.",
      "We can't show this name on the Operators' wall. Please choose another one.",
+     "A quote can have up to 80 characters on one line, without hidden or control characters.",
+     "A quote can't contain links, email addresses or @mentions.",
      "This account doesn't have the Operator Pass.",
      "This account has no name on the Operators' wall.",
      "This Operators list has already been published.",
      "This Operators list cannot be published before its cut-off date.",
      "This account is not in that published Operators list.",
-     "You cannot buy the Operator Pass yet.",
      "The Operator Pass price has changed. Check the new price and try again.",
-     "The Operator Pass waitlist is closed because you can get the pass now.",
-     "Choose from the listed options. You can add your own answer only with \"Other\", in up to 500 characters.",
-     "This answer can no longer be saved. Your waitlist signup is not affected.",
-     "This waitlist link has expired.",
      "This waitlist link is invalid.",
      "A permanent removal for a breach that is not serious needs an earlier removal for a limited time.",
      "A permanent removal needs a notice sent at least 7 days earlier, unless the breach is serious.",
@@ -90405,6 +90179,18 @@
      "This sign-in transfer has expired or was already used.",
      "This passkey request has expired. Try again.",
      "There is no passkey to update right now.",
+     "User wasn't found.",
+     "You don't have access to this resource or feature.",
+     "You can't have more than {limit} connections.",
+     "This tag is already taken.",
+     "You can't have more than {limit} connections.",
+     "This tag is already taken.",
+     "You can't have more than {limit} connections.",
+     "Not found.",
+     "This tag is already taken.",
+     "You can't have more than {limit} connections.",
+     "Invalid form body.",
+     "Invalid form body.",
      "Unknown report.",
      "Role wasn't found.",
      "Unknown sticker.",
