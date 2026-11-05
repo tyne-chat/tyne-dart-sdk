@@ -1,0 +1,82 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, unused_import, invalid_annotation_target, unnecessary_import
+
+import 'package:json_annotation/json_annotation.dart';
+
+import 'int32_type.dart';
+import 'mention_reply_preferences.dart';
+import 'message_subprofile_response_schema.dart';
+import 'public_user_flags.dart';
+import 'snowflake_string_type.dart';
+
+part 'reaction_user_item_response.g.dart';
+
+@JsonSerializable()
+class ReactionUserItemResponse {
+  const ReactionUserItemResponse({
+    required this.id,
+    required this.username,
+    required this.discriminator,
+    required this.globalName,
+    required this.avatar,
+    required this.avatarColor,
+    required this.flags,
+    this.bot,
+    this.system,
+    this.mentionFlags,
+    this.subprofile,
+    this.personaId,
+  });
+
+  factory ReactionUserItemResponse.fromJson(Map<String, Object?> json) =>
+      _$ReactionUserItemResponseFromJson(json);
+
+  /// The unique identifier (snowflake) for this user
+  @JsonKey(defaultValue: '')
+  final SnowflakeStringType id;
+
+  /// The username of the user, not unique across the platform
+  @JsonKey(defaultValue: '')
+  final String username;
+
+  /// The four-digit discriminator tag of the user
+  @JsonKey(defaultValue: '')
+  final String discriminator;
+
+  /// The display name of the user, if set
+  @JsonKey(includeIfNull: true, name: 'global_name')
+  final String? globalName;
+
+  /// The hash of the user avatar image
+  @JsonKey(includeIfNull: true)
+  final String? avatar;
+
+  /// The dominant avatar color of the user as an integer
+  @JsonKey(includeIfNull: true, name: 'avatar_color')
+  final Int32Type? avatarColor;
+
+  /// Whether the user is a bot account
+  @JsonKey(includeIfNull: false)
+  final bool? bot;
+
+  /// Whether the user is an official system user
+  @JsonKey(includeIfNull: false)
+  final bool? system;
+  @JsonKey(defaultValue: 0)
+  final PublicUserFlags flags;
+
+  /// The user's account-wide reply mention preference. Omitted when the user has no preference set (treated as NO_PREFERENCE).
+  @JsonKey(includeIfNull: false, name: 'mention_flags')
+  final MentionReplyPreferences? mentionFlags;
+
+  /// Persona subprofile who reacted, if any
+  @JsonKey(includeIfNull: false)
+  final MessageSubprofileResponseSchema? subprofile;
+
+  /// Persona ID who reacted, if any
+  @JsonKey(includeIfNull: false, name: 'persona_id')
+  final SnowflakeStringType? personaId;
+
+  Map<String, Object?> toJson() => _$ReactionUserItemResponseToJson(this);
+}

@@ -48,6 +48,10 @@ InstanceBrandingSchema _$InstanceBrandingSchemaFromJson(
         'trusted_domains',
         (v) => (v as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
       ),
+      desktopAppPromptEnabled: $checkedConvert(
+        'desktop_app_prompt_enabled',
+        (v) => v as bool? ?? true,
+      ),
     );
     return val;
   },
@@ -69,12 +73,14 @@ InstanceBrandingSchema _$InstanceBrandingSchemaFromJson(
     'customCss': 'custom_css',
     'uploadLimitMessage': 'upload_limit_message',
     'trustedDomains': 'trusted_domains',
+    'desktopAppPromptEnabled': 'desktop_app_prompt_enabled',
   },
 );
 
 Map<String, dynamic> _$InstanceBrandingSchemaToJson(
   InstanceBrandingSchema instance,
 ) => <String, dynamic>{
+  'desktop_app_prompt_enabled': instance.desktopAppPromptEnabled,
   'product_name': instance.productName,
   'icon_url': instance.iconUrl,
   'symbol_url': instance.symbolUrl,
