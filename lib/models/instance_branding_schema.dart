@@ -24,13 +24,23 @@ class InstanceBrandingSchema {
     required this.premiumProductName,
     required this.premiumInfoUrl,
     required this.signInBackdropUrl,
+    required this.premiumPageColor,
+    required this.premiumShowcaseExpressionsUrl,
+    required this.premiumShowcaseProfileUrl,
+    required this.premiumShowcaseStreamUrl,
+    required this.premiumShowcaseUploadUrl,
     required this.customCss,
     required this.uploadLimitMessage,
     required this.trustedDomains,
+    this.desktopAppPromptEnabled = true,
   });
 
   factory InstanceBrandingSchema.fromJson(Map<String, Object?> json) =>
       _$InstanceBrandingSchemaFromJson(json);
+
+  /// Whether the web app shows prompts to open deep links or download the desktop app
+  @JsonKey(name: 'desktop_app_prompt_enabled')
+  final bool desktopAppPromptEnabled;
 
   /// Public product name shown by client applications
   @JsonKey(name: 'product_name', defaultValue: '')
@@ -87,6 +97,26 @@ class InstanceBrandingSchema {
   /// Optional image URL drawn behind the sign-in card on a self-hosted instance
   @JsonKey(includeIfNull: true, name: 'sign_in_backdrop_url')
   final String? signInBackdropUrl;
+
+  /// Optional hex color a self-hosted instance uses to recolor its premium page
+  @JsonKey(includeIfNull: true, name: 'premium_page_color')
+  final String? premiumPageColor;
+
+  /// Optional image a self-hosted instance shows next to the "Your emojis, everywhere" card on its premium page
+  @JsonKey(includeIfNull: true, name: 'premium_showcase_expressions_url')
+  final String? premiumShowcaseExpressionsUrl;
+
+  /// Optional image a self-hosted instance shows next to the "A profile that stands out" card on its premium page
+  @JsonKey(includeIfNull: true, name: 'premium_showcase_profile_url')
+  final String? premiumShowcaseProfileUrl;
+
+  /// Optional image a self-hosted instance shows next to the "Stream in 4K at 60 FPS" card on its premium page
+  @JsonKey(includeIfNull: true, name: 'premium_showcase_stream_url')
+  final String? premiumShowcaseStreamUrl;
+
+  /// Optional image a self-hosted instance shows next to the card about file size limits on its premium page
+  @JsonKey(includeIfNull: true, name: 'premium_showcase_upload_url')
+  final String? premiumShowcaseUploadUrl;
 
   /// Optional stylesheet a self-hosted instance applies to its web and desktop app, except on sign-in pages
   @JsonKey(includeIfNull: true, name: 'custom_css')
