@@ -6,6 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import 'allowed_mentions_request.dart';
 import 'forum_thread_message_request_attachments_attachments.dart';
+import 'legacy_message_subprofile_request_schema.dart';
 import 'message_content_request.dart';
 import 'message_flags.dart';
 import 'rich_embed_request.dart';
@@ -22,6 +23,8 @@ class ForumThreadMessageRequest {
     this.attachments,
     this.allowedMentions,
     this.stickerIds,
+    this.personaId,
+    this.subprofile,
   });
 
   factory ForumThreadMessageRequest.fromJson(Map<String, Object?> json) =>
@@ -48,6 +51,14 @@ class ForumThreadMessageRequest {
   /// Array of sticker IDs to include (max 3)
   @JsonKey(includeIfNull: false, name: 'sticker_ids')
   final List<SnowflakeType>? stickerIds;
+
+  /// ID of one of your personas to send the message as
+  @JsonKey(includeIfNull: false, name: 'persona_id')
+  final SnowflakeType? personaId;
+
+  /// Deprecated, use persona_id. Only its id is read, and persona_id wins when both are sent
+  @JsonKey(includeIfNull: false)
+  final LegacyMessageSubprofileRequestSchema? subprofile;
 
   Map<String, Object?> toJson() => _$ForumThreadMessageRequestToJson(this);
 }

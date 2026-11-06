@@ -39,6 +39,26 @@ InstanceBrandingSchema _$InstanceBrandingSchemaFromJson(
         'sign_in_backdrop_url',
         (v) => v as String?,
       ),
+      premiumPageColor: $checkedConvert(
+        'premium_page_color',
+        (v) => v as String?,
+      ),
+      premiumShowcaseExpressionsUrl: $checkedConvert(
+        'premium_showcase_expressions_url',
+        (v) => v as String?,
+      ),
+      premiumShowcaseProfileUrl: $checkedConvert(
+        'premium_showcase_profile_url',
+        (v) => v as String?,
+      ),
+      premiumShowcaseStreamUrl: $checkedConvert(
+        'premium_showcase_stream_url',
+        (v) => v as String?,
+      ),
+      premiumShowcaseUploadUrl: $checkedConvert(
+        'premium_showcase_upload_url',
+        (v) => v as String?,
+      ),
       customCss: $checkedConvert('custom_css', (v) => v as String?),
       uploadLimitMessage: $checkedConvert(
         'upload_limit_message',
@@ -47,6 +67,10 @@ InstanceBrandingSchema _$InstanceBrandingSchemaFromJson(
       trustedDomains: $checkedConvert(
         'trusted_domains',
         (v) => (v as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
+      ),
+      desktopAppPromptEnabled: $checkedConvert(
+        'desktop_app_prompt_enabled',
+        (v) => v as bool? ?? true,
       ),
     );
     return val;
@@ -66,15 +90,22 @@ InstanceBrandingSchema _$InstanceBrandingSchemaFromJson(
     'premiumProductName': 'premium_product_name',
     'premiumInfoUrl': 'premium_info_url',
     'signInBackdropUrl': 'sign_in_backdrop_url',
+    'premiumPageColor': 'premium_page_color',
+    'premiumShowcaseExpressionsUrl': 'premium_showcase_expressions_url',
+    'premiumShowcaseProfileUrl': 'premium_showcase_profile_url',
+    'premiumShowcaseStreamUrl': 'premium_showcase_stream_url',
+    'premiumShowcaseUploadUrl': 'premium_showcase_upload_url',
     'customCss': 'custom_css',
     'uploadLimitMessage': 'upload_limit_message',
     'trustedDomains': 'trusted_domains',
+    'desktopAppPromptEnabled': 'desktop_app_prompt_enabled',
   },
 );
 
 Map<String, dynamic> _$InstanceBrandingSchemaToJson(
   InstanceBrandingSchema instance,
 ) => <String, dynamic>{
+  'desktop_app_prompt_enabled': instance.desktopAppPromptEnabled,
   'product_name': instance.productName,
   'icon_url': instance.iconUrl,
   'symbol_url': instance.symbolUrl,
@@ -89,6 +120,11 @@ Map<String, dynamic> _$InstanceBrandingSchemaToJson(
   'premium_product_name': instance.premiumProductName,
   'premium_info_url': instance.premiumInfoUrl,
   'sign_in_backdrop_url': instance.signInBackdropUrl,
+  'premium_page_color': instance.premiumPageColor,
+  'premium_showcase_expressions_url': instance.premiumShowcaseExpressionsUrl,
+  'premium_showcase_profile_url': instance.premiumShowcaseProfileUrl,
+  'premium_showcase_stream_url': instance.premiumShowcaseStreamUrl,
+  'premium_showcase_upload_url': instance.premiumShowcaseUploadUrl,
   'custom_css': instance.customCss,
   'upload_limit_message': instance.uploadLimitMessage,
   'trusted_domains': instance.trustedDomains,
