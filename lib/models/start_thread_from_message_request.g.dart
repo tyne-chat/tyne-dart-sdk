@@ -12,7 +12,7 @@ StartThreadFromMessageRequest _$StartThreadFromMessageRequestFromJson(
   'StartThreadFromMessageRequest',
   json,
   ($checkedConvert) {
-    final val = StartThreadFromMessageRequest(
+    final val = StartThreadFromMessageRequest._(
       name: $checkedConvert('name', (v) => v as String? ?? ''),
       autoArchiveDuration: $checkedConvert(
         'auto_archive_duration',
@@ -24,12 +24,14 @@ StartThreadFromMessageRequest _$StartThreadFromMessageRequestFromJson(
         'rate_limit_per_user',
         (v) => (v as num?)?.toInt(),
       ),
+      personaIdValue: $checkedConvert('persona_id', (v) => v as SnowflakeType?),
     );
     return val;
   },
   fieldKeyMap: const {
     'autoArchiveDuration': 'auto_archive_duration',
     'rateLimitPerUser': 'rate_limit_per_user',
+    'personaIdValue': 'persona_id',
   },
 );
 
@@ -39,4 +41,5 @@ Map<String, dynamic> _$StartThreadFromMessageRequestToJson(
   'name': instance.name,
   'auto_archive_duration': ?instance.autoArchiveDuration,
   'rate_limit_per_user': ?instance.rateLimitPerUser,
+  'persona_id': ?instance.personaIdValue,
 };
