@@ -702,6 +702,17 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'PersonaChannelStatesResponseSchema':
       PersonaChannelStatesResponseSchema.fromJson,
   'PersonaCreateRequestSchema': PersonaCreateRequestSchema.fromJson,
+  'PersonaImportActionSchema': PersonaImportActionSchema.fromJson,
+  'PersonaImportApplyRequestSchema': PersonaImportApplyRequestSchema.fromJson,
+  'PersonaImportApplyResponseSchema': PersonaImportApplyResponseSchema.fromJson,
+  'PersonaImportApplyResponseSchemaDropped':
+      PersonaImportApplyResponseSchemaDropped.fromJson,
+  'PersonaImportCandidateSchema': PersonaImportCandidateSchema.fromJson,
+  'PersonaImportClashSchema': PersonaImportClashSchema.fromJson,
+  'PersonaImportDifferenceSchema': PersonaImportDifferenceSchema.fromJson,
+  'PersonaImportImageRefSchema': PersonaImportImageRefSchema.fromJson,
+  'PersonaImportImageRefSchemaVariant1':
+      PersonaImportImageRefSchemaVariant1.fromJson,
   'PersonaImportImageRequest': PersonaImportImageRequest.fromJson,
   'PersonaImportImageResponse': PersonaImportImageResponse.fromJson,
   'PersonaImportImageSourcesSchema': PersonaImportImageSourcesSchema.fromJson,
@@ -710,11 +721,22 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'PersonaImportImageSourcesSchemaBanner':
       PersonaImportImageSourcesSchemaBanner.fromJson,
   'PersonaImportItemSchema': PersonaImportItemSchema.fromJson,
+  'PersonaImportPreviewEntrySchema': PersonaImportPreviewEntrySchema.fromJson,
+  'PersonaImportPreviewMemberSchema': PersonaImportPreviewMemberSchema.fromJson,
+  'PersonaImportPreviewRequestSchema':
+      PersonaImportPreviewRequestSchema.fromJson,
+  'PersonaImportPreviewRequestSchemaDisplayTag':
+      PersonaImportPreviewRequestSchemaDisplayTag.fromJson,
+  'PersonaImportPreviewResponseSchema':
+      PersonaImportPreviewResponseSchema.fromJson,
+  'PersonaImportPreviewResponseSchemaDisplayTag':
+      PersonaImportPreviewResponseSchemaDisplayTag.fromJson,
   'PersonaLookupItemSchema': PersonaLookupItemSchema.fromJson,
   'PersonaLookupRequestSchema': PersonaLookupRequestSchema.fromJson,
   'PersonaLookupRequestSchemaPersonas':
       PersonaLookupRequestSchemaPersonas.fromJson,
   'PersonaResponseSchema': PersonaResponseSchema.fromJson,
+  'PersonaRestoreResponseSchema': PersonaRestoreResponseSchema.fromJson,
   'PersonaSettingsResponseSchema': PersonaSettingsResponseSchema.fromJson,
   'PersonaSettingsUpdateRequestSchema':
       PersonaSettingsUpdateRequestSchema.fromJson,

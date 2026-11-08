@@ -727,6 +727,8 @@ enum ApiErrorCode {
   duplicateSignatureEmoji('DUPLICATE_SIGNATURE_EMOJI'),
   @JsonValue('SIGNATURE_EMOJI_LIMIT_REACHED')
   signatureEmojiLimitReached('SIGNATURE_EMOJI_LIMIT_REACHED'),
+  @JsonValue('PERSONA_IMPORT_CONFLICT')
+  personaImportConflict('PERSONA_IMPORT_CONFLICT'),
   @JsonValue('UNKNOWN_GUILD_COMMAND')
   unknownGuildCommand('UNKNOWN_GUILD_COMMAND'),
   @JsonValue('GUILD_COMMAND_NAME_TAKEN')

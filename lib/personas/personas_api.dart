@@ -6,6 +6,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 import 'package:retrofit/error_logger.dart';
 
+import '../models/deleted_persona_list_response_schema.dart';
 import '../models/persona_bulk_delete_request_schema.dart';
 import '../models/persona_bulk_import_request_schema.dart';
 import '../models/persona_channel_state_schema.dart';
@@ -13,12 +14,17 @@ import '../models/persona_channel_state_update_request_schema.dart';
 import '../models/persona_channel_states_response_schema.dart';
 import '../models/persona_create_request_schema.dart';
 import '../models/persona_export_response.dart';
+import '../models/persona_import_apply_request_schema.dart';
+import '../models/persona_import_apply_response_schema.dart';
 import '../models/persona_import_image_request.dart';
 import '../models/persona_import_image_response.dart';
+import '../models/persona_import_preview_request_schema.dart';
+import '../models/persona_import_preview_response_schema.dart';
 import '../models/persona_list_response_schema.dart';
 import '../models/persona_lookup_request_schema.dart';
 import '../models/persona_lookup_response_schema.dart';
 import '../models/persona_response_schema.dart';
+import '../models/persona_restore_response_schema.dart';
 import '../models/persona_settings_response_schema.dart';
 import '../models/persona_settings_update_request_schema.dart';
 import '../models/persona_update_request_schema.dart';
@@ -89,6 +95,22 @@ abstract class PersonasApi {
     @Body() required PersonaChannelStateUpdateRequestSchema body,
   });
 
+  /// List own deleted personas.
+  ///
+  /// Lists the deleted personas of the authenticated user, the most recently deleted first. They still show on their old messages and can be restored.
+  @GET('/users/@me/personas/deleted')
+  Future<DeletedPersonaListResponseSchema> listMyDeletedPersonas();
+
+  /// Restore a deleted persona.
+  ///
+  /// Brings back a deleted persona as it was, so its old messages and usage are its own again. Tags and signature emojis another persona holds now are left off and listed in the response.
+  ///
+  /// [personaId] - Persona Snowflake ID.
+  @POST('/users/@me/personas/deleted/{persona_id}/restore')
+  Future<PersonaRestoreResponseSchema> restorePersona({
+    @Path('persona_id') required SnowflakeStringType personaId,
+  });
+
   /// Export own personas.
   ///
   /// Exports all personas of the authenticated user as a ZIP file: a PluralKit export file (pluralkit.json), each persona's avatar and banner and the tag icon, tyne.json listing which image belongs to which persona, and a README. Importing the ZIP gives the personas back.
@@ -116,6 +138,26 @@ abstract class PersonasApi {
   @POST('/users/@me/personas/import-image')
   Future<PersonaImportImageResponse> importPersonaImage({
     @Body() required PersonaImportImageRequest body,
+  });
+
+  /// Apply a reviewed persona import.
+  ///
+  /// Applies one action per member: add, link (record the member's id only), restore (bring back the same deleted persona) or use_file (replace a linked persona's details, never its visibility). Checked against the account as it is now and written at once: if it is refused, nothing changes. Nothing is deleted.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas/import/apply')
+  Future<PersonaImportApplyResponseSchema> applyPersonaImport({
+    @Body() required PersonaImportApplyRequestSchema body,
+  });
+
+  /// Preview a persona import.
+  ///
+  /// Classifies each member of an import file against the account's personas, deleted ones included: linked and identical, linked and different, deleted, probably the same, can't tell, tag in use, or new. Changes nothing. Pictures are compared only where their origin is known; links in the request are never fetched.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas/import/preview')
+  Future<PersonaImportPreviewResponseSchema> previewPersonaImport({
+    @Body() required PersonaImportPreviewRequestSchema body,
   });
 
   /// Get own persona settings.
