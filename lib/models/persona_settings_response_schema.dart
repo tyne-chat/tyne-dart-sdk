@@ -22,6 +22,7 @@ class PersonaSettingsResponseSchema {
     this.activePersonaMode = ActivePersonaModeSchema.manual,
     this.activePersonaScope = ActivePersonaScopeSchema.global,
     this.isLatched = false,
+    this.multiPersonaReactions = true,
   });
 
   factory PersonaSettingsResponseSchema.fromJson(Map<String, Object?> json) =>
@@ -46,6 +47,10 @@ class PersonaSettingsResponseSchema {
   /// Hash of the display tag icon, an image stored under the account
   @JsonKey(includeIfNull: false, name: 'display_tag_icon')
   final PersonaAssetHashType? displayTagIcon;
+
+  /// Whether several of the account's identities may react with one emoji. Off, the clients keep at most one: a reaction chip of yours removes it, and picking another persona replaces it
+  @JsonKey(name: 'multi_persona_reactions')
+  final bool multiPersonaReactions;
   @JsonKey(includeIfNull: false, name: 'updated_at')
   final String? updatedAt;
 

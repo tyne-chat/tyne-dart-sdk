@@ -40,6 +40,10 @@ PersonaSettingsResponseSchema _$PersonaSettingsResponseSchemaFromJson(
             : ActivePersonaScopeSchema.fromJson(v as String),
       ),
       isLatched: $checkedConvert('is_latched', (v) => v as bool? ?? false),
+      multiPersonaReactions: $checkedConvert(
+        'multi_persona_reactions',
+        (v) => v as bool? ?? true,
+      ),
     );
     return val;
   },
@@ -52,6 +56,7 @@ PersonaSettingsResponseSchema _$PersonaSettingsResponseSchemaFromJson(
     'activePersonaMode': 'active_persona_mode',
     'activePersonaScope': 'active_persona_scope',
     'isLatched': 'is_latched',
+    'multiPersonaReactions': 'multi_persona_reactions',
   },
 );
 
@@ -65,5 +70,6 @@ Map<String, dynamic> _$PersonaSettingsResponseSchemaToJson(
   'is_latched': instance.isLatched,
   'display_tag_text': ?instance.displayTagText,
   'display_tag_icon': ?instance.displayTagIcon,
+  'multi_persona_reactions': instance.multiPersonaReactions,
   'updated_at': ?instance.updatedAt,
 };

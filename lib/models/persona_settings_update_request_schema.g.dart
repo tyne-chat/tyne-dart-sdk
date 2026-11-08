@@ -35,6 +35,10 @@ PersonaSettingsUpdateRequestSchema _$PersonaSettingsUpdateRequestSchemaFromJson(
         'display_tag_icon',
         (v) => v as PersonaAssetHashType?,
       ),
+      multiPersonaReactions: $checkedConvert(
+        'multi_persona_reactions',
+        (v) => v as bool?,
+      ),
     );
     return val;
   },
@@ -45,6 +49,7 @@ PersonaSettingsUpdateRequestSchema _$PersonaSettingsUpdateRequestSchemaFromJson(
     'isLatched': 'is_latched',
     'displayTagTextValue': 'display_tag_text',
     'displayTagIconValue': 'display_tag_icon',
+    'multiPersonaReactions': 'multi_persona_reactions',
   },
 );
 
@@ -54,6 +59,7 @@ Map<String, dynamic> _$PersonaSettingsUpdateRequestSchemaToJson(
   'active_persona_mode': ?instance.activePersonaMode,
   'active_persona_scope': ?instance.activePersonaScope,
   'is_latched': ?instance.isLatched,
+  'multi_persona_reactions': ?instance.multiPersonaReactions,
   'active_persona_id': ?instance.activePersonaIdValue,
   'display_tag_text': ?instance.displayTagTextValue,
   'display_tag_icon': ?instance.displayTagIconValue,

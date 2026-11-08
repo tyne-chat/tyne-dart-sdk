@@ -19,6 +19,7 @@ class PersonaSettingsUpdateRequestSchema {
     this.activePersonaMode,
     this.activePersonaScope,
     this.isLatched,
+    this.multiPersonaReactions,
     JsonNullable<SnowflakeStringType> activePersonaId =
         const JsonNullable<SnowflakeStringType>.undefined(),
     JsonNullable<String> displayTagText =
@@ -42,6 +43,7 @@ class PersonaSettingsUpdateRequestSchema {
     this.isLatched,
     this.displayTagTextValue,
     this.displayTagIconValue,
+    this.multiPersonaReactions,
   }) : activePersonaId = const JsonNullable<SnowflakeStringType>.undefined(),
        _activePersonaIdPresent = false,
        displayTagText = const JsonNullable<String>.undefined(),
@@ -68,6 +70,7 @@ class PersonaSettingsUpdateRequestSchema {
       displayTagIcon: json.containsKey('display_tag_icon')
           ? JsonNullable<PersonaAssetHashType>.of(value.displayTagIconValue)
           : const JsonNullable<PersonaAssetHashType>.undefined(),
+      multiPersonaReactions: value.multiPersonaReactions,
     );
   }
 
@@ -77,6 +80,10 @@ class PersonaSettingsUpdateRequestSchema {
   final ActivePersonaScopeSchema? activePersonaScope;
   @JsonKey(includeIfNull: false, name: 'is_latched')
   final bool? isLatched;
+
+  /// Whether several of the account's identities may react with one emoji
+  @JsonKey(includeIfNull: false, name: 'multi_persona_reactions')
+  final bool? multiPersonaReactions;
   @JsonKey(includeFromJson: false, includeToJson: false)
   final JsonNullable<SnowflakeStringType> activePersonaId;
   @JsonKey(includeIfNull: false, name: 'active_persona_id')
