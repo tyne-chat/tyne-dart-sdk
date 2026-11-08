@@ -118,6 +118,28 @@ class _PersonasApi implements PersonasApi {
   }
 
   @override
+  Future<void> deletePersonas({
+    required PersonaBulkDeleteRequestSchema body,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _options = _setStreamType<void>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/users/@me/personas/bulk-delete',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    await _dio.fetch<void>(_options);
+  }
+
+  @override
   Future<PersonaChannelStatesResponseSchema>
   listMyPersonaChannelStates() async {
     final _extra = <String, dynamic>{};
@@ -328,6 +350,41 @@ class _PersonasApi implements PersonasApi {
   }
 
   @override
+  Future<List<PersonaResponseSchema>> setPersonaVisibilities({
+    required PersonaVisibilityBulkRequestSchema body,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _options = _setStreamType<List<PersonaResponseSchema>>(
+      Options(method: 'PATCH', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/users/@me/personas/visibility',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<PersonaResponseSchema> _value;
+    try {
+      _value = _result.data!
+          .map(
+            (dynamic i) =>
+                PersonaResponseSchema.fromJson(i as Map<String, dynamic>),
+          )
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<PersonaResponseSchema> getMyPersona({
     required String personaId,
   }) async {
@@ -408,14 +465,14 @@ class _PersonasApi implements PersonasApi {
   }
 
   @override
-  Future<List<PublicPersonaResponseSchema>> listUserPublicPersonas({
+  Future<PublicPersonaListResponseSchema> listUserPublicPersonas({
     required String userId,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<PublicPersonaResponseSchema>>(
+    final _options = _setStreamType<PublicPersonaListResponseSchema>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -425,15 +482,10 @@ class _PersonasApi implements PersonasApi {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<PublicPersonaResponseSchema> _value;
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
+    late PublicPersonaListResponseSchema _value;
     try {
-      _value = _result.data!
-          .map(
-            (dynamic i) =>
-                PublicPersonaResponseSchema.fromJson(i as Map<String, dynamic>),
-          )
-          .toList();
+      _value = PublicPersonaListResponseSchema.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

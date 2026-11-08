@@ -47047,6 +47047,117 @@
     }
    }
   },
+  "/users/@me/personas/bulk-delete": {
+   "post": {
+    "operationId": "delete_personas",
+    "summary": "Delete several personas",
+    "tags": [
+     "Personas"
+    ],
+    "responses": {
+     "204": {
+      "description": "No Content"
+     },
+     "400": {
+      "description": "Bad Request - The request was malformed or contained invalid data",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized - Authentication is required or the token is invalid",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden - You do not have permission to perform this action",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Too Many Requests - You are being rate limited",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ThrottledError"
+        }
+       }
+      },
+      "headers": {
+       "Retry-After": {
+        "description": "Number of seconds to wait before retrying (only on 429)",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Limit": {
+        "description": "The number of requests that can be made in the current window",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Remaining": {
+        "description": "The number of remaining requests that can be made",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Reset": {
+        "description": "Unix timestamp when the rate limit resets",
+        "schema": {
+         "type": "integer"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Internal Server Error - An unexpected error occurred",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     }
+    },
+    "description": "Deletes the named personas in one write, as deleting each would: their messages keep showing them. If one of them is not yours or is already deleted, nothing changes.",
+    "security": [
+     {
+      "oauth2Token": [
+       "personas.write"
+      ]
+     },
+     {
+      "sessionToken": []
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PersonaBulkDeleteRequestSchema"
+       }
+      }
+     }
+    }
+   }
+  },
   "/users/@me/personas/channel-states": {
    "get": {
     "operationId": "list_my_persona_channel_states",
@@ -48086,6 +48197,124 @@
       "application/json": {
        "schema": {
         "$ref": "#/components/schemas/PersonaSettingsUpdateRequestSchema"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/users/@me/personas/visibility": {
+   "patch": {
+    "operationId": "set_persona_visibilities",
+    "summary": "Change the visibility of several personas",
+    "tags": [
+     "Personas"
+    ],
+    "responses": {
+     "200": {
+      "description": "Success",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PersonaListResponseSchema"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request - The request was malformed or contained invalid data",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized - Authentication is required or the token is invalid",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden - You do not have permission to perform this action",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Too Many Requests - You are being rate limited",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ThrottledError"
+        }
+       }
+      },
+      "headers": {
+       "Retry-After": {
+        "description": "Number of seconds to wait before retrying (only on 429)",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Limit": {
+        "description": "The number of requests that can be made in the current window",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Remaining": {
+        "description": "The number of remaining requests that can be made",
+        "schema": {
+         "type": "integer"
+        }
+       },
+       "X-RateLimit-Reset": {
+        "description": "Unix timestamp when the rate limit resets",
+        "schema": {
+         "type": "integer"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Internal Server Error - An unexpected error occurred",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     }
+    },
+    "description": "Gives each named persona its own new visibility, in one write: if one of them is not yours or is deleted, nothing changes. Returns the personas that changed.",
+    "security": [
+     {
+      "oauth2Token": [
+       "personas.write"
+      ]
+     },
+     {
+      "sessionToken": []
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PersonaVisibilityBulkRequestSchema"
        }
       }
      }
@@ -52175,7 +52404,7 @@
       }
      }
     },
-    "description": "Retrieves public personas for a target user if mutual context permits.",
+    "description": "Retrieves a user's public personas, the most used first, with the user's display tag, if mutual context permits.",
     "security": [
      {
       "sessionToken": []
@@ -64001,7 +64230,7 @@
       ]
      },
      "bio": {
-      "description": "User biography text (max 10000 characters)",
+      "description": "User biography text (max 320 characters)",
       "type": [
        "string",
        "null"
@@ -69479,7 +69708,7 @@
       ]
      },
      "bio": {
-      "description": "The member guild profile bio (1-10000 characters)",
+      "description": "The member guild profile bio (1-320 characters)",
       "type": [
        "string",
        "null"
@@ -69711,7 +69940,7 @@
       ]
      },
      "bio": {
-      "description": "The member guild profile bio (1-10000 characters)",
+      "description": "The member guild profile bio (1-320 characters)",
       "type": [
        "string",
        "null"
@@ -90807,6 +91036,18 @@
      "UNKNOWN_ORIGIN_HANDOFF",
      "UNKNOWN_PASSKEY_BRIDGE",
      "UNKNOWN_PASSKEY_MIGRATION",
+     "UNKNOWN_PERSONA",
+     "PRIVATE_PERSONA",
+     "PERSONA_LIMIT_REACHED",
+     "DUPLICATE_PERSONA_TAG",
+     "PERSONA_TAG_LIMIT_REACHED",
+     "DUPLICATE_SIGNATURE_EMOJI",
+     "SIGNATURE_EMOJI_LIMIT_REACHED",
+     "UNKNOWN_GUILD_COMMAND",
+     "GUILD_COMMAND_NAME_TAKEN",
+     "GUILD_COMMAND_LIMIT_REACHED",
+     "GUILD_COMMAND_TEMPLATE_INVALID",
+     "GUILD_COMMAND_INPUT_INVALID",
      "UNKNOWN_REPORT",
      "UNKNOWN_ROLE",
      "UNKNOWN_STICKER",
@@ -90862,19 +91103,7 @@
      "PASSWORD_REQUIRED_TO_CLAIM",
      "GUILD_VISITS_DISABLED",
      "GUILD_VISIT_AGE_RESTRICTED",
-     "GUILD_VISIT_NOT_FOUND",
-     "UNKNOWN_PERSONA",
-     "PRIVATE_PERSONA",
-     "PERSONA_LIMIT_REACHED",
-     "DUPLICATE_PERSONA_TAG",
-     "PERSONA_TAG_LIMIT_REACHED",
-     "DUPLICATE_SIGNATURE_EMOJI",
-     "SIGNATURE_EMOJI_LIMIT_REACHED",
-     "UNKNOWN_GUILD_COMMAND",
-     "GUILD_COMMAND_NAME_TAKEN",
-     "GUILD_COMMAND_LIMIT_REACHED",
-     "GUILD_COMMAND_TEMPLATE_INVALID",
-     "GUILD_COMMAND_INPUT_INVALID"
+     "GUILD_VISIT_NOT_FOUND"
     ],
     "description": "Known error codes returned by API operations",
     "x-enumDescriptions": [
@@ -91211,6 +91440,18 @@
      "This sign-in transfer has expired or was already used.",
      "This passkey request has expired. Try again.",
      "There is no passkey to update right now.",
+     "User wasn't found.",
+     "You don't have access to this resource or feature.",
+     "You can't have more than {limit} connections.",
+     "This tag is already taken.",
+     "You can't have more than {limit} connections.",
+     "This tag is already taken.",
+     "You can't have more than {limit} connections.",
+     "Not found.",
+     "This tag is already taken.",
+     "You can't have more than {limit} connections.",
+     "Invalid form body.",
+     "Invalid form body.",
      "Unknown report.",
      "Role wasn't found.",
      "Unknown sticker.",
@@ -91355,10 +91596,38 @@
     "additionalProperties": false
    },
    "PublicPersonaListResponseSchema": {
-    "type": "array",
-    "items": {
-     "$ref": "#/components/schemas/PublicPersonaResponseSchema"
-    }
+    "type": "object",
+    "properties": {
+     "display_tag_text": {
+      "description": "The account's display tag text, shown after its name and its personas' names",
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "display_tag_icon": {
+      "description": "Hash of the display tag icon, an image stored under the account",
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PersonaAssetHashType"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "personas": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/PublicPersonaResponseSchema"
+      },
+      "description": "The account's public personas, the most used first. Private and unlisted personas are left out"
+     }
+    },
+    "required": [
+     "personas"
+    ],
+    "additionalProperties": false
    },
    "PersonaUpdateRequestSchema": {
     "type": "object",
@@ -91636,6 +91905,42 @@
     ],
     "additionalProperties": false
    },
+   "PersonaVisibilityBulkRequestSchema": {
+    "type": "object",
+    "properties": {
+     "personas": {
+      "minItems": 1,
+      "maxItems": 250,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "id": {
+         "description": "The ID of one of your personas",
+         "$ref": "#/components/schemas/SnowflakeStringType"
+        },
+        "visibility": {
+         "description": "The visibility to give it",
+         "$ref": "#/components/schemas/PersonaVisibilitySchema"
+        }
+       },
+       "required": [
+        "id"
+       ]
+      },
+      "description": "The personas to change, each with its new visibility"
+     }
+    },
+    "required": [
+     "personas"
+    ]
+   },
+   "PersonaListResponseSchema": {
+    "type": "array",
+    "items": {
+     "$ref": "#/components/schemas/PersonaResponseSchema"
+    }
+   },
    "PersonaSettingsUpdateRequestSchema": {
     "type": "object",
     "properties": {
@@ -91863,12 +92168,6 @@
      "$ref": "#/components/schemas/PersonaImportItemSchema"
     }
    },
-   "PersonaListResponseSchema": {
-    "type": "array",
-    "items": {
-     "$ref": "#/components/schemas/PersonaResponseSchema"
-    }
-   },
    "PersonaExportResponse": {
     "type": "string",
     "format": "binary",
@@ -91934,6 +92233,23 @@
      "states"
     ],
     "additionalProperties": false
+   },
+   "PersonaBulkDeleteRequestSchema": {
+    "type": "object",
+    "properties": {
+     "persona_ids": {
+      "minItems": 1,
+      "maxItems": 250,
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/SnowflakeStringType"
+      },
+      "description": "The IDs of the personas to delete"
+     }
+    },
+    "required": [
+     "persona_ids"
+    ]
    },
    "PersonaBannerUploadRequest": {
     "type": "object",

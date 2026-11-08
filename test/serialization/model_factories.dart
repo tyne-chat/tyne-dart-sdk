@@ -695,6 +695,7 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'PersonaBannerUploadRequest': PersonaBannerUploadRequest.fromJson,
   'PersonaBannerUploadResponse': PersonaBannerUploadResponse.fromJson,
   'PersonaBatchAvatarImportRequest': PersonaBatchAvatarImportRequest.fromJson,
+  'PersonaBulkDeleteRequestSchema': PersonaBulkDeleteRequestSchema.fromJson,
   'PersonaChannelStateSchema': PersonaChannelStateSchema.fromJson,
   'PersonaChannelStateUpdateRequestSchema':
       PersonaChannelStateUpdateRequestSchema.fromJson,
@@ -720,6 +721,10 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'PersonaTagSchema': PersonaTagSchema.fromJson,
   'PersonaTagSchemaInput': PersonaTagSchemaInput.fromJson,
   'PersonaUpdateRequestSchema': PersonaUpdateRequestSchema.fromJson,
+  'PersonaVisibilityBulkRequestSchema':
+      PersonaVisibilityBulkRequestSchema.fromJson,
+  'PersonaVisibilityBulkRequestSchemaPersonas':
+      PersonaVisibilityBulkRequestSchemaPersonas.fromJson,
   'PlayIntegrityAgeSubmitRequest': PlayIntegrityAgeSubmitRequest.fromJson,
   'PlutoniumPageAssignmentResponse': PlutoniumPageAssignmentResponse.fromJson,
   'PlutoniumWithdrawRequest': PlutoniumWithdrawRequest.fromJson,
@@ -754,6 +759,7 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'ProfileBadgePreviewResponse': ProfileBadgePreviewResponse.fromJson,
   'ProfileBadgeResponse': ProfileBadgeResponse.fromJson,
   'ProfileBadgeResponseDetails': ProfileBadgeResponseDetails.fromJson,
+  'PublicPersonaListResponseSchema': PublicPersonaListResponseSchema.fromJson,
   'PublicPersonaResponseSchema': PublicPersonaResponseSchema.fromJson,
   'PushRotateRequest': PushRotateRequest.fromJson,
   'PushRotateRequestKeys': PushRotateRequestKeys.fromJson,

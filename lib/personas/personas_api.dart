@@ -6,6 +6,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 import 'package:retrofit/error_logger.dart';
 
+import '../models/persona_bulk_delete_request_schema.dart';
 import '../models/persona_bulk_import_request_schema.dart';
 import '../models/persona_channel_state_schema.dart';
 import '../models/persona_channel_state_update_request_schema.dart';
@@ -21,6 +22,7 @@ import '../models/persona_response_schema.dart';
 import '../models/persona_settings_response_schema.dart';
 import '../models/persona_settings_update_request_schema.dart';
 import '../models/persona_update_request_schema.dart';
+import '../models/persona_visibility_bulk_request_schema.dart';
 import '../models/public_persona_list_response_schema.dart';
 import '../models/public_persona_response_schema.dart';
 import '../models/snowflake_string_type.dart';
@@ -56,6 +58,16 @@ abstract class PersonasApi {
   @POST('/users/@me/personas')
   Future<PersonaResponseSchema> createPersona({
     @Body() required PersonaCreateRequestSchema body,
+  });
+
+  /// Delete several personas.
+  ///
+  /// Deletes the named personas in one write, as deleting each would: their messages keep showing them. If one of them is not yours or is already deleted, nothing changes.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas/bulk-delete')
+  Future<void> deletePersonas({
+    @Body() required PersonaBulkDeleteRequestSchema body,
   });
 
   /// List the personas selected per channel.
@@ -122,6 +134,16 @@ abstract class PersonasApi {
     @Body() PersonaSettingsUpdateRequestSchema? body,
   });
 
+  /// Change the visibility of several personas.
+  ///
+  /// Gives each named persona its own new visibility, in one write: if one of them is not yours or is deleted, nothing changes. Returns the personas that changed.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @PATCH('/users/@me/personas/visibility')
+  Future<PersonaListResponseSchema> setPersonaVisibilities({
+    @Body() required PersonaVisibilityBulkRequestSchema body,
+  });
+
   /// Get own persona by ID.
   ///
   /// Retrieves a single persona owned by the authenticated user.
@@ -157,7 +179,7 @@ abstract class PersonasApi {
 
   /// List user public personas.
   ///
-  /// Retrieves public personas for a target user if mutual context permits.
+  /// Retrieves a user's public personas, the most used first, with the user's display tag, if mutual context permits.
   ///
   /// [userId] - The ID of the user.
   @GET('/users/{user_id}/personas')
