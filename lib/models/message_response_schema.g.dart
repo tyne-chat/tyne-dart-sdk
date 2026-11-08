@@ -147,6 +147,32 @@ MessageResponseSchema _$MessageResponseSchemaFromJson(
             ? null
             : ThreadChannelResponse.fromJson(v as Map<String, dynamic>),
       ),
+      subprofile: $checkedConvert(
+        'subprofile',
+        (v) => v == null
+            ? null
+            : MessageSubprofileResponseSchema.fromJson(
+                v as Map<String, dynamic>,
+              ),
+      ),
+      mentionPersonas: $checkedConvert(
+        'mention_personas',
+        (v) => (v as List<dynamic>?)
+            ?.map(
+              (e) => MessageSubprofileResponseSchema.fromJson(
+                e as Map<String, dynamic>,
+              ),
+            )
+            .toList(),
+      ),
+      command: $checkedConvert(
+        'command',
+        (v) => v == null
+            ? null
+            : MessageGuildCommandResponseSchema.fromJson(
+                v as Map<String, dynamic>,
+              ),
+      ),
       referencedMessage: $checkedConvert(
         'referenced_message',
         (v) => v == null
@@ -167,6 +193,7 @@ MessageResponseSchema _$MessageResponseSchemaFromJson(
     'mentionChannels': 'mention_channels',
     'messageReference': 'message_reference',
     'messageSnapshots': 'message_snapshots',
+    'mentionPersonas': 'mention_personas',
     'referencedMessage': 'referenced_message',
   },
 );
@@ -199,5 +226,8 @@ Map<String, dynamic> _$MessageResponseSchemaToJson(
   'nonce': ?instance.nonce,
   'call': ?instance.call,
   'thread': ?instance.thread,
+  'subprofile': ?instance.subprofile,
+  'mention_personas': ?instance.mentionPersonas,
+  'command': ?instance.command,
   'referenced_message': ?instance.referencedMessage,
 };
