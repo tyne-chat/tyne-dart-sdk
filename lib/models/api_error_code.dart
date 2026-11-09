@@ -829,6 +829,32 @@ enum ApiErrorCode {
   guildVisitAgeRestricted('GUILD_VISIT_AGE_RESTRICTED'),
   @JsonValue('GUILD_VISIT_NOT_FOUND')
   guildVisitNotFound('GUILD_VISIT_NOT_FOUND'),
+  @JsonValue('UNKNOWN_PERSONA')
+  unknownPersona('UNKNOWN_PERSONA'),
+  @JsonValue('PRIVATE_PERSONA')
+  privatePersona('PRIVATE_PERSONA'),
+  @JsonValue('PERSONA_LIMIT_REACHED')
+  personaLimitReached('PERSONA_LIMIT_REACHED'),
+  @JsonValue('DUPLICATE_PERSONA_TAG')
+  duplicatePersonaTag('DUPLICATE_PERSONA_TAG'),
+  @JsonValue('PERSONA_TAG_LIMIT_REACHED')
+  personaTagLimitReached('PERSONA_TAG_LIMIT_REACHED'),
+  @JsonValue('DUPLICATE_SIGNATURE_EMOJI')
+  duplicateSignatureEmoji('DUPLICATE_SIGNATURE_EMOJI'),
+  @JsonValue('SIGNATURE_EMOJI_LIMIT_REACHED')
+  signatureEmojiLimitReached('SIGNATURE_EMOJI_LIMIT_REACHED'),
+  @JsonValue('PERSONA_IMPORT_CONFLICT')
+  personaImportConflict('PERSONA_IMPORT_CONFLICT'),
+  @JsonValue('UNKNOWN_GUILD_COMMAND')
+  unknownGuildCommand('UNKNOWN_GUILD_COMMAND'),
+  @JsonValue('GUILD_COMMAND_NAME_TAKEN')
+  guildCommandNameTaken('GUILD_COMMAND_NAME_TAKEN'),
+  @JsonValue('GUILD_COMMAND_LIMIT_REACHED')
+  guildCommandLimitReached('GUILD_COMMAND_LIMIT_REACHED'),
+  @JsonValue('GUILD_COMMAND_TEMPLATE_INVALID')
+  guildCommandTemplateInvalid('GUILD_COMMAND_TEMPLATE_INVALID'),
+  @JsonValue('GUILD_COMMAND_INPUT_INVALID')
+  guildCommandInputInvalid('GUILD_COMMAND_INPUT_INVALID'),
 
   /// Default value for all unparsed values, allows backward compatibility when adding new values on the backend.
   $unknown(null);
