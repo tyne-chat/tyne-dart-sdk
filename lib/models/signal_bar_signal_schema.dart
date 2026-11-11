@@ -16,6 +16,7 @@ class SignalBarSignalSchema {
     required this.emojiName,
     required this.animated,
     required this.label,
+    this.everywhere = false,
   });
 
   factory SignalBarSignalSchema.fromJson(Map<String, Object?> json) =>
@@ -40,6 +41,9 @@ class SignalBarSignalSchema {
   /// Optional label shown instead of the emoji name
   @JsonKey(includeIfNull: true)
   final String? label;
+
+  /// Whether a user may set this signal in every chat where they have one on at once
+  final bool everywhere;
 
   Map<String, Object?> toJson() => _$SignalBarSignalSchemaToJson(this);
 }

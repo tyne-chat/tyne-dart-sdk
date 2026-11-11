@@ -980,6 +980,14 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'UserSettingsUpdateRequest': UserSettingsUpdateRequest.fromJson,
   'UserSettingsUpdateRequestGuildFolders':
       UserSettingsUpdateRequestGuildFolders.fromJson,
+  'UserSignalChatSchema': UserSignalChatSchema.fromJson,
+  'UserSignalRefSchema': UserSignalRefSchema.fromJson,
+  'UserSignalsResponseSchema': UserSignalsResponseSchema.fromJson,
+  'UserSignalsRestoreActionSchema': UserSignalsRestoreActionSchema.fromJson,
+  'UserSignalsRestoreResponseSchema': UserSignalsRestoreResponseSchema.fromJson,
+  'UserSignalsRestoreResponseSchemaChats':
+      UserSignalsRestoreResponseSchemaChats.fromJson,
+  'UserSignalsUpdateRequestSchema': UserSignalsUpdateRequestSchema.fromJson,
   'UserTagCheckResponse': UserTagCheckResponse.fromJson,
   'UserUpdateResponse': UserUpdateResponse.fromJson,
   'UserUpdateResponsePendingBulkMessageDeletion':

@@ -15,6 +15,7 @@ SignalBarSignalSchema _$SignalBarSignalSchemaFromJson(
     emojiName: $checkedConvert('emoji_name', (v) => v as String? ?? ''),
     animated: $checkedConvert('animated', (v) => v as bool? ?? false),
     label: $checkedConvert('label', (v) => v as String?),
+    everywhere: $checkedConvert('everywhere', (v) => v as bool? ?? false),
   );
   return val;
 }, fieldKeyMap: const {'emojiId': 'emoji_id', 'emojiName': 'emoji_name'});
@@ -27,4 +28,5 @@ Map<String, dynamic> _$SignalBarSignalSchemaToJson(
   'emoji_name': instance.emojiName,
   'animated': instance.animated,
   'label': instance.label,
+  'everywhere': instance.everywhere,
 };

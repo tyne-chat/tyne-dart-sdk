@@ -14,6 +14,9 @@ import '../models/guild_signal_bar_settings_schema_input.dart';
 import '../models/signal_bar_response_schema.dart';
 import '../models/signal_bar_update_request_schema.dart';
 import '../models/snowflake_type.dart';
+import '../models/user_signals_response_schema.dart';
+import '../models/user_signals_restore_response_schema.dart';
+import '../models/user_signals_update_request_schema.dart';
 
 part 'signal_bar_api.g.dart';
 
@@ -140,4 +143,32 @@ abstract class SignalBarApi {
   Future<SignalBarResponseSchema> updateSignalBar({
     @Body() required SignalBarUpdateRequestSchema body,
   });
+
+  /// List my signals everywhere.
+  ///
+  /// Retrieves every chat where the authenticated user has a signal on, newest first, and whether their last change everywhere can be restored.
+  @GET('/users/@me/signals')
+  Future<UserSignalsResponseSchema> listMySignals();
+
+  /// Set a signal everywhere.
+  ///
+  /// Sets one signal in every chat where the authenticated user has a signal on, and in the open chat, turning their other signals there off; each chat keeps the persona its signal showed. With a null signal, turns every signal of theirs off. Only signals the bar allows everywhere can be set. Saves what it replaced, for restore.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @PUT('/users/@me/signals')
+  Future<UserSignalsResponseSchema> setMySignalsEverywhere({
+    @Body() required UserSignalsUpdateRequestSchema body,
+  });
+
+  /// Preview restoring my signals.
+  ///
+  /// Shows, chat by chat, what restoring would put back in place of what is on now, and which chats it would leave out.
+  @GET('/users/@me/signals/restore')
+  Future<UserSignalsRestoreResponseSchema> getMySignalsRestore();
+
+  /// Restore my signals.
+  ///
+  /// Puts back what the last change everywhere replaced, in the chats where the user may still light signals. A restore is itself a change everywhere, so restoring again swaps back.
+  @POST('/users/@me/signals/restore')
+  Future<UserSignalsResponseSchema> restoreMySignals();
 }

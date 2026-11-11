@@ -15,6 +15,7 @@ class SignalBarUpdateRequestSchemaSignals {
     this.id,
     this.emojiId,
     this.label,
+    this.everywhere,
   });
 
   factory SignalBarUpdateRequestSchemaSignals.fromJson(
@@ -34,6 +35,10 @@ class SignalBarUpdateRequestSchemaSignals {
   final String emojiName;
   @JsonKey(includeIfNull: false)
   final String? label;
+
+  /// Whether the signal may be set everywhere at once; omit to keep the current setting
+  @JsonKey(includeIfNull: false)
+  final bool? everywhere;
 
   Map<String, Object?> toJson() =>
       _$SignalBarUpdateRequestSchemaSignalsToJson(this);

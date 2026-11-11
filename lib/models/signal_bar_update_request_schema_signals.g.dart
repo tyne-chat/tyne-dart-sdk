@@ -16,6 +16,7 @@ _$SignalBarUpdateRequestSchemaSignalsFromJson(Map<String, dynamic> json) =>
         id: $checkedConvert('id', (v) => v as String?),
         emojiId: $checkedConvert('emoji_id', (v) => v as SnowflakeStringType?),
         label: $checkedConvert('label', (v) => v as String?),
+        everywhere: $checkedConvert('everywhere', (v) => v as bool?),
       );
       return val;
     }, fieldKeyMap: const {'emojiName': 'emoji_name', 'emojiId': 'emoji_id'});
@@ -27,4 +28,5 @@ Map<String, dynamic> _$SignalBarUpdateRequestSchemaSignalsToJson(
   'emoji_id': ?instance.emojiId,
   'emoji_name': instance.emojiName,
   'label': ?instance.label,
+  'everywhere': ?instance.everywhere,
 };
