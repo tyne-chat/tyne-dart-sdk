@@ -390,4 +390,114 @@ void main() {
       expect(roundtripped.displayTagText, 'The Den');
     });
   });
+
+  // Signals everywhere (tyne-chat/tyne#223).
+  group('Signals everywhere', () {
+    test('a bar signal carries whether it may be set everywhere', () {
+      final json = <String, Object?>{
+        'id': 'a1b2c3',
+        'emoji_id': null,
+        'emoji_name': '💤',
+        'animated': false,
+        'label': 'Sleeping',
+        'everywhere': true,
+      };
+      final model = SignalBarSignalSchema.fromJson(json);
+      expect(model.everywhere, isTrue);
+      final roundtripped = SignalBarSignalSchema.fromJson(
+        jsonDecode(jsonEncode(model.toJson())) as Map<String, Object?>,
+      );
+      expect(roundtripped.everywhere, isTrue);
+      expect(roundtripped.label, 'Sleeping');
+    });
+
+    test('the summary roundtrips its chats and the restore flag', () {
+      final json = <String, Object?>{
+        'chats': [
+          {
+            'channel_id': '100',
+            'signals': [
+              {'signal_id': 'a1b2c3', 'persona_id': '20'},
+              {'signal_id': 'd4e5f6', 'persona_id': null},
+            ],
+            'updated_at': 1762800000000,
+          },
+        ],
+        'restore_available': true,
+      };
+      final model = UserSignalsResponseSchema.fromJson(json);
+      final roundtripped = UserSignalsResponseSchema.fromJson(
+        jsonDecode(jsonEncode(model.toJson())) as Map<String, Object?>,
+      );
+      expect(roundtripped.restoreAvailable, isTrue);
+      final UserSignalChatSchema chat = roundtripped.chats.single;
+      expect(chat.channelId, '100');
+      expect(chat.updatedAt, 1762800000000);
+      expect(chat.signals.map((ref) => ref.signalId), ['a1b2c3', 'd4e5f6']);
+      expect(chat.signals.map((ref) => ref.personaId), ['20', null]);
+    });
+
+    test('setting everywhere sends the signal, or null for everything off', () {
+      final set = UserSignalsUpdateRequestSchema(
+        signalId: 'a1b2c3',
+        channelId: const JsonNullable<String>.of('100'),
+        personaId: const JsonNullable<String>.of('20'),
+      );
+      expect(set.toJson(), {
+        'signal_id': 'a1b2c3',
+        'channel_id': '100',
+        'persona_id': '20',
+      });
+      final off = UserSignalsUpdateRequestSchema(signalId: null);
+      final Map<String, Object?> offJson = off.toJson();
+      expect(offJson.containsKey('signal_id'), isTrue);
+      expect(offJson['signal_id'], isNull);
+      expect(offJson.containsKey('channel_id'), isFalse);
+    });
+
+    test('the restore preview roundtrips its action and chats', () {
+      final json = <String, Object?>{
+        'available': true,
+        'created_at': 1762800000000,
+        'action': {'kind': 'set', 'signal_id': 'a1b2c3'},
+        'chats': [
+          {
+            'channel_id': '100',
+            'available': false,
+            'now': [
+              {'signal_id': 'a1b2c3', 'persona_id': null},
+            ],
+            'after': <Object?>[],
+          },
+        ],
+      };
+      final model = UserSignalsRestoreResponseSchema.fromJson(json);
+      final roundtripped = UserSignalsRestoreResponseSchema.fromJson(
+        jsonDecode(jsonEncode(model.toJson())) as Map<String, Object?>,
+      );
+      expect(roundtripped.available, isTrue);
+      expect(roundtripped.createdAt, 1762800000000);
+      expect(
+        roundtripped.action?.kind,
+        UserSignalsRestoreActionSchemaKindKind.valueSet,
+      );
+      expect(roundtripped.action?.signalId, 'a1b2c3');
+      final chat = roundtripped.chats.single;
+      expect(chat.available, isFalse);
+      expect(chat.now.single.signalId, 'a1b2c3');
+      expect(chat.after, isEmpty);
+    });
+
+    test('an empty preview has no action and no time', () {
+      final model = UserSignalsRestoreResponseSchema.fromJson(<String, Object?>{
+        'available': false,
+        'created_at': null,
+        'action': null,
+        'chats': <Object?>[],
+      });
+      expect(model.available, isFalse);
+      expect(model.createdAt, isNull);
+      expect(model.action, isNull);
+    });
+  });
 }
