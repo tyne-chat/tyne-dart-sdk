@@ -79077,6 +79077,11 @@
       "name": "SPAMMER",
       "value": "64",
       "description": "User is flagged as a spammer"
+     },
+     {
+      "name": "IMPORTED",
+      "value": "1073741824",
+      "description": "Placeholder account for someone not on Tyne, holding messages imported from Discord"
      }
     ]
    },
