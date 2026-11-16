@@ -24,7 +24,7 @@ class StartForumThreadResponse {
   const StartForumThreadResponse({
     required this.id,
     required this.type,
-    this.rtcP2p,
+    this.rtcRegion,
     this.topic,
     this.url,
     this.icon,
@@ -35,8 +35,8 @@ class StartForumThreadResponse {
     this.bitrate,
     this.userLimit,
     this.voiceConnectionLimit,
-    this.rtcRegion,
     this.name,
+    this.rtcP2p,
     this.lastMessageId,
     this.lastPinTimestamp,
     this.permissionOverwrites,
@@ -48,13 +48,14 @@ class StartForumThreadResponse {
     this.rateLimitPerUser,
     this.nicks,
     this.flags,
+    this.threadMetadata,
     this.message,
-    this.appliedTags,
     this.messageCount,
     this.totalMessageSent,
     this.memberCount,
     this.memberIdsPreview,
     this.member,
+    this.ownerPersonaId,
     this.defaultAutoArchiveDuration,
     this.defaultThreadRateLimitPerUser,
     this.availableTags,
@@ -62,7 +63,7 @@ class StartForumThreadResponse {
     this.defaultSortOrder,
     this.defaultForumLayout,
     this.defaultTagSetting,
-    this.threadMetadata,
+    this.appliedTags,
   });
 
   factory StartForumThreadResponse.fromJson(Map<String, Object?> json) =>
@@ -197,6 +198,10 @@ class StartForumThreadResponse {
   /// The thread member object for the current user
   @JsonKey(includeIfNull: false)
   final ThreadMemberResponse? member;
+
+  /// The ID of the persona the owner started the thread as, absent when it was started as the account
+  @JsonKey(includeIfNull: false, name: 'owner_persona_id')
+  final SnowflakeStringType? ownerPersonaId;
 
   /// Default auto archive duration for new threads
   @JsonKey(includeIfNull: false, name: 'default_auto_archive_duration')

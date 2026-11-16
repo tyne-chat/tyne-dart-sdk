@@ -1,0 +1,244 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, unused_import, invalid_annotation_target, unnecessary_import
+
+import 'package:dio/dio.dart' hide Headers;
+import 'package:retrofit/retrofit.dart';
+import 'package:retrofit/error_logger.dart';
+
+import '../models/deleted_persona_list_response_schema.dart';
+import '../models/persona_bulk_delete_request_schema.dart';
+import '../models/persona_bulk_import_request_schema.dart';
+import '../models/persona_channel_state_schema.dart';
+import '../models/persona_channel_state_update_request_schema.dart';
+import '../models/persona_channel_states_response_schema.dart';
+import '../models/persona_create_request_schema.dart';
+import '../models/persona_export_response.dart';
+import '../models/persona_import_apply_request_schema.dart';
+import '../models/persona_import_apply_response_schema.dart';
+import '../models/persona_import_image_request.dart';
+import '../models/persona_import_image_response.dart';
+import '../models/persona_import_preview_request_schema.dart';
+import '../models/persona_import_preview_response_schema.dart';
+import '../models/persona_list_response_schema.dart';
+import '../models/persona_lookup_request_schema.dart';
+import '../models/persona_lookup_response_schema.dart';
+import '../models/persona_response_schema.dart';
+import '../models/persona_restore_response_schema.dart';
+import '../models/persona_settings_response_schema.dart';
+import '../models/persona_settings_update_request_schema.dart';
+import '../models/persona_update_request_schema.dart';
+import '../models/persona_visibility_bulk_request_schema.dart';
+import '../models/public_persona_list_response_schema.dart';
+import '../models/public_persona_response_schema.dart';
+import '../models/snowflake_string_type.dart';
+import '../models/snowflake_type.dart';
+
+part 'personas_api.g.dart';
+
+@RestApi()
+abstract class PersonasApi {
+  factory PersonasApi(Dio dio, {String? baseUrl}) = _PersonasApi;
+
+  /// Look up personas by ID.
+  ///
+  /// Returns what messages from the given personas show (name, avatar, colours, display tag), whatever their visibility, including deleted ones, each with its owner. Nothing of their profiles. Pairs that name no persona of that user are left out.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/personas/lookup')
+  Future<PersonaLookupResponseSchema> lookupPersonas({
+    @Body() required PersonaLookupRequestSchema body,
+  });
+
+  /// List own personas.
+  ///
+  /// Retrieves all personas created and owned by the authenticated user.
+  @GET('/users/@me/personas')
+  Future<PersonaListResponseSchema> listMyPersonas();
+
+  /// Create persona.
+  ///
+  /// Creates a new persona for the authenticated user.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas')
+  Future<PersonaResponseSchema> createPersona({
+    @Body() required PersonaCreateRequestSchema body,
+  });
+
+  /// Delete several personas.
+  ///
+  /// Deletes the named personas in one write, as deleting each would: their messages keep showing them. If one of them is not yours or is already deleted, nothing changes.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas/bulk-delete')
+  Future<void> deletePersonas({
+    @Body() required PersonaBulkDeleteRequestSchema body,
+  });
+
+  /// List the personas selected per channel.
+  ///
+  /// Lists every channel the authenticated user has a persona selected in. Used when their persona is remembered per channel; a channel that is not listed is used as the account itself.
+  @GET('/users/@me/personas/channel-states')
+  Future<PersonaChannelStatesResponseSchema> listMyPersonaChannelStates();
+
+  /// Select a persona in a channel.
+  ///
+  /// Selects one of the authenticated user's personas in a channel they can see, or the account itself with a null persona. Only their own sessions are told.
+  ///
+  /// [channelId] - The ID of the channel.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @PUT('/users/@me/personas/channel-states/{channel_id}')
+  Future<PersonaChannelStateSchema> setMyPersonaChannelState({
+    @Path('channel_id') required SnowflakeType channelId,
+    @Body() required PersonaChannelStateUpdateRequestSchema body,
+  });
+
+  /// List own deleted personas.
+  ///
+  /// Lists the deleted personas of the authenticated user, the most recently deleted first. They still show on their old messages and can be restored.
+  @GET('/users/@me/personas/deleted')
+  Future<DeletedPersonaListResponseSchema> listMyDeletedPersonas();
+
+  /// Restore a deleted persona.
+  ///
+  /// Brings back a deleted persona as it was, so its old messages and usage are its own again. Tags and signature emojis another persona holds now are left off and listed in the response.
+  ///
+  /// [personaId] - Persona Snowflake ID.
+  @POST('/users/@me/personas/deleted/{persona_id}/restore')
+  Future<PersonaRestoreResponseSchema> restorePersona({
+    @Path('persona_id') required SnowflakeStringType personaId,
+  });
+
+  /// Export own personas.
+  ///
+  /// Exports all personas of the authenticated user as a ZIP file: a PluralKit export file (pluralkit.json), each persona's avatar and banner and the tag icon, tyne.json listing which image belongs to which persona, and a README. Importing the ZIP gives the personas back.
+  @GET('/users/@me/personas/export')
+  Future<PersonaExportResponse> exportMyPersonas();
+
+  /// Bulk import personas.
+  ///
+  /// Imports or synchronizes personas in bulk (e.g. from PluralKit or Tupperbox). The whole request is checked first and written at once: if it is refused, nothing changes.
+  ///
+  /// [replace] - Delete every live persona of the account and keep only the imported ones. The deletion and the import are written together, so if the import is refused the personas stay as they were.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas/import')
+  Future<PersonaListResponseSchema> importPersonas({
+    @Body() required PersonaBulkImportRequestSchema body,
+    @Query('replace') String? replace = 'false',
+  });
+
+  /// Store an image from a persona export being imported.
+  ///
+  /// Stores one avatar or banner image read from a persona export ZIP that the user is importing, and returns its hash for use in the import. Counts against the persona image import quota.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas/import-image')
+  Future<PersonaImportImageResponse> importPersonaImage({
+    @Body() required PersonaImportImageRequest body,
+  });
+
+  /// Apply a reviewed persona import.
+  ///
+  /// Applies one action per member: add, link (record the member's id only), restore (bring back the same deleted persona) or use_file (replace a linked persona's details, never its visibility). Checked against the account as it is now and written at once: if it is refused, nothing changes. Nothing is deleted.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas/import/apply')
+  Future<PersonaImportApplyResponseSchema> applyPersonaImport({
+    @Body() required PersonaImportApplyRequestSchema body,
+  });
+
+  /// Preview a persona import.
+  ///
+  /// Classifies each member of an import file against the account's personas, deleted ones included: linked and identical, linked and different, deleted, probably the same, can't tell, tag in use, or new. Changes nothing. Pictures are compared only where their origin is known; links in the request are never fetched.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas/import/preview')
+  Future<PersonaImportPreviewResponseSchema> previewPersonaImport({
+    @Body() required PersonaImportPreviewRequestSchema body,
+  });
+
+  /// Get own persona settings.
+  ///
+  /// Retrieves persona settings (active mode, display tag, latch state) for the authenticated user.
+  @GET('/users/@me/personas/settings')
+  Future<PersonaSettingsResponseSchema> getMyPersonaSettings();
+
+  /// Update own persona settings.
+  ///
+  /// Updates persona settings (active mode, display tag, latch state) for the authenticated user.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @PATCH('/users/@me/personas/settings')
+  Future<PersonaSettingsResponseSchema> updateMyPersonaSettings({
+    @Body() PersonaSettingsUpdateRequestSchema? body,
+  });
+
+  /// Change the visibility of several personas.
+  ///
+  /// Gives each named persona its own new visibility, in one write: if one of them is not yours or is deleted, nothing changes. Returns the personas that changed.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @PATCH('/users/@me/personas/visibility')
+  Future<PersonaListResponseSchema> setPersonaVisibilities({
+    @Body() required PersonaVisibilityBulkRequestSchema body,
+  });
+
+  /// Get own persona by ID.
+  ///
+  /// Retrieves a single persona owned by the authenticated user.
+  ///
+  /// [personaId] - Persona Snowflake ID.
+  @GET('/users/@me/personas/{persona_id}')
+  Future<PersonaResponseSchema> getMyPersona({
+    @Path('persona_id') required SnowflakeStringType personaId,
+  });
+
+  /// Update persona.
+  ///
+  /// Updates properties of an existing persona owned by the authenticated user.
+  ///
+  /// [personaId] - Persona Snowflake ID.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @PATCH('/users/@me/personas/{persona_id}')
+  Future<PersonaResponseSchema> updatePersona({
+    @Path('persona_id') required SnowflakeStringType personaId,
+    @Body() PersonaUpdateRequestSchema? body,
+  });
+
+  /// Delete persona.
+  ///
+  /// Deletes an existing persona owned by the authenticated user.
+  ///
+  /// [personaId] - Persona Snowflake ID.
+  @DELETE('/users/@me/personas/{persona_id}')
+  Future<void> deletePersona({
+    @Path('persona_id') required SnowflakeStringType personaId,
+  });
+
+  /// List user public personas.
+  ///
+  /// Retrieves a user's public personas, the most used first, with the user's display tag, if mutual context permits.
+  ///
+  /// [userId] - The ID of the user.
+  @GET('/users/{user_id}/personas')
+  Future<PublicPersonaListResponseSchema> listUserPublicPersonas({
+    @Path('user_id') required SnowflakeType userId,
+  });
+
+  /// Get persona profile card by ID.
+  ///
+  /// Retrieves public or unlisted profile details for a persona if mutual context permits.
+  ///
+  /// [userId] - User Snowflake ID.
+  ///
+  /// [personaId] - Persona Snowflake ID.
+  @GET('/users/{user_id}/personas/{persona_id}')
+  Future<PublicPersonaResponseSchema> getUserPersonaById({
+    @Path('user_id') required SnowflakeStringType userId,
+    @Path('persona_id') required SnowflakeStringType personaId,
+  });
+}

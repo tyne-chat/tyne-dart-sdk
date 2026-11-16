@@ -32,10 +32,15 @@ class InstanceBrandingSchema {
     required this.customCss,
     required this.uploadLimitMessage,
     required this.trustedDomains,
+    this.desktopAppPromptEnabled = true,
   });
 
   factory InstanceBrandingSchema.fromJson(Map<String, Object?> json) =>
       _$InstanceBrandingSchemaFromJson(json);
+
+  /// Whether the web app shows prompts to open deep links or download the desktop app
+  @JsonKey(name: 'desktop_app_prompt_enabled')
+  final bool desktopAppPromptEnabled;
 
   /// Public product name shown by client applications
   @JsonKey(name: 'product_name', defaultValue: '')
