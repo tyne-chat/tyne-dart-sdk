@@ -54,6 +54,7 @@ import '../models/harvest_download_url_response.dart';
 import '../models/harvest_self_data_request.dart';
 import '../models/harvest_status_response_schema.dart';
 import '../models/harvest_status_response_schema_nullable.dart';
+import '../models/imported_conversation_response.dart';
 import '../models/mark_mentions_read_request.dart';
 import '../models/message_list_response.dart';
 import '../models/mfa_backup_codes_challenge_regenerate_request.dart';
@@ -567,6 +568,16 @@ abstract class UsersApi {
   @GET('/users/@me/harvest/{harvestId}/download')
   Future<HarvestDownloadUrlResponse> getDataHarvestDownloadUrl({
     @Path('harvestId') required SnowflakeType harvestId,
+  });
+
+  /// Get your imported conversation with a placeholder.
+  ///
+  /// Your DM with a Discord import placeholder account when it holds imported messages: it can be opened again once closed (POST /users/@me/channels). The channel id is null for anyone else, or an empty DM.
+  ///
+  /// [userId] - The ID of the user.
+  @GET('/users/@me/imported-conversations/{user_id}')
+  Future<ImportedConversationResponse> getImportedConversation({
+    @Path('user_id') required SnowflakeType userId,
   });
 
   /// List mentions for current user.

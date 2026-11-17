@@ -443,6 +443,7 @@ tolerantModelFactories = <String, Object Function(Map<String, Object?>)>{
   'IdentifyRequest': IdentifyRequest.fromJson,
   'IdentifyResponse': IdentifyResponse.fromJson,
   'IdentifyResponseRegistration': IdentifyResponseRegistration.fromJson,
+  'ImportedConversationResponse': ImportedConversationResponse.fromJson,
   'IndicateTypingRequestSchema': IndicateTypingRequestSchema.fromJson,
   'IneligibleSwitchToListPriceResponse':
       IneligibleSwitchToListPriceResponse.fromJson,
