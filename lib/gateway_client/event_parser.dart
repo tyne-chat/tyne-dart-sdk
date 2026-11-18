@@ -539,6 +539,10 @@ class EventParser {
         .toList();
 
     return ReadyEvent(
+      // Fork: threads in DMs, read by the app (tyne-chat/tyne#699).
+      forkDmThreads: data['fork_dm_threads'] is Map<String, dynamic>
+          ? data['fork_dm_threads'] as Map<String, dynamic>
+          : null,
       sessionId: data['session_id'] as String,
       user: UserPrivateResponse.fromJson(data['user'] as Map<String, dynamic>),
       rawGuilds: rawGuilds,
