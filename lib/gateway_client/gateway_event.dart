@@ -24,6 +24,8 @@ sealed class GatewayEvent {
 
 class ReadyEvent extends GatewayEvent {
   const ReadyEvent({
+    // Fork: READY's `fork_dm_threads` object, as it arrived (tyne-chat/tyne#699).
+    this.forkDmThreads,
     required this.sessionId,
     required this.user,
     this.guilds = const <GuildCreateData>[],
@@ -73,6 +75,8 @@ class ReadyEvent extends GatewayEvent {
   final Object? prepared;
 
   ReadyEvent withPrepared(Object? prepared) => ReadyEvent(
+    // Fork: carry READY's fork_dm_threads over (tyne-chat/tyne#699).
+    forkDmThreads: forkDmThreads,
     sessionId: sessionId,
     user: user,
     guilds: guilds,
@@ -96,6 +100,11 @@ class ReadyEvent extends GatewayEvent {
     droppedItems: droppedItems,
     prepared: prepared,
   );
+
+  /// Fork: threads in DMs from READY (`{enabled, threads, read_states}`),
+  /// left raw for the app to read (tyne-chat/tyne#699). Null from servers
+  /// without them.
+  final Map<String, dynamic>? forkDmThreads;
 }
 
 class ResumedEvent extends GatewayEvent {
