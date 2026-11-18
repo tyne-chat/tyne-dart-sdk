@@ -21,6 +21,10 @@ PublicPersonaResponseSchema _$PublicPersonaResponseSchemaFromJson(
             ? PersonaVisibilitySchema.$unknown
             : PersonaVisibilitySchema.fromJson(v as String),
       ),
+      aliases: $checkedConvert(
+        'aliases',
+        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+      ),
       avatarHash: $checkedConvert(
         'avatar_hash',
         (v) => v as PersonaAssetHashType?,
@@ -48,6 +52,7 @@ Map<String, dynamic> _$PublicPersonaResponseSchemaToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
+  'aliases': ?instance.aliases,
   'avatar_hash': ?instance.avatarHash,
   'banner_hash': ?instance.bannerHash,
   'pronouns': ?instance.pronouns,

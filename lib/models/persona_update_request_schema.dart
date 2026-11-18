@@ -17,6 +17,7 @@ part 'persona_update_request_schema.g.dart';
 class PersonaUpdateRequestSchema {
   PersonaUpdateRequestSchema({
     this.name,
+    this.aliases,
     this.autoTagDisabled,
     this.personaTags,
     this.signatureEmojis,
@@ -54,6 +55,7 @@ class PersonaUpdateRequestSchema {
 
   const PersonaUpdateRequestSchema._({
     this.name,
+    this.aliases,
     this.avatarHashValue,
     this.bannerHashValue,
     this.pronounsValue,
@@ -86,6 +88,7 @@ class PersonaUpdateRequestSchema {
     final value = _$PersonaUpdateRequestSchemaFromJson(json);
     return PersonaUpdateRequestSchema(
       name: value.name,
+      aliases: value.aliases,
       avatarHash: json.containsKey('avatar_hash')
           ? JsonNullable<PersonaAssetHashType>.of(value.avatarHashValue)
           : const JsonNullable<PersonaAssetHashType>.undefined(),
@@ -117,6 +120,10 @@ class PersonaUpdateRequestSchema {
   /// Persona display name
   @JsonKey(includeIfNull: false)
   final String? name;
+
+  /// Other names to find the persona by when searching or mentioning, never shown. Leave it out to keep the stored ones
+  @JsonKey(includeIfNull: false)
+  final List<String>? aliases;
 
   /// Whether auto-tagging is disabled
   @JsonKey(includeIfNull: false, name: 'auto_tag_disabled')

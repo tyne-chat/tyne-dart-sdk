@@ -49,6 +49,10 @@ PersonaResponseSchema _$PersonaResponseSchemaFromJson(
             const [],
       ),
       useCount: $checkedConvert('use_count', (v) => (v as num?)?.toInt() ?? 0),
+      aliases: $checkedConvert(
+        'aliases',
+        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+      ),
       avatarHash: $checkedConvert(
         'avatar_hash',
         (v) => v as PersonaAssetHashType?,
@@ -91,6 +95,7 @@ Map<String, dynamic> _$PersonaResponseSchemaToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
+  'aliases': ?instance.aliases,
   'avatar_hash': ?instance.avatarHash,
   'banner_hash': ?instance.bannerHash,
   'pronouns': ?instance.pronouns,

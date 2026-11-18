@@ -16,6 +16,7 @@ class PublicPersonaResponseSchema {
     required this.id,
     required this.name,
     required this.visibility,
+    this.aliases,
     this.avatarHash,
     this.bannerHash,
     this.pronouns,
@@ -34,6 +35,10 @@ class PublicPersonaResponseSchema {
   /// The persona display name
   @JsonKey(defaultValue: '')
   final String name;
+
+  /// Other names to find the persona by when searching or mentioning. Never shown
+  @JsonKey(includeIfNull: false)
+  final List<String>? aliases;
 
   /// Avatar asset hash
   @JsonKey(includeIfNull: false, name: 'avatar_hash')

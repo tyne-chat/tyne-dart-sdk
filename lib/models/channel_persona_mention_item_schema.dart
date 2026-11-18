@@ -19,6 +19,7 @@ class ChannelPersonaMentionItemSchema {
     required this.ownerUserId,
     required this.ownerUsername,
     this.useCount = 0,
+    this.aliases,
     this.avatarHash,
     this.bannerHash,
     this.displayTagText,
@@ -43,6 +44,10 @@ class ChannelPersonaMentionItemSchema {
   /// The persona display name
   @JsonKey(defaultValue: '')
   final String name;
+
+  /// Other names to find the persona by when searching or mentioning. Never shown
+  @JsonKey(includeIfNull: false)
+  final List<String>? aliases;
 
   /// Avatar asset hash
   @JsonKey(includeIfNull: false, name: 'avatar_hash')

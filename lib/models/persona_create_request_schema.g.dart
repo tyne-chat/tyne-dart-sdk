@@ -14,6 +14,10 @@ PersonaCreateRequestSchema _$PersonaCreateRequestSchemaFromJson(
   ($checkedConvert) {
     final val = PersonaCreateRequestSchema._(
       name: $checkedConvert('name', (v) => v as String? ?? ''),
+      aliases: $checkedConvert(
+        'aliases',
+        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+      ),
       avatarHashValue: $checkedConvert(
         'avatar_hash',
         (v) => v as PersonaAssetHashType?,
@@ -73,6 +77,7 @@ Map<String, dynamic> _$PersonaCreateRequestSchemaToJson(
   PersonaCreateRequestSchema instance,
 ) => <String, dynamic>{
   'name': instance.name,
+  'aliases': ?instance.aliases,
   'auto_tag_disabled': ?instance.autoTagDisabled,
   'persona_tags': ?instance.personaTags,
   'signature_emojis': ?instance.signatureEmojis,
