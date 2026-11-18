@@ -33,6 +33,9 @@ Everything under `lib/` is generated from the Tyne server's OpenAPI spec, except
   when resolving conflicts, and add one to any new catch upstream adds that skips something. Tests:
   `test/gateway/fork_parse_skips_test.dart`.
 
+- **READY's `fork_dm_threads`** (tyne-chat/tyne#699) stays raw on `ReadyEvent.forkDmThreads` for the
+  app (`test/gateway/fork_ready_dm_threads_test.dart`).
+
 ## Changing the SDK
 
 To add or change a field, model, endpoint or parameter:

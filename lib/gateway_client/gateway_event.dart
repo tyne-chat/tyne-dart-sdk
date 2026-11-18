@@ -23,6 +23,8 @@ sealed class GatewayEvent {
 
 class ReadyEvent extends GatewayEvent {
   const ReadyEvent({
+    // Fork: READY's `fork_dm_threads` object, as it arrived (tyne-chat/tyne#699).
+    this.forkDmThreads,
     required this.sessionId,
     required this.user,
     required this.rawGuilds,
@@ -60,6 +62,11 @@ class ReadyEvent extends GatewayEvent {
   final String? authSessionIdHash;
   final List<Map<String, dynamic>>? rtcRegions;
   final int droppedItems;
+
+  /// Fork: threads in DMs from READY (`{enabled, threads, read_states}`),
+  /// left raw for the app to read (tyne-chat/tyne#699). Null from servers
+  /// without them.
+  final Map<String, dynamic>? forkDmThreads;
 }
 
 class ResumedEvent extends GatewayEvent {
