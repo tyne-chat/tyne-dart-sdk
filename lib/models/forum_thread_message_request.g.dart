@@ -14,6 +14,10 @@ ForumThreadMessageRequest _$ForumThreadMessageRequestFromJson(
   ($checkedConvert) {
     final val = ForumThreadMessageRequest(
       flags: $checkedConvert('flags', (v) => (v as num?)?.toInt() ?? 0),
+      usePersonaSelection: $checkedConvert(
+        'use_persona_selection',
+        (v) => v as bool?,
+      ),
       content: $checkedConvert('content', (v) => v as MessageContentRequest?),
       embeds: $checkedConvert(
         'embeds',
@@ -41,22 +45,36 @@ ForumThreadMessageRequest _$ForumThreadMessageRequestFromJson(
         'sticker_ids',
         (v) => (v as List<dynamic>?)?.map((e) => e as SnowflakeType).toList(),
       ),
+      personaId: $checkedConvert('persona_id', (v) => v as SnowflakeType?),
+      subprofile: $checkedConvert(
+        'subprofile',
+        (v) => v == null
+            ? null
+            : LegacyMessageSubprofileRequestSchema.fromJson(
+                v as Map<String, dynamic>,
+              ),
+      ),
     );
     return val;
   },
   fieldKeyMap: const {
+    'usePersonaSelection': 'use_persona_selection',
     'allowedMentions': 'allowed_mentions',
     'stickerIds': 'sticker_ids',
+    'personaId': 'persona_id',
   },
 );
 
 Map<String, dynamic> _$ForumThreadMessageRequestToJson(
   ForumThreadMessageRequest instance,
 ) => <String, dynamic>{
+  'use_persona_selection': ?instance.usePersonaSelection,
   'content': ?instance.content,
   'embeds': ?instance.embeds,
   'attachments': ?instance.attachments,
   'allowed_mentions': ?instance.allowedMentions,
   'flags': instance.flags,
   'sticker_ids': ?instance.stickerIds,
+  'persona_id': ?instance.personaId,
+  'subprofile': ?instance.subprofile,
 };

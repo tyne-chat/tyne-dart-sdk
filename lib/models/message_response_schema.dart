@@ -8,12 +8,14 @@ import 'message_attachment_response.dart';
 import 'message_channel_mention_response.dart';
 import 'message_embed_response.dart';
 import 'message_flags.dart';
+import 'message_guild_command_response_schema.dart';
 import 'message_reaction_response.dart';
 import 'message_response_schema_call.dart';
 import 'message_response_schema_message_reference.dart';
 import 'message_response_schema_referenced_message.dart';
 import 'message_snapshot_response.dart';
 import 'message_sticker_response.dart';
+import 'message_subprofile_response_schema.dart';
 import 'message_type.dart';
 import 'snowflake_string_type.dart';
 import 'thread_channel_response.dart';
@@ -49,6 +51,9 @@ class MessageResponseSchema {
     this.nonce,
     this.call,
     this.thread,
+    this.subprofile,
+    this.mentionPersonas,
+    this.command,
     this.referencedMessage,
   });
 
@@ -152,6 +157,18 @@ class MessageResponseSchema {
   /// The thread started from this message, when the viewer can see threads
   @JsonKey(includeIfNull: false)
   final ThreadChannelResponse? thread;
+
+  /// Optional subprofile persona information
+  @JsonKey(includeIfNull: false)
+  final MessageSubprofileResponseSchema? subprofile;
+
+  /// The personas mentioned in the message, its embeds or what it forwards, shown as a message sent as them would show them; absent when there are none
+  @JsonKey(includeIfNull: false, name: 'mention_personas')
+  final List<MessageSubprofileResponseSchema>? mentionPersonas;
+
+  /// The server command that made this message; absent for other messages and after an edit
+  @JsonKey(includeIfNull: false)
+  final MessageGuildCommandResponseSchema? command;
 
   /// The reply target. Present and populated when the target resolved, present and null when the target is gone, absent when this message has no default reference. Clients must tell null apart from absent by key presence.
   @JsonKey(includeIfNull: false, name: 'referenced_message')

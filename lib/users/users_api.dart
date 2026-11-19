@@ -54,6 +54,7 @@ import '../models/harvest_download_url_response.dart';
 import '../models/harvest_self_data_request.dart';
 import '../models/harvest_status_response_schema.dart';
 import '../models/harvest_status_response_schema_nullable.dart';
+import '../models/imported_conversation_response.dart';
 import '../models/mark_mentions_read_request.dart';
 import '../models/message_list_response.dart';
 import '../models/mfa_backup_codes_challenge_regenerate_request.dart';
@@ -76,6 +77,14 @@ import '../models/password_change_start_response.dart';
 import '../models/password_change_ticket_request.dart';
 import '../models/password_change_verify_request.dart';
 import '../models/password_change_verify_response.dart';
+import '../models/persona_avatar_import_request.dart';
+import '../models/persona_avatar_import_response.dart';
+import '../models/persona_avatar_upload_request.dart';
+import '../models/persona_avatar_upload_response.dart';
+import '../models/persona_banner_upload_request.dart';
+import '../models/persona_banner_upload_response.dart';
+import '../models/persona_batch_avatar_import_request.dart';
+import '../models/persona_batch_avatar_import_stream.dart';
 import '../models/play_integrity_age_submit_request.dart';
 import '../models/preload_messages_request.dart';
 import '../models/preload_messages_response.dart';
@@ -561,6 +570,16 @@ abstract class UsersApi {
     @Path('harvestId') required SnowflakeType harvestId,
   });
 
+  /// Get your imported conversation with a placeholder.
+  ///
+  /// Your DM with a Discord import placeholder account when it holds imported messages: it can be opened again once closed (POST /users/@me/channels). The channel id is null for anyone else, or an empty DM.
+  ///
+  /// [userId] - The ID of the user.
+  @GET('/users/@me/imported-conversations/{user_id}')
+  Future<ImportedConversationResponse> getImportedConversation({
+    @Path('user_id') required SnowflakeType userId,
+  });
+
   /// List mentions for current user.
   ///
   /// Retrieves messages where the current user was mentioned. Supports filtering by role mentions, everyone mentions, and specific guilds. Returns paginated list of messages.
@@ -923,6 +942,46 @@ abstract class UsersApi {
   @POST('/users/@me/password-change/verify')
   Future<PasswordChangeVerifyResponse> verifyPasswordChangeCode({
     @Body() required PasswordChangeVerifyRequest body,
+  });
+
+  /// Upload persona avatar.
+  ///
+  /// Uploads and processes an avatar image for a persona, hosting it on the instance CDN/storage.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas/avatar')
+  Future<PersonaAvatarUploadResponse> uploadPersonaAvatar({
+    @Body() required PersonaAvatarUploadRequest body,
+  });
+
+  /// Upload persona banner.
+  ///
+  /// Uploads and processes a banner image for a persona, hosting it on the instance CDN/storage.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas/banner')
+  Future<PersonaBannerUploadResponse> uploadPersonaBanner({
+    @Body() required PersonaBannerUploadRequest body,
+  });
+
+  /// Import persona avatar from remote URL.
+  ///
+  /// Downloads an avatar image from an external URL and stores it on the instance CDN/storage.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas/import-avatar')
+  Future<PersonaAvatarImportResponse> importPersonaAvatar({
+    @Body() required PersonaAvatarImportRequest body,
+  });
+
+  /// Batch import persona avatars from remote URLs with streaming progress.
+  ///
+  /// Downloads up to 500 avatar images from external URLs and stores them on the instance CDN/storage, streaming NDJSON progress events.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas/import-batch-avatars')
+  Future<PersonaBatchAvatarImportStream> importPersonaBatchAvatars({
+    @Body() required PersonaBatchAvatarImportRequest body,
   });
 
   /// Create Play Integrity challenge.
