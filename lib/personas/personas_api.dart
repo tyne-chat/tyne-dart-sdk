@@ -14,6 +14,11 @@ import '../models/persona_channel_state_update_request_schema.dart';
 import '../models/persona_channel_states_response_schema.dart';
 import '../models/persona_create_request_schema.dart';
 import '../models/persona_export_response.dart';
+import '../models/persona_group_create_request_schema.dart';
+import '../models/persona_group_list_response_schema.dart';
+import '../models/persona_group_members_request_schema.dart';
+import '../models/persona_group_response_schema.dart';
+import '../models/persona_group_update_request_schema.dart';
 import '../models/persona_import_apply_request_schema.dart';
 import '../models/persona_import_apply_response_schema.dart';
 import '../models/persona_import_image_request.dart';
@@ -116,6 +121,55 @@ abstract class PersonasApi {
   /// Exports all personas of the authenticated user as a ZIP file: a PluralKit export file (pluralkit.json), each persona's avatar and banner and the tag icon, tyne.json listing which image belongs to which persona, and a README. Importing the ZIP gives the personas back.
   @GET('/users/@me/personas/export')
   Future<PersonaExportResponse> exportMyPersonas();
+
+  /// List own persona groups.
+  ///
+  /// Lists the authenticated user's persona groups, in the order they were made, each with the personas in it. Only the owner can see them.
+  @GET('/users/@me/personas/groups')
+  Future<PersonaGroupListResponseSchema> listMyPersonaGroups();
+
+  /// Create a persona group.
+  ///
+  /// Makes a group of personas, optionally with some of your personas in it already. An account can have up to 250 groups.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @POST('/users/@me/personas/groups')
+  Future<PersonaGroupResponseSchema> createPersonaGroup({
+    @Body() required PersonaGroupCreateRequestSchema body,
+  });
+
+  /// Put personas in groups or take them out.
+  ///
+  /// Puts personas in your groups and takes them out, in one write: if a group is not yours, or a persona to add is not yours or is deleted, nothing changes. Returns every group.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @PATCH('/users/@me/personas/groups/members')
+  Future<PersonaGroupListResponseSchema> changePersonaGroupMembers({
+    @Body() required PersonaGroupMembersRequestSchema body,
+  });
+
+  /// Rename a persona group.
+  ///
+  /// Gives one of your persona groups a new name.
+  ///
+  /// [groupId] - The ID of the group.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @PATCH('/users/@me/personas/groups/{group_id}')
+  Future<PersonaGroupResponseSchema> updatePersonaGroup({
+    @Path('group_id') required SnowflakeStringType groupId,
+    @Body() required PersonaGroupUpdateRequestSchema body,
+  });
+
+  /// Delete a persona group.
+  ///
+  /// Deletes one of your persona groups. The personas in it are not changed.
+  ///
+  /// [groupId] - The ID of the group.
+  @DELETE('/users/@me/personas/groups/{group_id}')
+  Future<void> deletePersonaGroup({
+    @Path('group_id') required SnowflakeStringType groupId,
+  });
 
   /// Bulk import personas.
   ///

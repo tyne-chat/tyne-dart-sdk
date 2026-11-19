@@ -749,6 +749,10 @@ enum ApiErrorCode {
   guildCommandTemplateInvalid('GUILD_COMMAND_TEMPLATE_INVALID'),
   @JsonValue('GUILD_COMMAND_INPUT_INVALID')
   guildCommandInputInvalid('GUILD_COMMAND_INPUT_INVALID'),
+  @JsonValue('UNKNOWN_PERSONA_GROUP')
+  unknownPersonaGroup('UNKNOWN_PERSONA_GROUP'),
+  @JsonValue('PERSONA_GROUP_LIMIT_REACHED')
+  personaGroupLimitReached('PERSONA_GROUP_LIMIT_REACHED'),
   @JsonValue('UNKNOWN_REPORT')
   unknownReport('UNKNOWN_REPORT'),
   @JsonValue('UNKNOWN_ROLE')
