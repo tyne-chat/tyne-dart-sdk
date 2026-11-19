@@ -515,4 +515,61 @@ void main() {
       }
     });
   });
+
+  group('Persona groups (tyne-chat/tyne#829)', () {
+    test('a group roundtrips with its personas, a deleted one included', () {
+      final model = PersonaGroupResponseSchema.fromJson(<String, Object?>{
+        'id': '1572865195712299410',
+        'name': 'Visitors',
+        'persona_ids': <String>['1564039056787909418', '1568180435051995253'],
+      });
+      final roundtripped = PersonaGroupResponseSchema.fromJson(
+        jsonDecode(jsonEncode(model.toJson())) as Map<String, Object?>,
+      );
+      expect(roundtripped.id, '1572865195712299410');
+      expect(roundtripped.name, 'Visitors');
+      expect(roundtripped.personaIds, <String>[
+        '1564039056787909418',
+        '1568180435051995253',
+      ]);
+    });
+
+    test('the requests carry only what is set', () {
+      expect(
+        const PersonaGroupCreateRequestSchema(name: 'Core').toJson(),
+        <String, Object?>{'name': 'Core'},
+      );
+      expect(
+        const PersonaGroupCreateRequestSchema(
+          name: 'Core',
+          personaIds: <String>['10'],
+        ).toJson(),
+        <String, Object?>{
+          'name': 'Core',
+          'persona_ids': <String>['10'],
+        },
+      );
+      final members = PersonaGroupMembersRequestSchema.fromJson(
+        <String, Object?>{
+          'changes': <Object?>[
+            <String, Object?>{
+              'group_id': '1',
+              'add': <String>['10'],
+            },
+            <String, Object?>{
+              'group_id': '2',
+              'remove': <String>['10'],
+            },
+          ],
+        },
+      );
+      final roundtripped = PersonaGroupMembersRequestSchema.fromJson(
+        jsonDecode(jsonEncode(members.toJson())) as Map<String, Object?>,
+      );
+      expect(roundtripped.changes.map((c) => c.groupId), <String>['1', '2']);
+      expect(roundtripped.changes.first.add, <String>['10']);
+      expect(roundtripped.changes.first.remove, isNull);
+      expect(roundtripped.changes.last.remove, <String>['10']);
+    });
+  });
 }
