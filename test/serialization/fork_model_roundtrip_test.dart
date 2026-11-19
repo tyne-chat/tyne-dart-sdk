@@ -500,4 +500,19 @@ void main() {
       expect(model.action, isNull);
     });
   });
+
+  group('Imported conversations', () {
+    test('roundtrips a DM id, and none', () {
+      for (final String? channelId in <String?>['555', null]) {
+        final model = ImportedConversationResponse.fromJson(<String, Object?>{
+          'channel_id': channelId,
+        });
+        final roundtripped = ImportedConversationResponse.fromJson(
+          jsonDecode(jsonEncode(model.toJson())) as Map<String, Object?>,
+        );
+        expect(roundtripped.channelId, channelId);
+        expect(model.toJson().containsKey('channel_id'), isTrue);
+      }
+    });
+  });
 }
