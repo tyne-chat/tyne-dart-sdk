@@ -93495,8 +93495,7 @@
       "maxItems": 10,
       "type": "array",
       "items": {
-       "type": "string",
-       "maxLength": 100
+       "type": "string"
       }
      },
      "avatar_hash": {
@@ -94418,8 +94417,7 @@
       "maxItems": 10,
       "type": "array",
       "items": {
-       "type": "string",
-       "maxLength": 100
+       "type": "string"
       }
      },
      "avatar_hash": {
@@ -96149,8 +96147,7 @@
       "maxItems": 10,
       "type": "array",
       "items": {
-       "type": "string",
-       "maxLength": 100
+       "type": "string"
       }
      },
      "avatar_hash": {
@@ -96639,7 +96636,8 @@
      "banner",
      "signature_emojis",
      "auto_tag_disabled",
-     "visibility"
+     "visibility",
+     "aliases"
     ]
    },
    "PersonaImportPreviewMemberSchema": {
@@ -96648,6 +96646,14 @@
      "name": {
       "description": "Persona display name",
       "type": "string"
+     },
+     "aliases": {
+      "description": "Other names to find the persona by when searching or mentioning, never shown. Leave it out to keep the stored ones",
+      "maxItems": 10,
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
      },
      "pronouns": {
       "description": "Optional pronouns",

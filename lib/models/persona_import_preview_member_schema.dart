@@ -17,6 +17,7 @@ part 'persona_import_preview_member_schema.g.dart';
 class PersonaImportPreviewMemberSchema {
   PersonaImportPreviewMemberSchema({
     required this.name,
+    this.aliases,
     this.autoTagDisabled,
     this.personaTags,
     this.signatureEmojis,
@@ -50,6 +51,7 @@ class PersonaImportPreviewMemberSchema {
 
   const PersonaImportPreviewMemberSchema._({
     required this.name,
+    this.aliases,
     this.pronounsValue,
     this.colorValue,
     this.bioValue,
@@ -79,6 +81,7 @@ class PersonaImportPreviewMemberSchema {
     final value = _$PersonaImportPreviewMemberSchemaFromJson(json);
     return PersonaImportPreviewMemberSchema(
       name: value.name,
+      aliases: value.aliases,
       pronouns: json.containsKey('pronouns')
           ? JsonNullable<String>.of(value.pronounsValue)
           : const JsonNullable<String>.undefined(),
@@ -107,6 +110,10 @@ class PersonaImportPreviewMemberSchema {
   /// Persona display name
   @JsonKey(defaultValue: '')
   final String name;
+
+  /// Other names to find the persona by when searching or mentioning, never shown. Leave it out to keep the stored ones
+  @JsonKey(includeIfNull: false)
+  final List<String>? aliases;
 
   /// Whether auto-tagging is disabled
   @JsonKey(includeIfNull: false, name: 'auto_tag_disabled')

@@ -14,6 +14,10 @@ PersonaImportPreviewMemberSchema _$PersonaImportPreviewMemberSchemaFromJson(
   ($checkedConvert) {
     final val = PersonaImportPreviewMemberSchema._(
       name: $checkedConvert('name', (v) => v as String? ?? ''),
+      aliases: $checkedConvert(
+        'aliases',
+        (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+      ),
       pronounsValue: $checkedConvert('pronouns', (v) => v as String?),
       colorValue: $checkedConvert('color', (v) => (v as num?)?.toInt()),
       bioValue: $checkedConvert('bio', (v) => v as String?),
@@ -72,6 +76,7 @@ Map<String, dynamic> _$PersonaImportPreviewMemberSchemaToJson(
   PersonaImportPreviewMemberSchema instance,
 ) => <String, dynamic>{
   'name': instance.name,
+  'aliases': ?instance.aliases,
   'auto_tag_disabled': ?instance.autoTagDisabled,
   'persona_tags': ?instance.personaTags,
   'signature_emojis': ?instance.signatureEmojis,
