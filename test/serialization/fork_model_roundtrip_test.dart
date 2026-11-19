@@ -572,4 +572,51 @@ void main() {
       expect(roundtripped.changes.last.remove, <String>['10']);
     });
   });
+
+  group('Who gets a persona in mention suggestions (tyne-chat/tyne#652)', () {
+    test('a persona carries its stored setting, null when it has none', () {
+      final chosen = PersonaResponseSchema.fromJson(<String, Object?>{
+        'id': '10',
+        'name': 'Lyra',
+        'visibility': 'unlisted',
+        'mentionable_by': 'self',
+        'created_at': '2026-11-19T00:00:00.000Z',
+        'updated_at': '2026-11-19T00:00:00.000Z',
+      });
+      expect(chosen.mentionableBy, PersonaMentionableBySchema.valueSelf);
+      expect(
+        PersonaResponseSchema.fromJson(
+          jsonDecode(jsonEncode(chosen.toJson())) as Map<String, Object?>,
+        ).mentionableBy,
+        PersonaMentionableBySchema.valueSelf,
+      );
+
+      final untouched = PersonaResponseSchema.fromJson(<String, Object?>{
+        'id': '11',
+        'name': 'Wren',
+        'visibility': 'private',
+        'mentionable_by': null,
+        'created_at': '2026-11-19T00:00:00.000Z',
+        'updated_at': '2026-11-19T00:00:00.000Z',
+      });
+      expect(untouched.mentionableBy, isNull);
+    });
+
+    test('the bulk request sends null to follow visibility again', () {
+      final request = PersonaMentionableByBulkRequestSchema.fromJson(
+        <String, Object?>{
+          'personas': <Object?>[
+            <String, Object?>{'id': '10', 'mentionable_by': 'nobody'},
+            <String, Object?>{'id': '11', 'mentionable_by': null},
+          ],
+        },
+      );
+      final Map<String, Object?> sent =
+          jsonDecode(jsonEncode(request.toJson())) as Map<String, Object?>;
+      expect(sent['personas'], <Object?>[
+        <String, Object?>{'id': '10', 'mentionable_by': 'nobody'},
+        <String, Object?>{'id': '11', 'mentionable_by': null},
+      ]);
+    });
+  });
 }
