@@ -432,6 +432,7 @@ class _ChannelsApi implements ChannelsApi {
   Future<MessageResponseSchema> sendMessage({
     required String channelId,
     int? flags = 0,
+    bool? usePersonaSelection,
     String? content,
     List<RichEmbedRequest>? embeds,
     List<Object0>? attachments,
@@ -441,6 +442,8 @@ class _ChannelsApi implements ChannelsApi {
     String? favoriteMemeId,
     List<String>? stickerIds,
     bool? tts,
+    String? personaId,
+    LegacyMessageSubprofileRequestSchema? subprofile,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -449,6 +452,11 @@ class _ChannelsApi implements ChannelsApi {
     final _data = FormData();
     if (flags != null) {
       _data.fields.add(MapEntry('flags', flags.toString()));
+    }
+    if (usePersonaSelection != null) {
+      _data.fields.add(
+        MapEntry('use_persona_selection', usePersonaSelection.toString()),
+      );
     }
     if (content != null) {
       _data.fields.add(MapEntry('content', content));
@@ -479,6 +487,12 @@ class _ChannelsApi implements ChannelsApi {
     if (tts != null) {
       _data.fields.add(MapEntry('tts', tts.toString()));
     }
+    if (personaId != null) {
+      _data.fields.add(MapEntry('persona_id', personaId));
+    }
+    _data.fields.add(
+      MapEntry('subprofile', jsonEncode(subprofile ?? <String, dynamic>{})),
+    );
     final _options = _setStreamType<MessageResponseSchema>(
       Options(
             method: 'POST',
@@ -672,6 +686,8 @@ class _ChannelsApi implements ChannelsApi {
     String? content,
     List<RichEmbedRequest>? embeds,
     AllowedMentionsRequest? allowedMentions,
+    String? personaId,
+    LegacyMessageSubprofileRequestSchema? subprofile,
     int? flags,
     List<Object1>? attachments,
     List<Object2>? messageSnapshots,
@@ -690,6 +706,12 @@ class _ChannelsApi implements ChannelsApi {
         'allowed_mentions',
         jsonEncode(allowedMentions ?? <String, dynamic>{}),
       ),
+    );
+    if (personaId != null) {
+      _data.fields.add(MapEntry('persona_id', personaId));
+    }
+    _data.fields.add(
+      MapEntry('subprofile', jsonEncode(subprofile ?? <String, dynamic>{})),
     );
     if (flags != null) {
       _data.fields.add(MapEntry('flags', flags.toString()));
@@ -877,7 +899,7 @@ class _ChannelsApi implements ChannelsApi {
   }
 
   @override
-  Future<List<UserPartialResponse>> listReactionUsers({
+  Future<List<ReactionUserItemResponse>> listReactionUsers({
     required String channelId,
     required String messageId,
     required String emoji,
@@ -889,7 +911,7 @@ class _ChannelsApi implements ChannelsApi {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<UserPartialResponse>>(
+    final _options = _setStreamType<List<ReactionUserItemResponse>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -900,12 +922,12 @@ class _ChannelsApi implements ChannelsApi {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<UserPartialResponse> _value;
+    late List<ReactionUserItemResponse> _value;
     try {
       _value = _result.data!
           .map(
             (dynamic i) =>
-                UserPartialResponse.fromJson(i as Map<String, dynamic>),
+                ReactionUserItemResponse.fromJson(i as Map<String, dynamic>),
           )
           .toList();
     } on Object catch (e, s) {
@@ -944,12 +966,14 @@ class _ChannelsApi implements ChannelsApi {
     required String messageId,
     required String emoji,
     String? sessionId,
+    AddReactionBodySchema? body,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'session_id': sessionId};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(body?.toJson() ?? <String, dynamic>{});
     final _options = _setStreamType<void>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
@@ -969,9 +993,13 @@ class _ChannelsApi implements ChannelsApi {
     required String messageId,
     required String emoji,
     String? sessionId,
+    String? personaId,
   }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'session_id': sessionId};
+    final queryParameters = <String, dynamic>{
+      r'session_id': sessionId,
+      r'persona_id': personaId,
+    };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
@@ -1029,9 +1057,13 @@ class _ChannelsApi implements ChannelsApi {
     required String emoji,
     required String targetId,
     String? sessionId,
+    String? personaId,
   }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'session_id': sessionId};
+    final queryParameters = <String, dynamic>{
+      r'session_id': sessionId,
+      r'persona_id': personaId,
+    };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
@@ -1124,6 +1156,44 @@ class _ChannelsApi implements ChannelsApi {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     await _dio.fetch<void>(_options);
+  }
+
+  @override
+  Future<List<ChannelPersonaMentionItemSchema>> getChannelPersonaMentions({
+    required String channelId,
+    String? q = '',
+    int? limit = 100,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'q': q, r'limit': limit};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<List<ChannelPersonaMentionItemSchema>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/channels/${channelId}/persona-mentions',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<ChannelPersonaMentionItemSchema> _value;
+    try {
+      _value = _result.data!
+          .map(
+            (dynamic i) => ChannelPersonaMentionItemSchema.fromJson(
+              i as Map<String, dynamic>,
+            ),
+          )
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -1783,11 +1853,16 @@ class _ChannelsApi implements ChannelsApi {
   }
 
   @override
-  Future<void> indicateTyping({required String channelId}) async {
+  Future<void> indicateTyping({
+    required String channelId,
+    IndicateTypingRequestSchema? body,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(body?.toJson() ?? <String, dynamic>{});
     final _options = _setStreamType<void>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
