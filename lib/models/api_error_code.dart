@@ -753,6 +753,8 @@ enum ApiErrorCode {
   unknownPersonaGroup('UNKNOWN_PERSONA_GROUP'),
   @JsonValue('PERSONA_GROUP_LIMIT_REACHED')
   personaGroupLimitReached('PERSONA_GROUP_LIMIT_REACHED'),
+  @JsonValue('ANIMATION_TOO_LARGE_TO_CONVERT')
+  animationTooLargeToConvert('ANIMATION_TOO_LARGE_TO_CONVERT'),
   @JsonValue('UNKNOWN_REPORT')
   unknownReport('UNKNOWN_REPORT'),
   @JsonValue('UNKNOWN_ROLE')
