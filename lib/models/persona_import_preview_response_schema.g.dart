@@ -46,12 +46,19 @@ PersonaImportPreviewResponseSchema _$PersonaImportPreviewResponseSchemaFromJson(
       ),
       untouched: $checkedConvert('untouched', (v) => (v as num?)?.toInt() ?? 0),
       needsReview: $checkedConvert('needs_review', (v) => v as bool? ?? false),
+      livePersonaIds: $checkedConvert(
+        'live_persona_ids',
+        (v) => (v as List<dynamic>?)
+            ?.map((e) => e as SnowflakeStringType)
+            .toList(),
+      ),
     );
     return val;
   },
   fieldKeyMap: const {
     'displayTag': 'display_tag',
     'needsReview': 'needs_review',
+    'livePersonaIds': 'live_persona_ids',
   },
 );
 
@@ -62,5 +69,6 @@ Map<String, dynamic> _$PersonaImportPreviewResponseSchemaToJson(
   'personas': instance.personas,
   'display_tag': instance.displayTag,
   'untouched': instance.untouched,
+  'live_persona_ids': ?instance.livePersonaIds,
   'needs_review': instance.needsReview,
 };

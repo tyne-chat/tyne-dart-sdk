@@ -7,6 +7,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'persona_import_preview_entry_schema.dart';
 import 'persona_import_preview_response_schema_display_tag.dart';
 import 'persona_response_schema.dart';
+import 'snowflake_string_type.dart';
 
 part 'persona_import_preview_response_schema.g.dart';
 
@@ -18,6 +19,7 @@ class PersonaImportPreviewResponseSchema {
     required this.displayTag,
     required this.untouched,
     required this.needsReview,
+    this.livePersonaIds,
   });
 
   factory PersonaImportPreviewResponseSchema.fromJson(
@@ -40,6 +42,10 @@ class PersonaImportPreviewResponseSchema {
   /// Live personas no member of the file matched; they stay as they are
   @JsonKey(defaultValue: 0)
   final int untouched;
+
+  /// The IDs of all the account's live (not deleted) personas, so the review can leave out any it remembers that are gone; missing from older servers
+  @JsonKey(includeIfNull: false, name: 'live_persona_ids')
+  final List<SnowflakeStringType>? livePersonaIds;
 
   /// Whether anything needs a decision; if not, the client can apply at once
   @JsonKey(name: 'needs_review', defaultValue: false)
