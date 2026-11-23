@@ -80,6 +80,8 @@ export 'models/sudo_verification_schema.dart';
 export 'models/sso_start_response.dart';
 export 'models/user_signals_response_schema.dart';
 export 'models/user_signals_restore_response_schema.dart';
+export 'models/user_signals_persona_request_schema.dart';
+export 'models/user_signals_persona_response_schema.dart';
 export 'models/user_signals_update_request_schema.dart';
 export 'models/voice_activity_sharing_update_request.dart';
 export 'models/user_settings_update_request.dart';

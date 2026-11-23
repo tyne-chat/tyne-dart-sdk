@@ -14,6 +14,8 @@ import '../models/guild_signal_bar_settings_schema_input.dart';
 import '../models/signal_bar_response_schema.dart';
 import '../models/signal_bar_update_request_schema.dart';
 import '../models/snowflake_type.dart';
+import '../models/user_signals_persona_request_schema.dart';
+import '../models/user_signals_persona_response_schema.dart';
 import '../models/user_signals_response_schema.dart';
 import '../models/user_signals_restore_response_schema.dart';
 import '../models/user_signals_update_request_schema.dart';
@@ -158,6 +160,16 @@ abstract class SignalBarApi {
   @PUT('/users/@me/signals')
   Future<UserSignalsResponseSchema> setMySignalsEverywhere({
     @Body() required UserSignalsUpdateRequestSchema body,
+  });
+
+  /// Show my signals as a persona.
+  ///
+  /// Moves the authenticated user's lit signals in the listed chats to one persona, or to the account with a null persona, as giving each again as that persona would: each keeps its place. Chats the user cannot see or may no longer signal in are left as they are. Returns the chats where a signal moved.
+  ///
+  /// [body] - Name not received - field will be skipped.
+  @PUT('/users/@me/signals/persona')
+  Future<UserSignalsPersonaResponseSchema> setMySignalsPersona({
+    @Body() required UserSignalsPersonaRequestSchema body,
   });
 
   /// Preview restoring my signals.

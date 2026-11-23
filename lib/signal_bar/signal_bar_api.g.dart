@@ -339,6 +339,36 @@ class _SignalBarApi implements SignalBarApi {
   }
 
   @override
+  Future<UserSignalsPersonaResponseSchema> setMySignalsPersona({
+    required UserSignalsPersonaRequestSchema body,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _options = _setStreamType<UserSignalsPersonaResponseSchema>(
+      Options(method: 'PUT', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/users/@me/signals/persona',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
+    late UserSignalsPersonaResponseSchema _value;
+    try {
+      _value = UserSignalsPersonaResponseSchema.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<UserSignalsRestoreResponseSchema> getMySignalsRestore() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
