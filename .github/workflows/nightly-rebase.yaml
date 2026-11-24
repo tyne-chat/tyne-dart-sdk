@@ -6,10 +6,10 @@ name: Nightly Rebase & AI Conflict Resolver
 # platform level. Since this repo is a public fork of fluxerapp/dart_sdk, cron
 # schedules defined here will NEVER fire regardless of workflow state.
 #
-# Nightly runs are instead triggered by a cron schedule in the standalone
-# (non-fork) repository: chiaracoetzee/workflow-scheduler
-# That repo dispatches this workflow daily at 4:25 AM PDT (11:25 UTC) via
-# `gh workflow run`.
+# Nightly runs are instead dispatched by the host crontab on Nyx at 01:00 Pacific: this
+# repository's link and, beside it, the SDK's, which starts the app's. The monorepo's link
+# then starts the SDK and the app again as refresh-only runs (tyne-tools
+# runbooks/nightly-rebase.md, "Running it").
 
 on:
   workflow_dispatch:
@@ -41,6 +41,10 @@ on:
         description: 'Force execution of baseline and post-rebase tests even if 0 commits behind upstream'
         required: false
         default: false
+      refresh_only:
+        description: 'Refresh only: move what this branch takes from the repository before it in the chain and check it with a short gate. Never rebases and skips the baseline. The monorepo''s link starts the SDK this way once it has published, and the SDK passes it on to the app.'
+        required: false
+        default: false
         type: boolean
 
 # One run of this workflow at a time in this repository. A second chain (a manual dispatch while
@@ -63,11 +67,8 @@ jobs:
   nightly-rebase:
     if: ${{ !inputs.test_issue }}
     runs-on: ubuntu-24.04
-    # Chain worst case from the 00:20 Pacific dispatch: monorepo 195 + SDK 20 + Flutter 180 min, plus 10 for
-    # each publish job, ends 07:25, before the 07:40 mobile sync. (Since 2026-11-13 the SDK gives 10 of its
-    # minutes to Flutter, whose run left 4 of 125 that day; the longest SDK run so far took 12. Since
-    # 2026-11-14 Flutter has 180 and the chain starts at 00:20, not 01:00: a repaired gate runs the whole
-    # test suite again, about 37 minutes, which 145 left no room for, tyne-chat/tyne#643.)
+    # Worst case: see the monorepo's workflow. (Since 2026-11-13 the SDK gives 10 of its minutes to
+    # Flutter, whose run left 4 of 125 that day; the longest SDK run so far took 12.)
     timeout-minutes: 20
 
     # The agent this run uses (tyne-tools rebase/pipeline_issues.py); the publish job needs it too, for
@@ -142,6 +143,9 @@ jobs:
           fi
           if [ "${{ inputs.force_tests }}" = "true" ] || [ "${{ inputs.force_test_agent }}" = "true" ]; then
             FLAGS="$FLAGS --force-tests"
+          fi
+          if [ "${{ inputs.refresh_only }}" = "true" ]; then
+            FLAGS="$FLAGS --refresh-only"
           fi
           echo "REBASE_ARGS=--profile dart_sdk --time-budget-minutes 15 --result-dir /tmp/rebase_result $FLAGS" >> "$GITHUB_ENV"
 
@@ -254,6 +258,8 @@ jobs:
     # the model its issues name and for starting the next repository with the same agent.
     env:
       REBASE_AGENT_PROVIDER: ${{ inputs.agent }}
+      # The next link is started as a refresh-only run too (publish_result.py).
+      REBASE_REFRESH_ONLY: ${{ inputs.refresh_only }}
     steps:
       # Escalations and the absorbed-commits issue are opened as tyne-rebase[bot] (the Tyne Rebase
       # App: Issues only, installed on tyne-chat/tyne), not as WORKFLOW_TOKEN's account. If this
@@ -373,6 +379,7 @@ jobs:
           REBASE_PUBLISH_STATE: ${{ runner.temp }}/publish-state
           DRY_RUN: ${{ inputs.dry_run }}
           NEXT_REPO: "tyne-chat/tyne-mobile"
+          NEXT_FLAGS: ${{ inputs.refresh_only && '-f refresh_only=true' || '' }}
         run: |
           FLAGS=""
           if [ "$DRY_RUN" = "true" ]; then
@@ -384,7 +391,7 @@ jobs:
           fi
           echo "::error::The rebase tools could not be checked out; nothing was pushed."
           if [ -n "$NEXT_REPO" ] && [ "$DRY_RUN" != "true" ]; then
-            gh workflow run nightly-rebase.yaml --repo "$NEXT_REPO" --ref automation || true
+            gh workflow run nightly-rebase.yaml --repo "$NEXT_REPO" --ref automation $NEXT_FLAGS || true
           fi
           GH_TOKEN="${ISSUES_GH_TOKEN:-$GH_TOKEN}" gh issue create --repo tyne-chat/tyne \
             --title "⚠️ Nightly Rebase Failed (${GITHUB_REPOSITORY#*/}): Human Intervention Required ($(date -u +%F))" \
