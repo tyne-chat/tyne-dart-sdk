@@ -755,6 +755,10 @@ enum ApiErrorCode {
   personaGroupLimitReached('PERSONA_GROUP_LIMIT_REACHED'),
   @JsonValue('ANIMATION_TOO_LARGE_TO_CONVERT')
   animationTooLargeToConvert('ANIMATION_TOO_LARGE_TO_CONVERT'),
+  @JsonValue('CANNOT_BLOCK_OWN_PERSONA')
+  cannotBlockOwnPersona('CANNOT_BLOCK_OWN_PERSONA'),
+  @JsonValue('PERSONA_BLOCK_LIMIT_REACHED')
+  personaBlockLimitReached('PERSONA_BLOCK_LIMIT_REACHED'),
   @JsonValue('UNKNOWN_REPORT')
   unknownReport('UNKNOWN_REPORT'),
   @JsonValue('UNKNOWN_ROLE')

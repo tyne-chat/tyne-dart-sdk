@@ -7,6 +7,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:retrofit/error_logger.dart';
 
 import '../models/deleted_persona_list_response_schema.dart';
+import '../models/persona_block_list_response_schema.dart';
 import '../models/persona_bulk_delete_request_schema.dart';
 import '../models/persona_bulk_import_request_schema.dart';
 import '../models/persona_channel_state_schema.dart';
@@ -70,6 +71,38 @@ abstract class PersonasApi {
   @POST('/users/@me/personas')
   Future<PersonaResponseSchema> createPersona({
     @Body() required PersonaCreateRequestSchema body,
+  });
+
+  /// List blocked personas.
+  ///
+  /// Lists the personas the authenticated user has blocked, the oldest block first. Clients treat a blocked persona's messages as they treat a blocked user's. Only the user who blocked can see the list.
+  @GET('/users/@me/personas/blocks')
+  Future<PersonaBlockListResponseSchema> listMyPersonaBlocks();
+
+  /// Block a persona.
+  ///
+  /// Blocks another user's persona, without blocking the user or their other personas. Blocking one already blocked changes nothing. Up to 1000 blocked personas. Returns every blocked persona.
+  ///
+  /// [userId] - The ID of the account the persona belongs to.
+  ///
+  /// [personaId] - The ID of the persona.
+  @PUT('/users/@me/personas/blocks/{user_id}/{persona_id}')
+  Future<PersonaBlockListResponseSchema> blockPersona({
+    @Path('user_id') required SnowflakeStringType userId,
+    @Path('persona_id') required SnowflakeStringType personaId,
+  });
+
+  /// Unblock a persona.
+  ///
+  /// Unblocks a persona. Unblocking one that is not blocked changes nothing. Returns every blocked persona.
+  ///
+  /// [userId] - The ID of the account the persona belongs to.
+  ///
+  /// [personaId] - The ID of the persona.
+  @DELETE('/users/@me/personas/blocks/{user_id}/{persona_id}')
+  Future<PersonaBlockListResponseSchema> unblockPersona({
+    @Path('user_id') required SnowflakeStringType userId,
+    @Path('persona_id') required SnowflakeStringType personaId,
   });
 
   /// Delete several personas.
