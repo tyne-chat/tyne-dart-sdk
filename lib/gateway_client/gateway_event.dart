@@ -127,20 +127,28 @@ class MessageCreateEvent extends GatewayEvent {
     this.guildId,
     this.channelType,
     this.member,
+    this.mentionMembers = const <GuildMemberResponse>[],
   });
 
   final MessageResponseSchema message;
   final String? guildId;
   final int? channelType;
   final GuildMemberResponse? member;
+  final List<GuildMemberResponse> mentionMembers;
 }
 
 class MessageUpdateEvent extends GatewayEvent {
-  const MessageUpdateEvent({required this.message, this.guildId, this.member});
+  const MessageUpdateEvent({
+    required this.message,
+    this.guildId,
+    this.member,
+    this.mentionMembers = const <GuildMemberResponse>[],
+  });
 
   final MessageResponseSchema message;
   final String? guildId;
   final GuildMemberResponse? member;
+  final List<GuildMemberResponse> mentionMembers;
 }
 
 class MessageDeleteEvent extends GatewayEvent {
@@ -718,6 +726,13 @@ class GuildCountEntry {
   final String guildId;
   final int memberCount;
   final int onlineCount;
+}
+
+class GuildHealthUpdateEvent extends GatewayEvent {
+  const GuildHealthUpdateEvent({required this.guildId, required this.degraded});
+
+  final String guildId;
+  final bool degraded;
 }
 
 class GuildCountsUpdateEvent extends GatewayEvent {

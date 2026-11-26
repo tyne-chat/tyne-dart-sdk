@@ -413,6 +413,7 @@ class GuildCreateData {
     this.unavailable = false,
     this.hasCompletePayload = true,
     this.threads,
+    this.degraded,
   });
 
   factory GuildCreateData.fromJson(Map<String, dynamic> json) {
@@ -457,6 +458,7 @@ class GuildCreateData {
               (e) => ChannelResponse.fromJson(e as Map<String, Object?>),
             )
           : null,
+      degraded: json['degraded'] as bool?,
     );
   }
 
@@ -474,6 +476,7 @@ class GuildCreateData {
   final bool unavailable;
   final bool hasCompletePayload;
   final List<ChannelResponse>? threads;
+  final bool? degraded;
 
   bool get shouldTreatAsUnavailable => unavailable || !hasCompletePayload;
 

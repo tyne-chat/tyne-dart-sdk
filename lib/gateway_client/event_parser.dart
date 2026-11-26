@@ -31,11 +31,13 @@ class EventParser {
           guildId: data['guild_id'] as String?,
           channelType: (data['channel_type'] as num?)?.toInt(),
           member: _parseEmbeddedMember(data['member'], user: data['author']),
+          mentionMembers: _parseMentionMembers(data['mentions']),
         ),
         'MESSAGE_UPDATE' => MessageUpdateEvent(
           message: MessageResponseSchema.fromJson(data),
           guildId: data['guild_id'] as String?,
           member: _parseEmbeddedMember(data['member'], user: data['author']),
+          mentionMembers: _parseMentionMembers(data['mentions']),
         ),
         'MESSAGE_DELETE' => MessageDeleteEvent(
           channelId: data['channel_id'] as String,
@@ -381,6 +383,10 @@ class EventParser {
           contentType: data['content_type'] as String,
           guildId: data['guild_id'] as String?,
         ),
+        'GUILD_HEALTH_UPDATE' => GuildHealthUpdateEvent(
+          guildId: data['guild_id'] as String,
+          degraded: data['degraded'] as bool? ?? false,
+        ),
         'GUILD_COUNTS_UPDATE' => GuildCountsUpdateEvent(
           counts: _parseGuildCountEntries(data['counts']),
         ),
@@ -460,6 +466,29 @@ class EventParser {
     } catch (_) {
       return null;
     }
+  }
+
+  List<GuildMemberResponse> _parseMentionMembers(Object? mentions) {
+    if (mentions is! List) {
+      return const <GuildMemberResponse>[];
+    }
+    final List<GuildMemberResponse> members = <GuildMemberResponse>[];
+    for (final Object? mention in mentions) {
+      if (mention is! Map<String, dynamic>) {
+        continue;
+      }
+      final GuildMemberResponse? member = _parseEmbeddedMember(
+        mention['member'],
+        user: <String, Object?>{
+          for (final MapEntry<String, dynamic> entry in mention.entries)
+            if (entry.key != 'member') entry.key: entry.value,
+        },
+      );
+      if (member != null) {
+        members.add(member);
+      }
+    }
+    return members;
   }
 
   ReadyEvent _parseReady(Map<String, dynamic> data) {
