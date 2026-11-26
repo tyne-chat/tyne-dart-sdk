@@ -6,6 +6,7 @@ import 'package:fluxer_dart/models/guild_member_response.dart';
 import 'package:fluxer_dart/models/guild_role_response.dart';
 import 'package:fluxer_dart/models/guild_sticker_response.dart';
 import 'package:fluxer_dart/models/message_response_schema.dart';
+import 'package:fluxer_dart/models/operator_pass_passes_response.dart';
 import 'package:fluxer_dart/models/relationship_response.dart';
 import 'package:fluxer_dart/models/thread_member_response.dart';
 import 'package:fluxer_dart/models/user_partial_response.dart';
@@ -36,6 +37,7 @@ class ReadyEvent extends GatewayEvent {
     this.users,
     this.authSessionIdHash,
     this.rtcRegions,
+    this.webauthnCredentials,
     this.droppedItems = 0,
   });
 
@@ -56,6 +58,7 @@ class ReadyEvent extends GatewayEvent {
   final List<Map<String, dynamic>>? users;
   final String? authSessionIdHash;
   final List<Map<String, dynamic>>? rtcRegions;
+  final List<WebAuthnCredentialResponse>? webauthnCredentials;
   final int droppedItems;
 }
 
@@ -858,6 +861,12 @@ class FavoriteMemeDeleteEvent extends GatewayEvent {
 
 class SessionsReplaceEvent extends GatewayEvent {
   const SessionsReplaceEvent();
+}
+
+class OperatorPassUpdateEvent extends GatewayEvent {
+  const OperatorPassUpdateEvent({required this.passes});
+
+  final OperatorPassPassesResponse passes;
 }
 
 class GatewayErrorEvent extends GatewayEvent {

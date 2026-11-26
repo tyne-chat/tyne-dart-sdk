@@ -321,6 +321,17 @@ class GatewayConnection {
     await connect();
   }
 
+  void invalidateSession() {
+    if (_disposed) {
+      return;
+    }
+    _session.clear();
+    if (_reconnectSuspended || _channel == null) {
+      return;
+    }
+    _closeAndReconnect();
+  }
+
   Future<void> _closeTransport() async {
     _cancelResumeTimer();
     _heartbeat?.stop();

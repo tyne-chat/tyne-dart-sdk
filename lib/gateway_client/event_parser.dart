@@ -5,6 +5,7 @@ import 'package:fluxer_dart/models/guild_member_response.dart';
 import 'package:fluxer_dart/models/guild_role_response.dart';
 import 'package:fluxer_dart/models/guild_sticker_response.dart';
 import 'package:fluxer_dart/models/message_response_schema.dart';
+import 'package:fluxer_dart/models/operator_pass_passes_response.dart';
 import 'package:fluxer_dart/models/relationship_response.dart';
 import 'package:fluxer_dart/models/thread_member_response.dart';
 import 'package:fluxer_dart/models/user_partial_response.dart';
@@ -306,6 +307,9 @@ class EventParser {
         ),
 
         'GUILD_SYNC' => GuildSyncEvent(guild: GuildCreateData.fromJson(data)),
+        'OPERATOR_PASS_UPDATE' => OperatorPassUpdateEvent(
+          passes: OperatorPassPassesResponse.fromJson(data),
+        ),
         'GUILD_MEMBERS_CHUNK' => GuildMembersChunkEvent(
           guildId: data['guild_id'] as String,
           members: (data['members'] as List<dynamic>)
@@ -523,6 +527,17 @@ class EventParser {
         ?.cast<Map<String, dynamic>>()
         .toList();
 
+    final List<WebAuthnCredentialResponse>? webauthnCredentials =
+        data['webauthn_credentials'] == null
+        ? null
+        : _parseListSafe(
+            data['webauthn_credentials'],
+            (dynamic e) => WebAuthnCredentialResponse.fromJson(
+              (e as Map).cast<String, Object?>(),
+            ),
+            drops: drops,
+          );
+
     return ReadyEvent(
       sessionId: data['session_id'] as String,
       user: UserPrivateResponse.fromJson(data['user'] as Map<String, dynamic>),
@@ -540,6 +555,7 @@ class EventParser {
       users: users,
       authSessionIdHash: data['auth_session_id_hash'] as String?,
       rtcRegions: rtcRegions,
+      webauthnCredentials: webauthnCredentials,
       droppedItems: drops.count,
     );
   }
