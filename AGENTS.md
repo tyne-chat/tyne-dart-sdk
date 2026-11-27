@@ -30,8 +30,11 @@ Everything under `lib/` is generated from the Tyne server's OpenAPI spec, except
 - **Skipped items are reported.** The parser drops list items and embedded objects it cannot parse;
   each such `catch` calls `ForkGatewayParseSkips.report` (`lib/gateway_client/fork_parse_skips.dart`)
   in a one-line `// Fork:` call, and the app logs the reports (tyne-chat/tyne#193). Keep the calls
-  when resolving conflicts, and add one to any new catch upstream adds that skips something. Tests:
-  `test/gateway/fork_parse_skips_test.dart`.
+  when resolving conflicts, and add one to any new catch upstream adds that skips something. The app
+  sets the handler in its main isolate only, so gateway data parsed in another isolate goes through
+  `ForkGatewayParseSkips.isolateRun` instead of `Isolate.run`, which reports the skips again in the
+  caller (the `gateway-frame` worker, tyne-chat/tyne#957). Tests: `test/gateway/fork_parse_skips_test.dart`
+  and `fork_parse_skips_worker_test.dart`.
 
 - **READY's `fork_dm_threads`** (tyne-chat/tyne#699) stays raw on `ReadyEvent.forkDmThreads` for the
   app (`test/gateway/fork_ready_dm_threads_test.dart`).

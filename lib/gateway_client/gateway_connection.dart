@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+// ignore: unused_import // Fork: its one use, Isolate.run, goes through ForkGatewayParseSkips.isolateRun (tyne-chat/tyne#957).
 import 'dart:isolate';
 import 'dart:math';
 import 'dart:typed_data';
@@ -19,6 +20,9 @@ import 'package:fluxer_dart/gateway_client/gateway_types.dart';
 import 'package:fluxer_dart/gateway_client/heartbeat_manager.dart';
 import 'package:fluxer_dart/gateway_client/session_manager.dart';
 import 'package:zstd_dart/zstd_dart.dart';
+
+// Fork imports.
+import 'package:fluxer_dart/gateway_client/fork_parse_skips.dart';
 
 const Duration kGatewayMinReconnect = Duration(milliseconds: 1000);
 const Duration kGatewayMaxReconnect = Duration(seconds: 10);
@@ -89,7 +93,7 @@ ReadyEvent _prepareReadyEvent(
 Future<GatewayFrame> _decodeGatewayFrameOnWorker(
   Object data,
   GatewayReadyPreparer? prepareReady,
-) => Isolate.run(
+) => ForkGatewayParseSkips.isolateRun(
   () => decodeGatewayFrame(data, prepareReady: prepareReady),
   debugName: 'gateway-frame',
 );
