@@ -2,7 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, unused_import, invalid_annotation_target, unnecessary_import
 
-import 'user_partial_response.dart';
-export 'user_partial_response.dart';
+import 'reaction_user_item_response.dart';
+export 'reaction_user_item_response.dart';
 
-typedef ReactionUsersListResponse = List<UserPartialResponse>;
+typedef ReactionUsersListResponse = List<ReactionUserItemResponse>;

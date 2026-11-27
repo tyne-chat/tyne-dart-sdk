@@ -23,7 +23,7 @@ class ChannelResponse {
   const ChannelResponse({
     required this.id,
     required this.type,
-    this.rtcRegion,
+    this.rtcP2p,
     this.topic,
     this.url,
     this.icon,
@@ -34,8 +34,8 @@ class ChannelResponse {
     this.bitrate,
     this.userLimit,
     this.voiceConnectionLimit,
+    this.rtcRegion,
     this.name,
-    this.rtcP2p,
     this.lastMessageId,
     this.lastPinTimestamp,
     this.permissionOverwrites,
@@ -46,21 +46,22 @@ class ChannelResponse {
     this.contentWarningText,
     this.rateLimitPerUser,
     this.nicks,
+    this.flags,
     this.defaultTagSetting,
-    this.threadMetadata,
     this.appliedTags,
     this.messageCount,
     this.totalMessageSent,
     this.memberCount,
     this.memberIdsPreview,
     this.member,
+    this.ownerPersonaId,
     this.defaultAutoArchiveDuration,
     this.defaultThreadRateLimitPerUser,
     this.availableTags,
     this.defaultReactionEmoji,
     this.defaultSortOrder,
     this.defaultForumLayout,
-    this.flags,
+    this.threadMetadata,
   });
 
   factory ChannelResponse.fromJson(Map<String, Object?> json) =>
@@ -195,6 +196,10 @@ class ChannelResponse {
   /// The thread member object for the current user
   @JsonKey(includeIfNull: false)
   final ThreadMemberResponse? member;
+
+  /// The ID of the persona the owner started the thread as, absent when it was started as the account
+  @JsonKey(includeIfNull: false, name: 'owner_persona_id')
+  final SnowflakeStringType? ownerPersonaId;
 
   /// Default auto archive duration for new threads
   @JsonKey(includeIfNull: false, name: 'default_auto_archive_duration')
