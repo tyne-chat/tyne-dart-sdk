@@ -492,9 +492,6 @@ class EventParser {
   }
 
   ReadyEvent _parseReady(Map<String, dynamic> data) {
-    final rawGuildsList = data['guilds'] as List<dynamic>? ?? [];
-    final rawGuilds = rawGuildsList.whereType<Map<String, dynamic>>().toList();
-
     final _DropCounter drops = _DropCounter();
     final privateChannels = _parseListSafe(
       data['private_channels'],
@@ -506,6 +503,44 @@ class EventParser {
       for (final Object? user in data['users'] as List<dynamic>? ?? const [])
         if (user is Map && user['id'] is String) user['id'] as String: user,
     };
+    final Object? self = data['user'];
+    if (self is Map && self['id'] is String) {
+      usersById.putIfAbsent(self['id'] as String, () => self);
+    }
+    final List<GuildCreateData> guilds = <GuildCreateData>[];
+    final List<ReadyUnavailableGuild> unavailableGuilds =
+        <ReadyUnavailableGuild>[];
+    for (final Object? rawGuild
+        in data['guilds'] as List<dynamic>? ?? const []) {
+      if (rawGuild is! Map<String, dynamic>) {
+        drops.count++;
+        continue;
+      }
+      final Object? id = rawGuild['id'];
+      if (rawGuild['unavailable'] == true) {
+        if (id is String) {
+          unavailableGuilds.add(
+            ReadyUnavailableGuild(
+              id: id,
+              hidden: rawGuild['unavailable_hidden'] == true,
+            ),
+          );
+        } else {
+          drops.count++;
+        }
+        continue;
+      }
+      try {
+        guilds.add(
+          GuildCreateData.fromJson(_withHydratedMembers(rawGuild, usersById)),
+        );
+      } catch (_) {
+        drops.count++;
+        if (id is String) {
+          unavailableGuilds.add(ReadyUnavailableGuild(id: id));
+        }
+      }
+    }
     final relationships = _parseListSafe(
       data['relationships'],
       (dynamic raw) => _parseRelationship(
@@ -570,7 +605,8 @@ class EventParser {
     return ReadyEvent(
       sessionId: data['session_id'] as String,
       user: UserPrivateResponse.fromJson(data['user'] as Map<String, dynamic>),
-      rawGuilds: rawGuilds,
+      guilds: guilds,
+      unavailableGuilds: unavailableGuilds,
       privateChannels: privateChannels,
       relationships: relationships,
       readStates: readStates,
@@ -585,8 +621,47 @@ class EventParser {
       authSessionIdHash: data['auth_session_id_hash'] as String?,
       rtcRegions: rtcRegions,
       webauthnCredentials: webauthnCredentials,
+      latitude: switch (data['latitude']) {
+        final String value => value,
+        _ => null,
+      },
+      longitude: switch (data['longitude']) {
+        final String value => value,
+        _ => null,
+      },
       droppedItems: drops.count,
     );
+  }
+
+  static Map<String, dynamic> _withHydratedMembers(
+    Map<String, dynamic> rawGuild,
+    Map<String, Object?> usersById,
+  ) {
+    final Object? members = rawGuild['members'];
+    if (members is! List || usersById.isEmpty) {
+      return rawGuild;
+    }
+    List<Object?>? hydrated;
+    for (var i = 0; i < members.length; i++) {
+      final Object? member = members[i];
+      if (member is! Map<String, dynamic>) {
+        continue;
+      }
+      final Object? user = member['user'];
+      if (user is! Map || user.containsKey('username')) {
+        continue;
+      }
+      final Object? fullUser = usersById[user['id']];
+      if (fullUser == null) {
+        continue;
+      }
+      hydrated ??= List<Object?>.of(members);
+      hydrated[i] = <String, dynamic>{...member, 'user': fullUser};
+    }
+    if (hydrated == null) {
+      return rawGuild;
+    }
+    return <String, dynamic>{...rawGuild, 'members': hydrated};
   }
 
   static RelationshipResponse _parseRelationship(dynamic raw) {

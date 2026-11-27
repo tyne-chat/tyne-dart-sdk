@@ -23,7 +23,8 @@ class ReadyEvent extends GatewayEvent {
   const ReadyEvent({
     required this.sessionId,
     required this.user,
-    required this.rawGuilds,
+    this.guilds = const <GuildCreateData>[],
+    this.unavailableGuilds = const <ReadyUnavailableGuild>[],
     required this.privateChannels,
     required this.relationships,
     required this.readStates,
@@ -38,13 +39,17 @@ class ReadyEvent extends GatewayEvent {
     this.authSessionIdHash,
     this.rtcRegions,
     this.webauthnCredentials,
+    this.latitude,
+    this.longitude,
     this.droppedItems = 0,
+    this.prepared,
   });
 
   final String sessionId;
   final UserPrivateResponse user;
 
-  final List<Map<String, dynamic>> rawGuilds;
+  final List<GuildCreateData> guilds;
+  final List<ReadyUnavailableGuild> unavailableGuilds;
   final List<ChannelResponse> privateChannels;
   final List<RelationshipResponse> relationships;
   final UserSettingsResponse? userSettings;
@@ -59,7 +64,35 @@ class ReadyEvent extends GatewayEvent {
   final String? authSessionIdHash;
   final List<Map<String, dynamic>>? rtcRegions;
   final List<WebAuthnCredentialResponse>? webauthnCredentials;
+  final String? latitude;
+  final String? longitude;
   final int droppedItems;
+  final Object? prepared;
+
+  ReadyEvent withPrepared(Object? prepared) => ReadyEvent(
+    sessionId: sessionId,
+    user: user,
+    guilds: guilds,
+    unavailableGuilds: unavailableGuilds,
+    privateChannels: privateChannels,
+    relationships: relationships,
+    readStates: readStates,
+    presences: presences,
+    userSettings: userSettings,
+    userGuildSettings: userGuildSettings,
+    notes: notes,
+    countryCode: countryCode,
+    pinnedDms: pinnedDms,
+    favoriteMemes: favoriteMemes,
+    users: users,
+    authSessionIdHash: authSessionIdHash,
+    rtcRegions: rtcRegions,
+    webauthnCredentials: webauthnCredentials,
+    latitude: latitude,
+    longitude: longitude,
+    droppedItems: droppedItems,
+    prepared: prepared,
+  );
 }
 
 class ResumedEvent extends GatewayEvent {

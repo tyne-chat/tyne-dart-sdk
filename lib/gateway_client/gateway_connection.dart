@@ -32,30 +32,67 @@ final Converter<List<int>, Object?> _utf8JsonDecoder = utf8.decoder.fuse(
   json.decoder,
 );
 
-typedef GatewayFrame = ({Map<String, dynamic> payload, GatewayEvent? event});
+typedef GatewayFrame = ({
+  int op,
+  int? s,
+  String? t,
+  Object? d,
+  GatewayEvent? event,
+});
 
-GatewayFrame decodeGatewayFrame(Object data) {
+typedef GatewayReadyPreparer = Object? Function(ReadyEvent ready);
+
+GatewayFrame decodeGatewayFrame(
+  Object data, {
+  GatewayReadyPreparer? prepareReady,
+}) {
   final Map<String, dynamic> payload =
       (data is String
               ? json.decode(data)
               : _utf8JsonDecoder.convert(data as List<int>))
           as Map<String, dynamic>;
+  final int op = payload['op'] as int;
+  final int? s = payload['s'] as int?;
   final Object? type = payload['t'];
-  if (payload['op'] != GatewayOpcodes.dispatch || type is! String) {
-    return (payload: payload, event: null);
+  final Object? d = payload['d'];
+  if (op != GatewayOpcodes.dispatch || type is! String) {
+    return (op: op, s: s, t: type as String?, d: d, event: null);
   }
   const EventParser parser = EventParser();
-  final Object? d = payload['d'];
   final GatewayEvent? event = switch (d) {
     final Map<String, dynamic> map => parser.parse(type, map),
     final List<dynamic> list => parser.parseList(type, list),
     _ => null,
   };
-  return (payload: payload, event: event);
+  return (
+    op: op,
+    s: s,
+    t: type,
+    d: null,
+    event: prepareReady != null && event is ReadyEvent
+        ? _prepareReadyEvent(event, prepareReady)
+        : event,
+  );
 }
 
-Future<GatewayFrame> _decodeGatewayFrameOnWorker(Object data) =>
-    Isolate.run(() => decodeGatewayFrame(data), debugName: 'gateway-frame');
+ReadyEvent _prepareReadyEvent(
+  ReadyEvent event,
+  GatewayReadyPreparer prepareReady,
+) {
+  try {
+    return event.withPrepared(prepareReady(event));
+  } catch (_) {
+    return event;
+  }
+}
+
+Future<GatewayFrame> _decodeGatewayFrameOnWorker(
+  Object data,
+  GatewayReadyPreparer? prepareReady,
+) => Isolate.run(
+  () => decodeGatewayFrame(data, prepareReady: prepareReady),
+  debugName: 'gateway-frame',
+);
 
 Duration gatewayReconnectDelay({
   required int attempt,
@@ -129,6 +166,7 @@ class GatewayConnection {
     GatewaySocketConnect? openSocket,
     Duration resumeResponseTimeout = const Duration(seconds: 15),
     DateTime Function()? now,
+    GatewayReadyPreparer? prepareReady,
   }) : _token = token,
        _dio = dio,
        _gatewayUrlOverride = gatewayUrl,
@@ -149,6 +187,7 @@ class GatewayConnection {
        _nextJitter = nextJitter ?? Random().nextDouble,
        _openSocket = openSocket ?? openGatewayWebSocket,
        _resumeResponseTimeout = resumeResponseTimeout,
+       _prepareReady = prepareReady,
        _session = SessionManager(now: now);
 
   String _token;
@@ -166,6 +205,7 @@ class GatewayConnection {
   final double Function() _nextJitter;
   final GatewaySocketConnect _openSocket;
   final Duration _resumeResponseTimeout;
+  final GatewayReadyPreparer? _prepareReady;
 
   final SessionManager _session;
   HeartbeatManager? _heartbeat;
@@ -702,13 +742,28 @@ class GatewayConnection {
 
     final int size = data is String ? data.length : (data as Uint8List).length;
     if (size < kGatewayWorkerFrameBytes) {
-      _handleFrame(decodeGatewayFrame(data));
+      final GatewayFrame frame;
+      try {
+        frame = decodeGatewayFrame(data, prepareReady: _prepareReady);
+      } catch (error, stackTrace) {
+        await _handleMalformedFrame(error, stackTrace);
+        return;
+      }
+      _handleFrame(frame);
       return;
     }
     final StreamSubscription<dynamic>? subscription = _subscription;
     subscription?.pause();
     try {
-      final GatewayFrame frame = await _decodeGatewayFrameOnWorker(data);
+      final GatewayFrame frame;
+      try {
+        frame = await _decodeGatewayFrameOnWorkerWithFallback(data);
+      } catch (error, stackTrace) {
+        if (!_disposed && identical(subscription, _subscription)) {
+          await _handleMalformedFrame(error, stackTrace);
+        }
+        return;
+      }
       if (_disposed || !identical(subscription, _subscription)) {
         return;
       }
@@ -718,12 +773,37 @@ class GatewayConnection {
     }
   }
 
+  Future<GatewayFrame> _decodeGatewayFrameOnWorkerWithFallback(
+    Object data,
+  ) async {
+    final GatewayReadyPreparer? prepareReady = _prepareReady;
+    if (prepareReady == null) {
+      return _decodeGatewayFrameOnWorker(data, null);
+    }
+    try {
+      return await _decodeGatewayFrameOnWorker(data, prepareReady);
+    } catch (_) {
+      return _decodeGatewayFrameOnWorker(data, null);
+    }
+  }
+
+  Future<void> _handleMalformedFrame(
+    Object error,
+    StackTrace stackTrace,
+  ) async {
+    if (_disposed) {
+      return;
+    }
+    _reportError(error, stackTrace);
+    await _tearDownSocket();
+    _scheduleReconnect();
+  }
+
   void _handleFrame(GatewayFrame frame) {
-    final Map<String, dynamic> payload = frame.payload;
-    final op = payload['op'] as int;
-    final d = payload['d'];
-    final s = payload['s'] as int?;
-    final t = payload['t'] as String?;
+    final int op = frame.op;
+    final Object? d = frame.d;
+    final int? s = frame.s;
+    final String? t = frame.t;
 
     if (op != GatewayOpcodes.hello) {
       _session.noteActivity();
@@ -740,10 +820,8 @@ class GatewayConnection {
         _livenessAck = null;
       case GatewayOpcodes.dispatch:
         final GatewayEvent? event = frame.event;
-        if (t != null && d is Map<String, dynamic> && event != null) {
-          _handleDispatch(t, d, event);
-        } else if (event != null) {
-          _eventController.add(event);
+        if (t != null && event != null) {
+          _handleDispatch(t, event);
         }
       case GatewayOpcodes.heartbeat:
         _heartbeat?.sendRequested();
@@ -841,11 +919,7 @@ class GatewayConnection {
     }
   }
 
-  void _handleDispatch(
-    String eventType,
-    Map<String, dynamic> data,
-    GatewayEvent event,
-  ) {
+  void _handleDispatch(String eventType, GatewayEvent event) {
     if (eventType == 'READY' && event is! ReadyEvent) {
       _handleReadyParseFailure(event);
       return;
@@ -853,14 +927,13 @@ class GatewayConnection {
     if (eventType == 'READY' || eventType == 'RESUMED') {
       _consecutiveDecodeFailureReconnects = 0;
     }
-    if (eventType == 'READY') {
+    if (event is ReadyEvent) {
       _consecutiveReadyParseFailures = 0;
-      final sessionId = data['session_id'] as String;
-      _session.setSession(sessionId);
-      if (data['latitude'] case final String latitude) {
+      _session.setSession(event.sessionId);
+      if (event.latitude case final String latitude) {
         _readyLatitude = latitude;
       }
-      if (data['longitude'] case final String longitude) {
+      if (event.longitude case final String longitude) {
         _readyLongitude = longitude;
       }
       _reconnectAttempts = 0;
@@ -1002,8 +1075,7 @@ class GatewayConnection {
     if (_activeCompress == 'zstd-stream') {
       final encoder = _zstdEncoder;
       if (encoder == null) return;
-      final bytes = Uint8List.fromList(utf8.encode(jsonPayload));
-      channel.sink.add(encoder.compress(bytes));
+      channel.sink.add(encoder.compress(utf8.encode(jsonPayload)));
       return;
     }
     channel.sink.add(jsonPayload);

@@ -77,6 +77,10 @@ class FakeGatewaySocket implements WebSocketChannel {
     await _incoming.close();
   }
 
+  void serverSendRaw(String frame) {
+    _incoming.add(frame);
+  }
+
   void serverSocketError(Object error, [StackTrace? stackTrace]) {
     _incoming.addError(error, stackTrace ?? StackTrace.empty);
   }
@@ -109,6 +113,7 @@ class FakeGateway {
     double jitter = 0.5,
     Duration? resumeResponseTimeout,
     DateTime Function()? now,
+    GatewayReadyPreparer? prepareReady,
   }) {
     connection = GatewayConnection(
       token: 'token',
@@ -119,6 +124,7 @@ class FakeGateway {
       resumeResponseTimeout:
           resumeResponseTimeout ?? const Duration(seconds: 15),
       now: now,
+      prepareReady: prepareReady,
       openSocket: (Uri uri, {Map<String, String>? headers}) {
         final FakeGatewaySocket socket = FakeGatewaySocket();
         sockets.add(socket);

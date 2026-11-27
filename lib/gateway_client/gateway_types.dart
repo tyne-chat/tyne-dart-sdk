@@ -397,6 +397,13 @@ class GatewayReadState {
   final int? lastViewed;
 }
 
+class ReadyUnavailableGuild {
+  const ReadyUnavailableGuild({required this.id, this.hidden = false});
+
+  final String id;
+  final bool hidden;
+}
+
 class GuildCreateData {
   const GuildCreateData({
     required this.guild,

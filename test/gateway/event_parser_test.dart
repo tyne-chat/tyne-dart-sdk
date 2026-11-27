@@ -71,16 +71,6 @@ Map<String, Object?> _channelJson({String id = '200', int type = 0}) => {
   'type': type,
 };
 
-Map<String, Object?> _guildReadyJson({String id = '300'}) => {
-  'id': id,
-  'name': 'Test Guild',
-  'icon': null,
-  'owner_id': '100',
-  'member_count': 5,
-  'unavailable': false,
-  'joined_at': '2026-01-01T00:00:00.000Z',
-};
-
 Map<String, Object?> _guildJson({String id = '300'}) => {
   'id': id,
   'name': 'Test Guild',
@@ -201,11 +191,11 @@ void main() {
   const parser = EventParser();
 
   group('Connection lifecycle', () {
-    test('READY → ReadyEvent with raw guilds and counted drops', () {
+    test('READY → ReadyEvent with parsed guilds and counted drops', () {
       final data = {
         'session_id': 'sess-abc-123',
         'user': _userPrivateJson(id: '42'),
-        'guilds': [_guildReadyJson(id: '300'), _guildReadyJson(id: '301')],
+        'guilds': [_guildCreateJson(id: '300'), _guildCreateJson(id: '301')],
         'private_channels': [
           _channelJson(id: '500', type: 1),
           <String, Object?>{'id': 501},
@@ -222,7 +212,10 @@ void main() {
       final ready = event as ReadyEvent;
       expect(ready.sessionId, 'sess-abc-123');
       expect(ready.user.id, '42');
-      expect(ready.rawGuilds.map((guild) => guild['id']), ['300', '301']);
+      expect(ready.guilds.map((guild) => guild.guild.id), ['300', '301']);
+      expect(ready.guilds.first.memberCount, 5);
+      expect(ready.guilds.first.onlineCount, 3);
+      expect(ready.unavailableGuilds, isEmpty);
       expect(ready.privateChannels, hasLength(1));
       expect(ready.droppedItems, 1);
       expect(ready.privateChannels[0].id, '500');
@@ -1804,7 +1797,117 @@ void main() {
       expect(ready.user.id, '42');
       expect(ready.user.username, 'old');
       expect(ready.userSettings?.theme, 'dark');
-      expect(ready.rawGuilds, isEmpty);
+      expect(ready.guilds, isEmpty);
+      expect(ready.unavailableGuilds, isEmpty);
+    });
+
+    test('READY keeps unavailable guilds as stubs', () {
+      final ready =
+          parser.parse('READY', {
+                'session_id': 'sess-test',
+                'user': _userPrivateJson(id: '42'),
+                'guilds': [
+                  _guildCreateJson(id: '300'),
+                  {'id': '301', 'unavailable': true},
+                  {
+                    'id': '302',
+                    'unavailable': true,
+                    'unavailable_hidden': true,
+                  },
+                ],
+              })
+              as ReadyEvent;
+
+      expect(ready.guilds.map((guild) => guild.guild.id), ['300']);
+      expect(ready.unavailableGuilds.map((guild) => (guild.id, guild.hidden)), [
+        ('301', false),
+        ('302', true),
+      ]);
+      expect(ready.droppedItems, 0);
+    });
+
+    test('READY keeps a guild that fails to parse as unavailable', () {
+      final ready =
+          parser.parse('READY', {
+                'session_id': 'sess-test',
+                'user': _userPrivateJson(id: '42'),
+                'guilds': [
+                  _guildCreateJson(id: '300'),
+                  {'id': '301', 'properties': 'broken'},
+                ],
+              })
+              as ReadyEvent;
+
+      expect(ready.guilds.map((guild) => guild.guild.id), ['300']);
+      expect(ready.unavailableGuilds.single.id, '301');
+      expect(ready.unavailableGuilds.single.hidden, isFalse);
+      expect(ready.droppedItems, 1);
+    });
+
+    test('READY guild members take their user from READY users', () {
+      final ready =
+          parser.parse('READY', {
+                'session_id': 'sess-test',
+                'user': _userPrivateJson(id: '42'),
+                'users': [_userPartialJson(id: '100')],
+                'guilds': [
+                  {
+                    ..._guildCreateJson(id: '300'),
+                    'members': [
+                      {
+                        ..._guildMemberJson(userId: '100'),
+                        'user': {'id': '100'},
+                      },
+                    ],
+                  },
+                ],
+              })
+              as ReadyEvent;
+
+      expect(ready.guilds.single.members.single.user.id, '100');
+      expect(
+        ready.guilds.single.members.single.user.username,
+        _userPartialJson(id: '100')['username'],
+      );
+    });
+
+    test('READY guild members fall back to the READY user for themselves', () {
+      final ready =
+          parser.parse('READY', {
+                'session_id': 'sess-test',
+                'user': _userPrivateJson(id: '100'),
+                'guilds': [
+                  {
+                    ..._guildCreateJson(id: '300'),
+                    'members': [
+                      {
+                        ..._guildMemberJson(userId: '100'),
+                        'user': {'id': '100'},
+                      },
+                    ],
+                  },
+                ],
+              })
+              as ReadyEvent;
+
+      expect(
+        ready.guilds.single.members.single.user.username,
+        _userPrivateJson(id: '100')['username'],
+      );
+    });
+
+    test('READY carries the voice geolocation', () {
+      final ready =
+          parser.parse('READY', {
+                'session_id': 'sess-test',
+                'user': _userPrivateJson(id: '42'),
+                'latitude': '59.3293',
+                'longitude': 18.0686,
+              })
+              as ReadyEvent;
+
+      expect(ready.latitude, '59.3293');
+      expect(ready.longitude, isNull);
     });
 
     test('relationships without an inline user take it from READY users', () {
