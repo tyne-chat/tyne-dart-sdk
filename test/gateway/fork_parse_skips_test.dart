@@ -77,6 +77,29 @@ void main() {
     expect(skips.map((s) => s.$1), <String>['GatewayReadState']);
   });
 
+  test('a READY guild that does not parse is reported', () {
+    final GatewayEvent event = parser.parse('READY', <String, dynamic>{
+      'session_id': 's1',
+      'user': <String, Object?>{
+        'id': '100',
+        'username': 'me',
+        'discriminator': '0001',
+      },
+      'guilds': <Object?>[
+        _guild(<Map<String, Object?>>[_member('1')]),
+        <String, dynamic>{'id': 'g2', 'properties': 'not a guild'},
+      ],
+      'private_channels': <Object?>[],
+      'relationships': <Object?>[],
+    });
+
+    expect(event, isA<ReadyEvent>());
+    final ReadyEvent ready = event as ReadyEvent;
+    expect(ready.guilds.map((g) => g.guild.id), <String>['g1']);
+    expect(ready.unavailableGuilds.map((g) => g.id), <String>['g2']);
+    expect(skips.map((s) => s.$1), <String>['READY GuildCreateData']);
+  });
+
   test('an embedded member that does not parse is reported', () {
     final GatewayEvent event = parser.parse(
       'MESSAGE_REACTION_ADD',

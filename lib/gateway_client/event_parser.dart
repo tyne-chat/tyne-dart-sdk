@@ -549,11 +549,13 @@ class EventParser {
         guilds.add(
           GuildCreateData.fromJson(_withHydratedMembers(rawGuild, usersById)),
         );
-      } catch (_) {
+      } catch (error) {
         drops.count++;
         if (id is String) {
           unavailableGuilds.add(ReadyUnavailableGuild(id: id));
         }
+        // Fork: say what was skipped (tyne-chat/tyne#193).
+        ForkGatewayParseSkips.report('READY GuildCreateData', error);
       }
     }
     final relationships = _parseListSafe(
