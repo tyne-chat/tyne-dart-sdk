@@ -11,7 +11,9 @@ or `GEMINI.md` to the repository: both tools read this file.
 ## Almost everything here is generated
 
 Everything under `lib/` is generated from the Tyne server's OpenAPI spec, except
-`lib/gateway_client/` and `lib/gateway.dart`. That includes `lib/models/**`, every `*_api.dart`,
+`lib/gateway_client/` and `lib/gateway.dart`, and upstream's REST parsing on a worker isolate
+(`lib/rest_client/`, exported by `lib/rest.dart`), which upstream writes by hand and the
+regeneration keeps (tyne-chat/tyne#958). That includes `lib/models/**`, every `*_api.dart`,
 `lib/export.dart`, `lib/fluxer_client.dart` and every `*.g.dart`.
 
 - **Never edit generated files by hand**, not even "just one field" or "just to fix the build": the
